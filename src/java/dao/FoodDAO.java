@@ -30,7 +30,7 @@ public class FoodDAO {
         try {
             cn = myLib.makeConnection();
             if (cn != null) {
-                String sql = "SELECT  f.FoodId, f.FoodName,  f.FoodImage,   f.Descreption, f.Recipe, f.Price, f.FStatusId, ct.CategoryId,ct.CategoryName \n"
+                String sql = "SELECT  f.FoodId, f.FoodName,  f.FoodImage,   f.Description, f.Recipe, f.Price, f.FStatusId, ct.CategoryId,ct.CategoryName \n"
                         + "from Food f left join FoodCate fd on f.FoodId = fd.FoodId \n"
                         + "left join Categories ct on fd.CategoriesId = ct.CategoryId";
                 PreparedStatement pst = cn.prepareStatement(sql);
@@ -41,7 +41,7 @@ public class FoodDAO {
                         int id = rs.getInt("FoodId");
                         String image = rs.getString("FoodImage");
                         String name = rs.getString("FoodName");
-                        String desc = rs.getString("Descreption");
+                        String desc = rs.getString("Description");
                         String recipe = rs.getString("Recipe");
                         float price = rs.getFloat("Price");
                         int status = rs.getInt("FStatusId");
@@ -119,7 +119,7 @@ public class FoodDAO {
         try {
             cn = myLib.makeConnection();
             if (cn != null) {
-                String sql = "select   f.FoodId, f.FoodImage, f.FoodName, f.Descreption, f.Recipe, f.Price, f.FStatusId, c.CategoryId,c.CategoryName \n"
+                String sql = "select   f.FoodId, f.FoodImage, f.FoodName, f.Description, f.Recipe, f.Price, f.FStatusId, c.CategoryId,c.CategoryName \n"
                         + "from Food f left join FoodCate fc on f.FoodId = fc.FoodId\n"
                         + "			left join Categories c on fc.CategoriesId = c.CategoryId\n"
                         + "WHERE c.CategoryId = ?";
@@ -132,7 +132,7 @@ public class FoodDAO {
                         int id = rs.getInt("FoodId");
                         String image = rs.getString("FoodImage");
                         String name = rs.getString("FoodName");
-                        String desc = rs.getString("Descreption");
+                        String desc = rs.getString("Description");
                         String recipe = rs.getString("Recipe");
                         float price = rs.getFloat("Price");
                         int status = rs.getInt("FStatusId");
@@ -176,7 +176,7 @@ public class FoodDAO {
         try {
             cn = myLib.makeConnection();
             if (cn != null) {
-                String sql = "select top 2   [FoodId],[FoodImage],[FoodName],[Descreption],[Recipe],[Price], [FStatusId]\n"
+                String sql = "select top 2   [FoodId],[FoodImage],[FoodName],[Description],[Recipe],[Price], [FStatusId]\n"
                         + "from  [dbo].[Food]\n"
                         + "order by   [FoodId] desc\n"
                         + "";
@@ -187,7 +187,7 @@ public class FoodDAO {
                         int id = rs.getInt("FoodId");
                         String image = rs.getString("FoodImage");
                         String name = rs.getString("FoodName");
-                        String desc = rs.getString("Descreption");
+                        String desc = rs.getString("Description");
                         String recipe = rs.getString("Recipe");
                         float price = rs.getFloat("Price");
                         int status = rs.getInt("FStatusId");

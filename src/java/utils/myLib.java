@@ -16,7 +16,7 @@ public class myLib {
     public static Connection makeConnection() throws Exception{
         Connection cn=null;
         String IP="localhost";
-        String instanceName="DESKTOP-5PQ4GRT\\SQLEXPRESS";
+        String instanceName="THUYQUYNH\\SQL2012";
         String port="1433";
         String uid="sa";
         String pwd="12345";
