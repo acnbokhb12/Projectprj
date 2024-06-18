@@ -15,9 +15,6 @@ public class Categories {
     private String categoiresName;
 
     public Categories() {
-        categoriesId=0;
-        categoriesImg="";
-        categoiresName="";
     }
 
     public Categories(int categoriesId, String categoriesImg, String categoiresName) {
@@ -25,8 +22,6 @@ public class Categories {
         this.categoriesImg = categoriesImg;
         this.categoiresName = categoiresName;
     }
-
-    
 
     public int getCategoriesId() {
         return categoriesId;
@@ -44,8 +39,6 @@ public class Categories {
         this.categoriesImg = categoriesImg;
     }
 
-    
-    
     public String getCategoiresName() {
         return categoiresName;
     }
@@ -59,6 +52,7 @@ public class Categories {
         return "Categories{" + "categoriesId=" + categoriesId + ", categoriesImg=" + categoriesImg + ", categoiresName=" + categoiresName + '}';
     }
 
+   
     
     
     

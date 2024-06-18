@@ -33,13 +33,10 @@ public class MainControllerServlet extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
               String ac = request.getParameter("action");
             String url ="";
-            out.print("<p>"+ ac+" </p>");
+            
 //            
             if(ac==null){
                 ac =IConstant.HOME;
-                
-//                out.print("<p>"+ ac+" </p>");
-
             }
             switch(ac){
                 case IConstant.WELLCOME:

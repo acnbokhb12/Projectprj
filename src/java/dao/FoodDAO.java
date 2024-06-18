@@ -1,4 +1,4 @@
- /*
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -30,9 +30,9 @@ public class FoodDAO {
         try {
             cn = myLib.makeConnection();
             if (cn != null) {
-                String sql = "SELECT  f.FoodId, f.FoodName,  f.FoodImage,   f.Descreption, f.Recipe, f.Price, f.FStatusId, ct.CategoryId,ct.CategoryName \n"
-                        + "from Food f left join FoodCate fd on f.FoodId = fd.FoodId \n"
-                        + "left join Categories ct on fd.CategoriesId = ct.CategoryId";
+                String sql = "SELECT  f.FoodId, f.FoodName,  f.FoodImage,   f.Description, f.Recipe, f.Price, f.FStatusId, ct.CategoryId,ct.CateImage,ct.CategoryName  \n"
+                        + "                         from Food f left join FoodCate fd on f.FoodId = fd.FoodId  \n"
+                        + "                        left join Categories ct on fd.CategoriesId = ct.CategoryId";
                 PreparedStatement pst = cn.prepareStatement(sql);
                 ResultSet rs = pst.executeQuery();
                 HashMap<Integer, Food> foodMap = new HashMap<>();
@@ -41,7 +41,7 @@ public class FoodDAO {
                         int id = rs.getInt("FoodId");
                         String image = rs.getString("FoodImage");
                         String name = rs.getString("FoodName");
-                        String desc = rs.getString("Descreption");
+                        String desc = rs.getString("Description");
                         String recipe = rs.getString("Recipe");
                         float price = rs.getFloat("Price");
                         int status = rs.getInt("FStatusId");
@@ -53,10 +53,10 @@ public class FoodDAO {
                         }
 
                         int cateId = rs.getInt("CategoryId");
-                        String cateImg = rs.getString("");
+                        String cateImg = rs.getString("CateImage");
                         String cateName = rs.getString("CategoryName");
                         if (cateId != 0 && cateName != null) {
-                            Categories cat = new Categories(cateId,cateImg ,cateName);
+                            Categories cat = new Categories(cateId, cateImg, cateName);
                             food.getCategories().add(cat);
                         }
                     }
@@ -94,7 +94,7 @@ public class FoodDAO {
                         String cateImg = rs.getString("CateImage");
                         String cateName = rs.getString("CategoryName");
 
-                        Categories cate = new Categories(cateId,cateImg, cateName);
+                        Categories cate = new Categories(cateId, cateImg, cateName);
                         listCate.add(cate);
                     }
                 }
@@ -119,7 +119,7 @@ public class FoodDAO {
         try {
             cn = myLib.makeConnection();
             if (cn != null) {
-                String sql = "select   f.FoodId, f.FoodImage, f.FoodName, f.Descreption, f.Recipe, f.Price, f.FStatusId, c.CategoryId,c.CategoryName \n"
+                String sql = "select   f.FoodId, f.FoodImage, f.FoodName, f.Description, f.Recipe, f.Price, f.FStatusId, c.CategoryId,c.CategoryName \n"
                         + "from Food f left join FoodCate fc on f.FoodId = fc.FoodId\n"
                         + "			left join Categories c on fc.CategoriesId = c.CategoryId\n"
                         + "WHERE c.CategoryId = ?";
@@ -132,7 +132,7 @@ public class FoodDAO {
                         int id = rs.getInt("FoodId");
                         String image = rs.getString("FoodImage");
                         String name = rs.getString("FoodName");
-                        String desc = rs.getString("Descreption");
+                        String desc = rs.getString("Description");
                         String recipe = rs.getString("Recipe");
                         float price = rs.getFloat("Price");
                         int status = rs.getInt("FStatusId");
@@ -147,7 +147,7 @@ public class FoodDAO {
                         String cateImg = "";
                         String cateName = rs.getString("CategoryName");
                         if (cateId != 0 && cateName != null) {
-                            Categories cat = new Categories(cateId,cateImg ,cateName);
+                            Categories cat = new Categories(cateId, cateImg, cateName);
                             food.getCategories().add(cat);
                         }
                     }
@@ -176,9 +176,9 @@ public class FoodDAO {
         try {
             cn = myLib.makeConnection();
             if (cn != null) {
-                String sql = "select top 2   [FoodId],[FoodImage],[FoodName],[Descreption],[Recipe],[Price], [FStatusId]\n"
-                        + "from  [dbo].[Food]\n"
-                        + "order by   [FoodId] desc\n"
+                String sql = "select top 2   [FoodId],[FoodImage],[FoodName],[Description],[Recipe],[Price], [FStatusId]\n"
+                        + "  from  [dbo].[Food] \n"
+                        + "          order by   [FoodId] desc"
                         + "";
                 PreparedStatement pst = cn.prepareStatement(sql);
                 ResultSet rs = pst.executeQuery();
@@ -187,7 +187,7 @@ public class FoodDAO {
                         int id = rs.getInt("FoodId");
                         String image = rs.getString("FoodImage");
                         String name = rs.getString("FoodName");
-                        String desc = rs.getString("Descreption");
+                        String desc = rs.getString("Description");
                         String recipe = rs.getString("Recipe");
                         float price = rs.getFloat("Price");
                         int status = rs.getInt("FStatusId");
