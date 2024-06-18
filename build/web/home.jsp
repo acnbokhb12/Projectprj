@@ -153,8 +153,10 @@
                 <p>Discover the most popular picks that everyone is talking about!</p>
             </div>
             <div class="categ-container row">
+
                 <c:forEach items="${ListCateGories}" var="lct"> 
                 <div class="categ-item custom-col-lg custom-col-md col-sm-6 ">                 
+
                     <a href="">
                         <div class="categ-img">
                             <img src="${lct.categoriesImg}" alt="">

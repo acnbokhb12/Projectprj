@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author DELL
  */
-public class ManageHomeServlet extends HttpServlet {
+public class ManageHomeServlet extends HttpServlet {    
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.

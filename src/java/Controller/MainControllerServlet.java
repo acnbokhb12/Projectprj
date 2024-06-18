@@ -36,9 +36,6 @@ public class MainControllerServlet extends HttpServlet {
 //            
             if(ac==null){
                 ac =IConstant.HOME;
-                
-//                out.print("<p>"+ ac+" </p>");
-
             }
             switch(ac){
                 case IConstant.WELLCOME:

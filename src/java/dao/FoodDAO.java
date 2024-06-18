@@ -1,4 +1,4 @@
- /*
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -30,9 +30,9 @@ public class FoodDAO {
         try {
             cn = myLib.makeConnection();
             if (cn != null) {
-                String sql = "SELECT  f.FoodId, f.FoodName,  f.FoodImage,   f.Description, f.Recipe, f.Price, f.FStatusId, ct.CategoryId,ct.CategoryName \n"
-                        + "from Food f left join FoodCate fd on f.FoodId = fd.FoodId \n"
-                        + "left join Categories ct on fd.CategoriesId = ct.CategoryId";
+                String sql = "SELECT  f.FoodId, f.FoodName,  f.FoodImage,   f.Description, f.Recipe, f.Price, f.FStatusId, ct.CategoryId,ct.CateImage,ct.CategoryName  \n"
+                        + "                         from Food f left join FoodCate fd on f.FoodId = fd.FoodId  \n"
+                        + "                        left join Categories ct on fd.CategoriesId = ct.CategoryId";
                 PreparedStatement pst = cn.prepareStatement(sql);
                 ResultSet rs = pst.executeQuery();
                 HashMap<Integer, Food> foodMap = new HashMap<>();
@@ -53,10 +53,10 @@ public class FoodDAO {
                         }
 
                         int cateId = rs.getInt("CategoryId");
-                        String cateImg = rs.getString("");
+                        String cateImg = rs.getString("CateImage");
                         String cateName = rs.getString("CategoryName");
                         if (cateId != 0 && cateName != null) {
-                            Categories cat = new Categories(cateId,cateImg ,cateName);
+                            Categories cat = new Categories(cateId, cateImg, cateName);
                             food.getCategories().add(cat);
                         }
                     }
@@ -78,7 +78,7 @@ public class FoodDAO {
         }
         return list;
     }
-
+//HOME HOME HOME HOME HOME HOME HOME HOMEHOME HOME HOME HOMEHOME HOME HOME HOMEHOME HOME HOME HOMEHOME HOME HOME HOMEHOME HOME HOME HOMEHOME HOME HOME HOMEHOME HOME HOME HOMEHOME HOME HOME HOMEHOME HOME HOME HOME
     public ArrayList<Categories> getlistCategories() {
         Connection cn = null;
         ArrayList<Categories> listCate = new ArrayList<>();
@@ -93,8 +93,7 @@ public class FoodDAO {
                         int cateId = rs.getInt("CategoryId");
                         String cateImg = rs.getString("CateImage");
                         String cateName = rs.getString("CategoryName");
-
-                        Categories cate = new Categories(cateId,cateImg, cateName);
+                        Categories cate = new Categories(cateId, cateImg, cateName);
                         listCate.add(cate);
                     }
                 }
@@ -147,7 +146,7 @@ public class FoodDAO {
                         String cateImg = "";
                         String cateName = rs.getString("CategoryName");
                         if (cateId != 0 && cateName != null) {
-                            Categories cat = new Categories(cateId,cateImg ,cateName);
+                            Categories cat = new Categories(cateId, cateImg, cateName);
                             food.getCategories().add(cat);
                         }
                     }
@@ -177,8 +176,13 @@ public class FoodDAO {
             cn = myLib.makeConnection();
             if (cn != null) {
                 String sql = "select top 2   [FoodId],[FoodImage],[FoodName],[Description],[Recipe],[Price], [FStatusId]\n"
+
                         + "from  [dbo].[Food]\n"
                         + "order by   [FoodId] desc\n"
+
+                        + "  from  [dbo].[Food] \n"
+                        + "          order by   [FoodId] desc"
+
                         + "";
                 PreparedStatement pst = cn.prepareStatement(sql);
                 ResultSet rs = pst.executeQuery();
@@ -210,13 +214,5 @@ public class FoodDAO {
             }
         }
         return listFN;
-    }
-
-    public static void main(String[] args) {
-        FoodDAO fd = new FoodDAO();
-        ArrayList<Food> ct = fd.getNewFood();
-        for (Food c : ct) {
-            System.out.println(c);
-        }
     }
 }
