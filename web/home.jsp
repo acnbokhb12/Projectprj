@@ -82,19 +82,21 @@
                     <p>Explore our most loved and highly rated recipes that everyone is talking about</p>
                 </div>
                 <div class="popular-list row ">
-                    <c:forEach items="${ListTopFood}" var="fn">
-                        
+                    
+                    <c:forEach items="${ListTopFood}" var="fn" begin="0" end="1" >
+                       
                     <div class="popular-list-item col-md-6 ">
                         <a href="" class="popular-link">
                             <div class="img-popular popular-top-second">
 
                                 <img src="${fn.image}"
                                     alt="">
+                                
                             </div>
                             <div class="popular-script">
 
                                 <h2>${fn.name}</h2>
-                                <p>Sweet</p>
+                               
                             </div>
                         </a>
                     </div>
