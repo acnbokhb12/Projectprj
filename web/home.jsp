@@ -82,9 +82,11 @@
                     <p>Explore our most loved and highly rated recipes that everyone is talking about</p>
                 </div>
                 <div class="popular-list row ">
-                    <c:forEach items="${ListTopFood}" var="fn">
-                        
+                    <c:forEach items="${ListTopFood}" var="fn" begin="0" end="1">
+                      
+                            
                     <div class="popular-list-item col-md-6 ">
+                        
                         <a href="" class="popular-link">
                             <div class="img-popular popular-top-second">
 
@@ -94,54 +96,37 @@
                             <div class="popular-script">
 
                                 <h2>${fn.name}</h2>
-                                <p>Sweet</p>
+                                <p>
+                                    <c:forEach items="${fn.categories}" var="cate1">
+                                        - ${cate1.categoriesName}
+                                    </c:forEach>
+                                </p>
                             </div>
                         </a>
                     </div>
+                        
                     </c:forEach>
-                    
+                     <c:forEach items="${ListTopFood}" var="fn" begin="2" end="4">
+
                     <div class="popular-list-item col-md-4">
                         <a href="" class="popular-link">
                             <div class="img-popular">
 
-                                <img src="https://tinysalt.loftocean.com/elementor/wp-content/uploads/sites/4/2022/08/monika-grabkowska-dGxSJzhgW0o-unsplash-1067x1536.jpg"
+                                <img src="${fn.image}"
                                     alt="">
                             </div>
                             <div class="popular-script">
 
-                                <h2>Brain Power Blueberry </h2>
-                                <p>Beverage</p>
+                                <h2>${fn.name}</h2>
+                                <p>
+                                     <c:forEach items="${fn.categories}" var="cate1">
+                                        - ${cate1.categoriesName}
+                                    </c:forEach>
+                                </p>
                             </div>
                         </a>
                     </div>
-                    <div class="popular-list-item col-md-4">
-                        <a href="" class="popular-link">
-                            <div class="img-popular">
-
-                                <img src="https://tinysalt.loftocean.com/elementor/wp-content/uploads/sites/4/2022/08/food-photographer-jennifer-pallian-6S27S6pZ6o0-unsplash.jpg"
-                                    alt="">
-                            </div>
-                            <div class="popular-script">
-
-                                <h2>Spaghetti Meat Sauce</h2>
-                                <p>Pasta</p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="popular-list-item col-md-4">
-                        <a href="" class="popular-link">
-                            <div class="img-popular">
-
-                                <img src="https://tinysalt.loftocean.com/elementor/wp-content/uploads/sites/4/2022/08/mariana-medvedeva-379625-unsplash.jpg"
-                                    alt="">
-                            </div>
-                            <div class="popular-script">
-
-                                <h2>Perfect avocado toast</h2>
-                                <p>Bread</p>
-                            </div>
-                        </a>
-                    </div>
+                     </c:forEach>
 
                 </div>
             </div>
@@ -153,14 +138,13 @@
                 <p>Discover the most popular picks that everyone is talking about!</p>
             </div>
             <div class="categ-container row">
-                <c:forEach items="${ListCateGories}" var="lct">
-                    
+                <c:forEach items="${ListCateGories}" var="lct">                 
                 <div class="categ-item custom-col-lg custom-col-md col-sm-6 ">
-                    <a href="">
+                    <a href="ManageCategoriesServlet?cid=${lct.categoriesId}#container__myproduct">
                         <div class="categ-img">
                             <img src="${lct.categoriesImg}" alt="">
                         </div>
-                        <p class="categ-description">${lct.categoiresName}</p>
+                        <p class="categ-description">${lct.categoriesName}</p>
                     </a>
                 </div>
                 </c:forEach>

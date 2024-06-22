@@ -168,7 +168,7 @@
             <ul class="category-list row">
                 <c:forEach items="${ListCate}" var="lc">  
               <li class="category-item col-lg-12 col-custom-cate category-item--active ${tagCate == lc.categoriesId ? "active":""}">
-                <a href="ManageCategoriesServlet?cid=${lc.categoriesId}#container__myproduct" class="category-item__link active">${lc.categoiresName}</a>
+                <a href="ManageCategoriesServlet?cid=${lc.categoriesId}#container__myproduct" class="category-item__link active">${lc.categoriesName}</a>
               </li>
                 </c:forEach>
 
@@ -203,7 +203,7 @@
                         <h5 class="home-product-item__category">
                           <p class="home-product-item__category-item">
                               <c:forEach items="${f.categories}" var="fc">
-                                 - ${fc.categoiresName}
+                                 - ${fc.categoriesName}
                                   
                               </c:forEach>
                            

@@ -12,7 +12,7 @@ package dto;
 public class Categories {
     private int categoriesId;
     private String categoriesImg;
-    private String categoiresName;
+    private String categoriesName;
 
     public Categories() {
     }
@@ -20,7 +20,7 @@ public class Categories {
     public Categories(int categoriesId, String categoriesImg, String categoiresName) {
         this.categoriesId = categoriesId;
         this.categoriesImg = categoriesImg;
-        this.categoiresName = categoiresName;
+        this.categoriesName = categoiresName;
     }
 
     public int getCategoriesId() {
@@ -39,17 +39,17 @@ public class Categories {
         this.categoriesImg = categoriesImg;
     }
 
-    public String getCategoiresName() {
-        return categoiresName;
+    public String getCategoriesName() {
+        return categoriesName;
     }
 
-    public void setCategoiresName(String categoiresName) {
-        this.categoiresName = categoiresName;
+    public void setCategoriesName(String categoriesName) {
+        this.categoriesName = categoriesName;
     }
 
     @Override
     public String toString() {
-        return "Categories{" + "categoriesId=" + categoriesId + ", categoriesImg=" + categoriesImg + ", categoiresName=" + categoiresName + '}';
+        return "Categories{" + "categoriesId=" + categoriesId + ", categoriesImg=" + categoriesImg + ", categoiresName=" + categoriesName + '}';
     }
 
    

@@ -22,10 +22,10 @@ import utils.myLib;
  */
 public class FoodDAO {
 
-    ArrayList<Food> list = new ArrayList<>();
 
     public ArrayList<Food> getAllFood() {
 
+    ArrayList<Food> list = new ArrayList<>();
         Connection cn = null;
         try {
             cn = myLib.makeConnection();
@@ -116,13 +116,15 @@ public class FoodDAO {
     public ArrayList<Food> getFoodbyCateID(String cateID) {
 
         Connection cn = null;
+            ArrayList<Food> list = new ArrayList<>();
+
         try {
             cn = myLib.makeConnection();
             if (cn != null) {
-                String sql = "select   f.FoodId, f.FoodImage, f.FoodName, f.Description, f.Recipe, f.Price, f.FStatusId, c.CategoryId,c.CategoryName \n"
-                        + "from Food f left join FoodCate fc on f.FoodId = fc.FoodId\n"
-                        + "			left join Categories c on fc.CategoriesId = c.CategoryId\n"
-                        + "WHERE c.CategoryId = ?";
+                String sql = "select   f.FoodId, f.FoodImage, f.FoodName, f.Description, f.Recipe, f.Price, f.FStatusId, c.CategoryId,c.CateImage,c.CategoryName \n" +
+"from Food f left join FoodCate fc on f.FoodId = fc.FoodId\n" +
+"     left join Categories c on fc.CategoriesId = c.CategoryId\n" +
+"                     WHERE c.CategoryId = ?";
                 PreparedStatement pst = cn.prepareStatement(sql);
                 pst.setString(1, cateID);
                 ResultSet rs = pst.executeQuery();
@@ -176,12 +178,13 @@ public class FoodDAO {
         try {
             cn = myLib.makeConnection();
             if (cn != null) {
-                String sql = "select top 2   [FoodId],[FoodImage],[FoodName],[Description],[Recipe],[Price], [FStatusId]\n"
-                        + "  from  [dbo].[Food] \n"
-                        + "          order by   [FoodId] desc"
-                        + "";
+                String sql = "SELECT top 5  f.FoodId, f.FoodName,  f.FoodImage,   f.Description, f.Recipe, f.Price, f.FStatusId, ct.CategoryId,ct.CateImage,ct.CategoryName  \n"
+                        + "                         from Food f left join FoodCate fd on f.FoodId = fd.FoodId  \n"
+                        + "                        left join Categories ct on fd.CategoriesId = ct.CategoryId  \n"
+                        +" order by  f.FoodId desc ";
                 PreparedStatement pst = cn.prepareStatement(sql);
                 ResultSet rs = pst.executeQuery();
+                HashMap<Integer, Food> foodMap = new HashMap<>();
                 if (rs != null) {
                     while (rs.next()) {
                         int id = rs.getInt("FoodId");
@@ -192,9 +195,22 @@ public class FoodDAO {
                         float price = rs.getFloat("Price");
                         int status = rs.getInt("FStatusId");
 
-                        Food food = new Food(id, image, name, desc, recipe, price, status);
-                        listFN.add(food);
+                        Food food = foodMap.get(id);
+                        if (food == null) {
+                            food = new Food(id, image, name, desc, recipe, price, status);
+                            foodMap.put(id, food);
+                        }
+
+                        int cateId = rs.getInt("CategoryId");
+                        String cateImg = rs.getString("CateImage");
+                        String cateName = rs.getString("CategoryName");
+                        if (cateId != 0 && cateName != null) {
+                            Categories cat = new Categories(cateId, cateImg, cateName);
+                            food.getCategories().add(cat);
+                        }
                     }
+
+                    listFN.addAll(foodMap.values());
                 }
 
             }
@@ -214,8 +230,8 @@ public class FoodDAO {
 
     public static void main(String[] args) {
         FoodDAO fd = new FoodDAO();
-        ArrayList<Food> ct = fd.getNewFood();
-        for (Food c : ct) {
+        ArrayList<Food> fod = fd.getNewFood();
+        for (Food c : fod) {
             System.out.println(c);
         }
     }
