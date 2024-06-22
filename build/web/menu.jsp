@@ -149,10 +149,13 @@
     </div>
     <div class="container__slider-menu-search">
       <div class="menu-search-item">
-        <form action="" method="post">
-          <input type="text" class="menu-search-find-input" placeholder="Search">
+          
+              
+        <form action="SearchFoodServlet" method="post">
+            <input type="text" value="${txtS}" class="menu-search-find-input" name="txtnamesearch" placeholder="Search">
           <button type="submit" class="menu-search-find-btn"><i class="fas fa-search"></i> </button>
         </form>
+         
       </div>
     </div>
     <div class="grid grid-container-menu">
@@ -270,7 +273,7 @@
         activeMenu += 1;
       }
       reloadSlider();
-    }
+    };
     // click prevous
     prev.onclick = function () {
       if (activeMenu - 1 < 0) {
@@ -279,7 +282,7 @@
         activeMenu -= 1;
       }
       reloadSlider();
-    }
+    };
     // auto reload
     // let refreshSlider =setInterval(()=>{next.click()},4000);
 
@@ -300,7 +303,7 @@
       li.addEventListener('click', function () {
         activeMenu = key;
         reloadSlider();
-      })
+      });
     });
 
     //       document.addEventListener('DOMContentLoaded', function() {
@@ -342,7 +345,20 @@
       element.innerText = formattedAmount;
     });
 
+    function scrollToProductContainer() {
+            var productContainer = document.getElementById('container__myproduct');
+            if (productContainer) {
+                productContainer.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
 
+        // Gọi hàm scrollToProductContainer khi trang được tải xong
+         window.onload = function() {
+            var searchInput = document.querySelector('.menu-search-find-input');
+            if (searchInput && searchInput.value.trim() !== "") {
+                scrollToProductContainer();
+            }
+        };
   </script>
 
   <!-- <script src="./assets/js/main.js"></script> -->

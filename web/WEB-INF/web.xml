@@ -28,6 +28,10 @@
         <servlet-name>DetailFoodServlet</servlet-name>
         <servlet-class>Controller.DetailFoodServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SearchFoodServlet</servlet-name>
+        <servlet-class>Controller.SearchFoodServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>MainControllerServlet</servlet-name>
         <url-pattern>/MainControllerServlet</url-pattern>
@@ -55,6 +59,10 @@
     <servlet-mapping>
         <servlet-name>DetailFoodServlet</servlet-name>
         <url-pattern>/DetailFoodServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchFoodServlet</servlet-name>
+        <url-pattern>/SearchFoodServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

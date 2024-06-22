@@ -172,6 +172,65 @@ public class FoodDAO {
         return list;
     }
 
+    public ArrayList<Food> searchFoodByName(String txtnamesearch) {
+
+        Connection cn = null;
+        ArrayList<Food> list = new ArrayList<>();
+
+        try {
+            cn = myLib.makeConnection();
+            if (cn != null) {
+                String sql = "select   f.FoodId, f.FoodImage, f.FoodName, f.Description, f.Recipe, f.Price, f.FStatusId, c.CategoryId,c.CateImage,c.CategoryName \n"
+                        + "                       from Food f left join FoodCate fc on f.FoodId = fc.FoodId\n"
+                        + "                           left join Categories c on fc.CategoriesId = c.CategoryId\n"
+                        + "                                        WHERE f.FoodName like ?";
+                PreparedStatement pst = cn.prepareStatement(sql);
+                pst.setString(1, "%" + txtnamesearch + "%");
+                ResultSet rs = pst.executeQuery();
+                HashMap<Integer, Food> foodMap = new HashMap<>();
+                if (rs != null) {
+                    while (rs.next()) {
+                        int id = rs.getInt("FoodId");
+                        String image = rs.getString("FoodImage");
+                        String name = rs.getString("FoodName");
+                        String desc = rs.getString("Description");
+                        String recipe = rs.getString("Recipe");
+                        float price = rs.getFloat("Price");
+                        int status = rs.getInt("FStatusId");
+
+                        Food food = foodMap.get(id);
+                        if (food == null) {
+                            food = new Food(id, image, name, desc, recipe, price, status);
+                            foodMap.put(id, food);
+                        }
+
+                        int cateId = rs.getInt("CategoryId");
+                        String cateImg = "";
+                        String cateName = rs.getString("CategoryName");
+                        if (cateId != 0 && cateName != null) {
+                            Categories cat = new Categories(cateId, cateImg, cateName);
+                            food.getCategories().add(cat);
+                        }
+                    }
+
+                    list.addAll(foodMap.values());
+                }
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (cn != null) {
+                    cn.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return list;
+    }
+
     public ArrayList<Food> getNewFood() {
         Connection cn = null;
         ArrayList<Food> listFN = new ArrayList<>();
@@ -237,18 +296,18 @@ public class FoodDAO {
             if (cn != null) {
                 String sql = "select [FoodId], [FoodImage],[FoodName],[Description],[Recipe],[Price],[FStatusId] from [dbo].[Food] where [FoodId] = ?";
                 PreparedStatement pst = cn.prepareStatement(sql);
-                pst.setString(1,  idFood);
+                pst.setString(1, idFood);
                 ResultSet rs = pst.executeQuery();
-               
-                if (rs != null && rs.next()) {           
-                        int id = rs.getInt("FoodId");
-                        String image = rs.getString("FoodImage");
-                        String name = rs.getString("FoodName");
-                        String desc = rs.getString("Description");
-                        String recipe = rs.getString("Recipe");
-                        float price = rs.getFloat("Price");
-                        int status = rs.getInt("FStatusId");                                  
-                        food = new Food(id, image, name, desc, recipe, price, status);
+
+                if (rs != null && rs.next()) {
+                    int id = rs.getInt("FoodId");
+                    String image = rs.getString("FoodImage");
+                    String name = rs.getString("FoodName");
+                    String desc = rs.getString("Description");
+                    String recipe = rs.getString("Recipe");
+                    float price = rs.getFloat("Price");
+                    int status = rs.getInt("FStatusId");
+                    food = new Food(id, image, name, desc, recipe, price, status);
                 }
 
             }
@@ -265,13 +324,13 @@ public class FoodDAO {
         }
         return food;
     }
-    
+
     // take inredient by foodid 
-    public ArrayList<Ingredient> getIngredientsByFoodId(String idFood){
+    public ArrayList<Ingredient> getIngredientsByFoodId(String idFood) {
         ArrayList<Ingredient> listIngredients = new ArrayList<>();
         Ingredient ingredient = null;
         Connection cn = null;
-         
+
         try {
             cn = myLib.makeConnection();
             if (cn != null) {
@@ -279,9 +338,9 @@ public class FoodDAO {
                 PreparedStatement pst = cn.prepareStatement(sql);
                 pst.setString(1, idFood);
                 ResultSet rs = pst.executeQuery();
-                
+
                 if (rs != null) {
-                    while (rs.next()) {                       
+                    while (rs.next()) {
                         int foodId = rs.getInt("FoodId");
                         int IngrId = rs.getInt("IngredientId");
                         String imageIng = rs.getString("InImage");
@@ -289,10 +348,10 @@ public class FoodDAO {
                         float quanity = rs.getFloat("Quantity");
                         String unit = rs.getString("Unit");
                         float price = rs.getFloat("Price");
-                      
+
                         ingredient = new Ingredient(foodId, IngrId, imageIng, nameIng, quanity, unit, price);
                         listIngredients.add(ingredient);
-                    }     
+                    }
                 }
 
             }
@@ -309,21 +368,21 @@ public class FoodDAO {
         }
         return listIngredients;
     }
-    public float getTotalPriceIng(ArrayList<Ingredient> lIng){
+
+    public float getTotalPriceIng(ArrayList<Ingredient> lIng) {
         float total = 0;
-        for(Ingredient i : lIng){
+        for (Ingredient i : lIng) {
             total = total + i.getIngredientPrice();
         }
         return total;
     }
-    
+
     public static void main(String[] args) {
         FoodDAO fd = new FoodDAO();
-        String a ="1";
-        ArrayList<Ingredient> ing = fd.getIngredientsByFoodId(a);
-         
-        Food f= fd.getFoodById(a);
-        System.out.println(f);
-         
+        String a = "1";
+        ArrayList<Food> ing = fd.searchFoodByName("dri");
+        for(Food f : ing){
+//            System.out.println(f);
+        }
     }
 }
