@@ -87,7 +87,7 @@
                             
                     <div class="popular-list-item col-md-6 ">
                         
-                        <a href="" class="popular-link">
+                        <a href="DetailFoodServlet?fid=${fn.foodId}" class="popular-link">
                             <div class="img-popular popular-top-second">
 
                                 <img src="${fn.image}"
@@ -109,7 +109,7 @@
                      <c:forEach items="${ListTopFood}" var="fn" begin="2" end="4">
 
                     <div class="popular-list-item col-md-4">
-                        <a href="" class="popular-link">
+                        <a href="DetailFoodServlet?fid=${fn.foodId}" class="popular-link">
                             <div class="img-popular">
 
                                 <img src="${fn.image}"

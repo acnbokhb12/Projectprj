@@ -250,6 +250,8 @@ input[type=number]:focus {
     border-color: #e58e09;
     color: #000;
     font-weight: 600;
+    border-radius: 8px;
+    padding: 2px;
 }
 .btn-add-weekly {
     position: relative;

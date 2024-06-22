@@ -6,6 +6,7 @@
 
 package Controller;
 
+import dao.AccountDAO;
 import dao.FoodDAO;
 import dto.Categories;
 import dto.Food;
@@ -37,6 +38,7 @@ public class ManageHomeServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             FoodDAO fd = new FoodDAO();
+            AccountDAO ac = new AccountDAO();
             ArrayList<Food> listNewfood = fd.getNewFood();
             ArrayList<Categories> listCate = fd.getlistCategories();
              

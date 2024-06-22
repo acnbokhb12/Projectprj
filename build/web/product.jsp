@@ -4,6 +4,8 @@
     Author     : DELL
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page import="dto.Account"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -29,6 +31,29 @@
 </head>
 
 <body>
+    <%
+        Account user = (Account) session.getAttribute("LoginAcc");
+            
+        int accId = 0;
+        String email="";
+        String password="";
+        String userName = "";
+        String phoneNumber="";
+        String role ="";
+        int aStatusId = 0;
+        if (user != null) {
+            accId = user.getAccId();
+            userName = user.getUserName();
+        }
+    %>
+    
+    <script>
+        var user = {
+           accid: '<%= accId %>',
+            name: '<%= userName %>'
+        };
+             
+    </script>
   <!-- header web -->
   <!-- <div id="header-container"></div> -->
   <script src="./assets/js/header.js"></script>
@@ -40,12 +65,12 @@
           <!-- info img -->
           <div class="product__content__detail-info-img col-md-6">
             <img
-              src="https://www.allrecipes.com/thmb/CjzJwg2pACUzGODdxJL1BJDRx9Y=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/6788-amish-white-bread-DDMFS-4x3-6faa1e552bdb4f6eabdd7791e59b3c84.jpg"
+              src="${Food.image}"
               alt="">
           </div>
           <!-- info product detail  -->
           <div class="product__content__detail-sumary col-md-6">
-            <h1 class="product__content__detail-title">Amish White Bread</h1>
+            <h1 class="product__content__detail-title">${Food.name}</h1>
             <div class="product__content__detail-rating">
               <div class="rating">
                 <input type="radio" id="star5" name="rate" value="5" />
@@ -71,11 +96,11 @@
             </div>
             <div class="product__content__detail-desc">
               <p>
-                Iced coffee is a type of coffee beverage served chilled, brewed variously with the fundamental division
+                 ${Food.description}
               </p>
             </div>
             <p class="product__content__detail-price">
-              <span id="product__detail-price-id" class="product__detail-price">100000</span>
+              <span id="product__detail-price-id" class="product__detail-price">${Food.price}</span>
             </p>
             <!-- quantity buy product -->
             <div class="product__content__detail-form">
@@ -216,56 +241,38 @@
           <!-- Price all ingredient -->
           <div class="totalPrice-ingredient">
             <h5 class="title-price-ingr">Total:</h5>
-            <h5 id="price-detial-ingrs">2000000</h5>
+            <h5 id="price-detial-ingrs">${TotalPriceIng}</h5>
           </div>
           <!-- List ingredient -->
           <div class="product_ingredient-img-list row ">
-
+              <c:forEach items="${ListIngr}" var="dIng">
+                  
             <div class="product_ingredient-img-item col-lg-3 col-md-4 col-sm-6">
               <!-- img ingr -->
               <div class="product_ingredient-img-element">
-                <img src="https://amandascookin.com/wp-content/uploads/2009/06/homemade-amish-white-bread-SQ-680.jpg"
+                <img src="${dIng.ingredientImg}"
                   alt="">
               </div>
               <!-- name ing -->
               <div class="product_ingredient-description-element">
-                <h3>Pan </h3>
+                <h3>${dIng.ingredientName}</h3>
                 <div class="ingredient__quantity-element">
-                  <h2>100</h2>
-                  <h2>Gram</h2><br>
+                  <h2>${dIng.ingredientQuantity}</h2>
+                  <h2>${dIng.ingredientUnit}</h2><br>
                 </div>
-                <h2 id="price-detail-ingre">10000</h2>
+                <h2 class="price-detail-ingre">${dIng.ingredientPrice}</h2>
               </div>
               <!-- quantity unit -->
             </div>
+              </c:forEach>
 
 
           </div>
           <!-- About recipe -->
           <div class="product__content-recipe ">
             <div class="product__content-recipe-descripion">
-              <h5>Gather the ingredients.
-
-                In a large bowl, mix warm water and yeast.
-
-                Add milk, sugar, salt, and lard. Stir.
-
-                Add 4 cups of flour and mix well. Add in enough remaining flour to make a dough that follows the spoon
-                around the bowl.
-
-                Turn dough out onto a lightly floured surface and knead for 10 minutes, adding more flour as needed
-                until the dough is firm and smooth to the touch.
-
-                Place dough in a medium greased bowl. Turn dough over in bowl so that the top is also lightly greased.
-                Cover with a clean cloth and let rise in a warm, draft-free place for 1 hour.
-
-                Punch down dough. Turn dough out onto a lightly floured board and knead for 5 minutes or until the
-                bubbles are out of the bread.
-
-                Divide dough into 2 equal parts. Shape each dough half into a loaf.
-
-                Place each loaf in greased, 9 X 5-inch bread pan. Cover and let rise in a warm, draft-free place for 45
-                minutes or until doubled in size.
+              <h5>
+                  ${Food.recipe}
               </h5>
             </div>
           </div>
@@ -328,17 +335,23 @@
       // ingredient - recipe
 
       let amount = parseInt(document.getElementById('product__detail-price-id').innerText),
-        totalIngre = parseInt(document.getElementById('price-detial-ingrs').innerText),
-        onePrice = parseInt(document.getElementById('price-detail-ingre').innerText);
+        totalIngre = parseInt(document.getElementById('price-detial-ingrs').innerText);
+
+          const priceIngr = document.querySelectorAll('.price-detail-ingre');
+
 
       let formattedAmount = amount.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }),
-        formattedTotalInge = totalIngre.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }),
-        formattedPriceIngr = onePrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+        formattedTotalInge = totalIngre.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+         
 
       document.getElementById('product__detail-price-id').innerText = formattedAmount;
       document.getElementById('price-detial-ingrs').innerText = formattedTotalInge;
-      document.getElementById('price-detail-ingre').innerText = formattedPriceIngr;
       
+      priceIngr.forEach(function (element) {
+      let price = parseInt(element.innerText);
+      let formattedAmount = price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+      element.innerText = formattedAmount;
+    });
 
       const today = new Date();
 
@@ -348,10 +361,13 @@
       const day = String(today.getDate()).padStart(2, '0');
 
       // Format the date as YYYY-MM-DD
-      const formattedDate = `${year}-${month}-${day}`;
+      const formattedDate = year + '-' + month + '-' + day;
 
       // Set the value of the date input
       document.getElementById('dateInput').value = formattedDate;
+      
+      const dateInput = document.getElementById('dateInput');
+
   </script>
 
 </body>

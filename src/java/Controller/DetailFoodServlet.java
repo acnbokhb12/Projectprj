@@ -6,8 +6,12 @@
 
 package Controller;
 
+import dao.FoodDAO;
+import dto.Food;
+import dto.Ingredient;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author DELL
  */
-public class MainControllerServlet extends HttpServlet {
+public class DetailFoodServlet extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -31,49 +35,22 @@ public class MainControllerServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-              String ac = request.getParameter("action");
-            String url ="";
+            String id =request.getParameter("fid");
+            FoodDAO fd = new FoodDAO();
+            Food food = fd.getFoodById(id);
+            ArrayList<Ingredient> ingr = fd.getIngredientsByFoodId(id);
+            float totalPrice = fd.getTotalPriceIng(ingr);
+            if(id!=null && fd!=null && ingr!=null){
+                
+            request.setAttribute("Food", food);
+            request.setAttribute("ListIngr", ingr);
+            request.setAttribute("TotalPriceIng", totalPrice);
+            request.getRequestDispatcher("MainControllerServlet?action="+IConstant.DETAILFOOD).forward(request, response);
             
-//            
-            if(ac==null){
-                ac =IConstant.HOME;
+            }else{
+            request.getRequestDispatcher("MainControllerServlet?action="+IConstant.HOME).forward(request, response);
+
             }
-            switch(ac){
-                case IConstant.WELLCOME:
-                    url = "home.jsp";
-                    break;
-                case IConstant.HOME:
-                    url="ManageHomeServlet";
-                    break;
-                case IConstant.REGISTER:
-                    url = "register.jsp";
-                    break;
-                case IConstant.LOGINSERVLET:
-                    url="LoginServlet";
-                    break;
-                case IConstant.LOGINJSP:
-                    url="login.jsp";
-                    break;
-                case IConstant.ADMIN:
-                    url="adminHome.jsp";
-                    break;
-                case IConstant.LOGOUT:
-                    url= "LogoutServlet";
-                    break;
-                case IConstant.MENUJSP:
-                    url="menu.jsp";
-                    break;
-                case IConstant.MANAGEFOOD:
-                    url="ManageFoodServlet";
-                   break;
-                case IConstant.MANAGECATEGORIES:
-                    url="ManageCategoriesServlet";
-                    break;
-                case IConstant.DETAILFOOD:
-                    url = "product.jsp";
-                    break;
-                }
-            request.getRequestDispatcher(url).forward(request, response);
         }
     } 
 

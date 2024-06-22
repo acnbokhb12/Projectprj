@@ -181,7 +181,7 @@
             <div class="row">                 
                 <c:forEach items="${ListFood}" var="f" >               
               <div class="col-lg-4 col-6 product-item">
-                <a href="Product.html" class="home-product-item__link">
+                <a href="DetailFoodServlet?fid=${f.foodId}" class="home-product-item__link">
                   <div class="home-product-item-container">
 
                     <!-- product item -->

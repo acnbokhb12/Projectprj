@@ -25,4 +25,6 @@ public interface IConstant {
     public final String MENUJSP = "menuJsp";
     public final String MANAGEFOOD = "ManageFoodServlet";
     public final String MANAGECATEGORIES ="ManageCategories";
+    
+    public final String DETAILFOOD = "detailFood";
 }
