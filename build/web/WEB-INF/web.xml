@@ -32,6 +32,10 @@
         <servlet-name>SearchFoodServlet</servlet-name>
         <servlet-class>Controller.SearchFoodServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>RegisterServlet</servlet-name>
+        <servlet-class>Controller.RegisterServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>MainControllerServlet</servlet-name>
         <url-pattern>/MainControllerServlet</url-pattern>
@@ -63,6 +67,10 @@
     <servlet-mapping>
         <servlet-name>SearchFoodServlet</servlet-name>
         <url-pattern>/SearchFoodServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RegisterServlet</servlet-name>
+        <url-pattern>/RegisterServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

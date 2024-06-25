@@ -53,7 +53,7 @@
                         <p class="signup-header-desc">Discover more about cusine in the world </p>
                     </header>
                     <div class="signup-user-body">
-                        <form action="#" class="form" id="form2" method="post">
+                        <form action="RegisterServlet" class="form" id="form2" method="post">
                             <!-- Email -->
                             <div class="form-group">
                                 <i class="fa-solid fa-envelope  icon-signup"></i>
@@ -75,7 +75,7 @@
                             <div class="form-group">
                                 <i class="fa-solid fa-lock icon-signup"></i>
                                 <!-- <label for="password-title-signup" class="label-title-infor-signup">Confirm password</label>                       -->
-                                <input type="password" id="password-title-signup" name="txtconfirmpassword"
+                                <input type="password" id="password-title-signup" name="txtRepass"
                                     class="input-user-signup" placeholder="Confirm password" required />
 
                                 <span class="error-notmatch-pass">passwords are not the same</span>

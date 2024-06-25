@@ -46,7 +46,7 @@ public class LoginServlet extends HttpServlet {
                     if(acc.getRole().equals("Admin")){
                         url = IConstant.ADMIN;
                     }else{
-                        url =IConstant.WELLCOME;
+                        url =IConstant.HOME;
                     }
                     request.getRequestDispatcher("MainControllerServlet?action="+url).forward(request, response);
                     

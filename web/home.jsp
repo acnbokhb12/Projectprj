@@ -7,6 +7,7 @@
 <%@page import="dto.Account"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -59,7 +60,7 @@
         <div class="home__background"></div>
         <div class="home__script-container">
             <div class="home-title js-header">
-                <h1>Welcom to the kitchen of Kahof MaKede</h1>
+                <h1>Welcom to the kitchen of Kahof MaKed<//h1>
             </div>
             <div class="home-script">
                 <p>Kahof is a team professional food photographer and recipe developer who writes the food blog "The
@@ -106,6 +107,7 @@
                     </div>
                         
                     </c:forEach>
+                    
                      <c:forEach items="${ListTopFood}" var="fn" begin="2" end="4">
 
                     <div class="popular-list-item col-md-4">
