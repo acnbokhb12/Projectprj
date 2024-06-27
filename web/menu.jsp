@@ -29,7 +29,7 @@
 
 <body> <!-- style="background-color: rgb(10, 10, 10);"-->
     <%
-        Account user = (Account) session.getAttribute("LoginAcc");
+        Account user = (Account) session.getAttribute("CustomerAcc");
             
         int accId = 0;
         String email="";

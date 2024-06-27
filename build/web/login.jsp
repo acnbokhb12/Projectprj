@@ -44,12 +44,12 @@
                         <p class="signin-header-desc">Enter your Information to access your account</p>
                     </header>
                     <div class="signin-user-body">
-                        <form action="MainControllerServlet" class="form" id="form1" method="post">
+                        <form action="loginServlet" class="form" id="form1" method="post">
                             <!-- username -->
                             <label for="email-log" class="label-title-infor"><i
                                     class="fa-solid fa-envelope"></i></i>Email</label><br>
                             <input type="email" id="email-log" name="txtemail" class="input-user-signin"
-                                   placeholder=" Enter your email" value="<%= request.getAttribute("emailError") !=null ? request.getAttribute("emailError"):"" %>" required><br>
+                                   placeholder=" Enter your email" value="<%= request.getAttribute("emailError") != null ? request.getAttribute("emailError") : "" %>" required><br>
                             <!-- password -->
                             <label for="password-title-signin" class="label-title-infor"><i
                                     class="fa-solid fa-lock"></i>Password</label><br>

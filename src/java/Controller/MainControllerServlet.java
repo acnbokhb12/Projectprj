@@ -43,11 +43,11 @@ public class MainControllerServlet extends HttpServlet {
                     url = "home.jsp";
                     break;
                 case IConstant.HOME:
-                    url="ManageHomeServlet";
+                    url="homeServlet";
                     break;
-                case IConstant.REGISTER:
+                case IConstant.REGISTERJSP:
                     url = "register.jsp";
-                    break;
+                    break;   
                 case IConstant.LOGINSERVLET:
                     url="LoginServlet";
                     break;
@@ -63,8 +63,8 @@ public class MainControllerServlet extends HttpServlet {
                 case IConstant.MENUJSP:
                     url="menu.jsp";
                     break;
-                case IConstant.MANAGEFOOD:
-                    url="ManageFoodServlet";
+                case IConstant.MENUSERVLET:
+                    url="menuServlet";
                    break;
                 case IConstant.MANAGECATEGORIES:
                     url="ManageCategoriesServlet";

@@ -11,9 +11,11 @@ package Controller;
  */
 public interface IConstant {
     public final String WELLCOME = "wellcome";
-    public final String HOME = "HomeServlet";
+    public final String HOME = "homeServlet";
     
-    public final String REGISTER = "register";
+    public final String REGISTERSERVLET = "registerServlet";
+    public final String REGISTERJSP = "registerJsp";
+
     
     public final String LOGINSERVLET = "loginServlet";
     public final String LOGINJSP = "loginJsp";
@@ -23,7 +25,7 @@ public interface IConstant {
     public final String LOGOUT = "logout";
     
     public final String MENUJSP = "menuJsp";
-    public final String MANAGEFOOD = "ManageFoodServlet";
+    public final String MENUSERVLET = "menuServlet";
     public final String MANAGECATEGORIES ="ManageCategories";
     
     public final String DETAILFOOD = "detailFood";

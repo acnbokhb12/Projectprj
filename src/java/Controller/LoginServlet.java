@@ -20,7 +20,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author DELL
  */
-public class LoginServlet extends HttpServlet {
+public class loginServlet extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -42,7 +42,7 @@ public class LoginServlet extends HttpServlet {
                 Account acc = d.getAccount(email, password);
                 if(acc!=null){
                     HttpSession session = request.getSession();
-                    session.setAttribute("LoginAcc", acc);
+                    session.setAttribute("CustomerAcc", acc);
                     if(acc.getRole().equals("Admin")){
                         url = IConstant.ADMIN;
                     }else{
