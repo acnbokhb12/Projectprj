@@ -48,13 +48,13 @@ public class loginServlet extends HttpServlet {
                     }else{
                         url =IConstant.HOME;
                     }
-                    request.getRequestDispatcher("MainControllerServlet?action="+url).forward(request, response);
+                    request.getRequestDispatcher("ControllerServlet?action="+url).forward(request, response);
                     
                 }else{
                     request.setAttribute("loginError", "Wrong Email or Password!");
                     request.setAttribute("emailError", email);
                     request.setAttribute("passwordError", password);
-                    request.getRequestDispatcher("MainControllerServlet?action="+IConstant.LOGINJSP).forward(request, response);
+                    request.getRequestDispatcher("ControllerServlet?action="+IConstant.LOGINJSP).forward(request, response);
 //                    request.getRequestDispatcher("login.jsp").forward(request, response);
                 } 
              }

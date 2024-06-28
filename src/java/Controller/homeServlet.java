@@ -38,14 +38,14 @@ public class homeServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             FoodDAO fd = new FoodDAO();
-            AccountDAO ac = new AccountDAO();
+//            AccountDAO ac = new AccountDAO();
             ArrayList<Food> listNewfood = fd.getNewFood();
             ArrayList<Categories> listCate = fd.getlistCategories();
              
             
             request.setAttribute("ListTopFood", listNewfood);
             request.setAttribute("ListCateGories", listCate);
-            request.getRequestDispatcher("MainControllerServlet?action="+IConstant.WELLCOME).forward(request, response);
+            request.getRequestDispatcher("ControllerServlet?action="+IConstant.WELLCOME).forward(request, response);
         }
     } 
 

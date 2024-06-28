@@ -36,7 +36,7 @@ public class LogoutServlet extends HttpServlet {
             if(session!=null){
                 session.invalidate();
             }
-            request.getRequestDispatcher("MainControllerServlet?action="+IConstant.HOME).forward(request, response);
+            request.getRequestDispatcher("ControllerServlet?action="+IConstant.HOME).forward(request, response);
         }
     } 
 

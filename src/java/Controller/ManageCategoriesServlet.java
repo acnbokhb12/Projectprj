@@ -44,7 +44,7 @@ public class ManageCategoriesServlet extends HttpServlet {
             request.setAttribute("ListCate", listCate);
             request.setAttribute("ListFood", listC);
             request.setAttribute("tagCate", cateId);
-            request.getRequestDispatcher("MainControllerServlet?action="+IConstant.MENUJSP).forward(request, response);
+            request.getRequestDispatcher("ControllerServlet?action="+IConstant.MENUJSP).forward(request, response);
 
         }
     } 

@@ -15,6 +15,9 @@ public class Categories {
     private String categoriesName;
 
     public Categories() {
+        categoriesId = 0;
+        categoriesImg="";
+        categoriesName="";
     }
 
     public Categories(int categoriesId, String categoriesImg, String categoiresName) {

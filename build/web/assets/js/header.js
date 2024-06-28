@@ -83,7 +83,7 @@ const headerHTML = `<header class="header ">
                                 <section class="welcome-about-acc-body">
                                     <ul class="about-acc-header-list">
                                         <li class="about-acc-header-item">
-                                            <a href='MainControllerServlet?action=logout'>
+                                            <a href='ControllerServlet?action=logout'>
                                                 <i class="fas fa-sign-out"></i> Log out
                                             </a>
                                         </li>
@@ -113,9 +113,9 @@ const headerHTML = `<header class="header ">
                         <span class="close-navbar-icon"><i class="fa-solid fa-xmark close-navbar-icon-btn"></i></span>
                         <div class="header__second-list col-lg-9 ">
                             <ul class="header-list-nav-page">
-                                <li><a href="MainControllerServlet?action=homeServlet">Home</a></li>
+                                <li><a href="ControllerServlet?action=homeServlet">Home</a></li>
                                 <li><a href="#">About</a></li>
-                                <li><a href="MainControllerServlet?action=menuServlet">Menu</a></li>
+                                <li><a href="ControllerServlet?action=menuServlet">Menu</a></li>
                                 <li><a href="#">Blog</a></li>
                                 <li><a href="#">Contact</a></li>
 

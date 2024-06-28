@@ -20,15 +20,17 @@ public class AccountDAO {
     public Account getAccount(String email, String password) {
         Account acc = null;
         Connection cn = null;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
         try {
             cn = myLib.makeConnection();
             if (cn != null) {
                 String sql = "select[AccId],[Email],[Password],[UserName],[Phone],[Role],[AStatusId] from [dbo].[Account] where [Email] = ? and [Password] =?";
 
-                PreparedStatement pst = cn.prepareStatement(sql);
+                pst = cn.prepareStatement(sql);
                 pst.setString(1, email);
                 pst.setString(2, password);
-                ResultSet rs = pst.executeQuery();
+                rs = pst.executeQuery();
                 if (rs != null && rs.next()) {
                     int accid = rs.getInt("AccId");
                     String em = rs.getString("Email");
@@ -45,9 +47,9 @@ public class AccountDAO {
             e.printStackTrace();
         } finally {
             try {
-                if (cn != null) {
-                    cn.close();
-                }
+                if (rs != null) rs.close();
+                if (pst != null) pst.close();
+                if (cn != null) cn.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -58,13 +60,15 @@ public class AccountDAO {
     public Account checkAccountExist(String email) {
         Account acc = null;
         Connection cn = null;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
         try {
             cn = myLib.makeConnection();
             if (cn != null) {
                 String sql = "select[AccId],[Email],[Password],[UserName],[Phone],[Role],[AStatusId] from [dbo].[Account] where [Email] = ?";
-                PreparedStatement pst = cn.prepareStatement(sql);
+                pst = cn.prepareStatement(sql);
                 pst.setString(1, email);
-                ResultSet rs = pst.executeQuery();
+                rs = pst.executeQuery();
                 if (rs != null && rs.next()) {
                     int accid = rs.getInt("AccId");
                     String em = rs.getString("Email");
@@ -81,9 +85,9 @@ public class AccountDAO {
             e.printStackTrace();
         } finally {
             try {
-                if (cn != null) {
-                    cn.close();
-                }
+                if (rs != null) rs.close();
+                if (pst != null) pst.close();
+                if (cn != null) cn.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -121,11 +125,7 @@ public class AccountDAO {
     }
     
     public static void main(String[] args) {
-        AccountDAO ac = new AccountDAO();
-        ac.signUpAccount("gha@gmail.com", "1234567", "rabit");
         
-        Account ne = ac.getAccount("gha@gmail.com", "1234567");
-        System.out.println(ne);
     }
 
 }

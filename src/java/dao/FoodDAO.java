@@ -27,14 +27,16 @@ public class FoodDAO {
 
         ArrayList<Food> list = new ArrayList<>();
         Connection cn = null;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
         try {
             cn = myLib.makeConnection();
             if (cn != null) {
                 String sql = "SELECT  f.FoodId, f.FoodName,  f.FoodImage,   f.Description, f.Recipe, f.Price, f.FStatusId, ct.CategoryId,ct.CateImage,ct.CategoryName  \n"
                         + "                         from Food f left join FoodCate fd on f.FoodId = fd.FoodId  \n"
                         + "                        left join Categories ct on fd.CategoriesId = ct.CategoryId";
-                PreparedStatement pst = cn.prepareStatement(sql);
-                ResultSet rs = pst.executeQuery();
+                pst = cn.prepareStatement(sql);
+                rs = pst.executeQuery();
                 HashMap<Integer, Food> foodMap = new HashMap<>();
                 if (rs != null) {
                     while (rs.next()) {
@@ -69,9 +71,9 @@ public class FoodDAO {
             e.printStackTrace();
         } finally {
             try {
-                if (cn != null) {
-                    cn.close();
-                }
+                if (rs != null) rs.close();
+                if (pst != null) pst.close();
+                if (cn != null) cn.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -80,14 +82,16 @@ public class FoodDAO {
     }
 
     public ArrayList<Categories> getlistCategories() {
-        Connection cn = null;
+         Connection cn = null;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
         ArrayList<Categories> listCate = new ArrayList<>();
         try {
             cn = myLib.makeConnection();
             if (cn != null) {
                 String sql = "select [CategoryId],[CateImage],[CategoryName]  from [dbo].[Categories]";
-                PreparedStatement pst = cn.prepareStatement(sql);
-                ResultSet rs = pst.executeQuery();
+                pst = cn.prepareStatement(sql);
+                rs = pst.executeQuery();
                 if (rs != null) {
                     while (rs.next()) {
                         int cateId = rs.getInt("CategoryId");
@@ -103,9 +107,9 @@ public class FoodDAO {
             e.printStackTrace();
         } finally {
             try {
-                if (cn != null) {
-                    cn.close();
-                }
+                if (rs != null) rs.close();
+                if (pst != null) pst.close();
+                if (cn != null) cn.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -115,7 +119,9 @@ public class FoodDAO {
 
     public ArrayList<Food> getFoodbyCateID(String cateID) {
 
-        Connection cn = null;
+         Connection cn = null;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
         ArrayList<Food> list = new ArrayList<>();
 
         try {
@@ -125,9 +131,9 @@ public class FoodDAO {
                         + "from Food f left join FoodCate fc on f.FoodId = fc.FoodId\n"
                         + "     left join Categories c on fc.CategoriesId = c.CategoryId\n"
                         + "                     WHERE c.CategoryId = ?";
-                PreparedStatement pst = cn.prepareStatement(sql);
+                pst = cn.prepareStatement(sql);
                 pst.setString(1, cateID);
-                ResultSet rs = pst.executeQuery();
+                rs = pst.executeQuery();
                 HashMap<Integer, Food> foodMap = new HashMap<>();
                 if (rs != null) {
                     while (rs.next()) {
@@ -162,9 +168,9 @@ public class FoodDAO {
             e.printStackTrace();
         } finally {
             try {
-                if (cn != null) {
-                    cn.close();
-                }
+                if (rs != null) rs.close();
+                if (pst != null) pst.close();
+                if (cn != null) cn.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -175,6 +181,8 @@ public class FoodDAO {
     public ArrayList<Food> searchFoodByName(String txtnamesearch) {
 
         Connection cn = null;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
         ArrayList<Food> list = new ArrayList<>();
 
         try {
@@ -184,9 +192,9 @@ public class FoodDAO {
                         + "                       from Food f left join FoodCate fc on f.FoodId = fc.FoodId\n"
                         + "                           left join Categories c on fc.CategoriesId = c.CategoryId\n"
                         + "                                        WHERE f.FoodName like ?";
-                PreparedStatement pst = cn.prepareStatement(sql);
+                pst = cn.prepareStatement(sql);
                 pst.setString(1, "%" + txtnamesearch + "%");
-                ResultSet rs = pst.executeQuery();
+                rs = pst.executeQuery();
                 HashMap<Integer, Food> foodMap = new HashMap<>();
                 if (rs != null) {
                     while (rs.next()) {
@@ -221,9 +229,9 @@ public class FoodDAO {
             e.printStackTrace();
         } finally {
             try {
-                if (cn != null) {
-                    cn.close();
-                }
+                if (rs != null) rs.close();
+                if (pst != null) pst.close();
+                if (cn != null) cn.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -232,7 +240,9 @@ public class FoodDAO {
     }
 
     public ArrayList<Food> getNewFood() {
-        Connection cn = null;
+         Connection cn = null;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
         ArrayList<Food> listFN = new ArrayList<>();
         try {
             cn = myLib.makeConnection();
@@ -241,8 +251,8 @@ public class FoodDAO {
                         + "                         from Food f left join FoodCate fd on f.FoodId = fd.FoodId  \n"
                         + "                        left join Categories ct on fd.CategoriesId = ct.CategoryId  \n"
                         + " order by  f.FoodId desc ";
-                PreparedStatement pst = cn.prepareStatement(sql);
-                ResultSet rs = pst.executeQuery();
+                pst = cn.prepareStatement(sql);
+                rs = pst.executeQuery();
                 HashMap<Integer, Food> foodMap = new HashMap<>();
                 if (rs != null) {
                     while (rs.next()) {
@@ -277,9 +287,9 @@ public class FoodDAO {
             e.printStackTrace();
         } finally {
             try {
-                if (cn != null) {
-                    cn.close();
-                }
+                if (rs != null) rs.close();
+                if (pst != null) pst.close();
+                if (cn != null) cn.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -289,15 +299,17 @@ public class FoodDAO {
 
     public Food getFoodById(String idFood) {
         Connection cn = null;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
         Food food = null;
-
+        
         try {
             cn = myLib.makeConnection();
             if (cn != null) {
                 String sql = "select [FoodId], [FoodImage],[FoodName],[Description],[Recipe],[Price],[FStatusId] from [dbo].[Food] where [FoodId] = ?";
-                PreparedStatement pst = cn.prepareStatement(sql);
+                pst = cn.prepareStatement(sql);
                 pst.setString(1, idFood);
-                ResultSet rs = pst.executeQuery();
+                rs = pst.executeQuery();
 
                 if (rs != null && rs.next()) {
                     int id = rs.getInt("FoodId");
@@ -315,6 +327,8 @@ public class FoodDAO {
             e.printStackTrace();
         } finally {
             try {
+                if (rs != null) rs.close();
+                if (pst != null) pst.close();
                 if (cn != null) {
                     cn.close();
                 }
@@ -329,15 +343,17 @@ public class FoodDAO {
     public ArrayList<Ingredient> getIngredientsByFoodId(String idFood) {
         ArrayList<Ingredient> listIngredients = new ArrayList<>();
         Ingredient ingredient = null;
-        Connection cn = null;
+         Connection cn = null;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
 
         try {
             cn = myLib.makeConnection();
             if (cn != null) {
                 String sql = "select [FoodId],[IngredientId],[InImage],[IngredientName], [Quantity],[Unit],[Price] from [dbo].[Ingredient]  where [FoodId] = ?";
-                PreparedStatement pst = cn.prepareStatement(sql);
+                pst = cn.prepareStatement(sql);
                 pst.setString(1, idFood);
-                ResultSet rs = pst.executeQuery();
+                rs = pst.executeQuery();
 
                 if (rs != null) {
                     while (rs.next()) {
@@ -359,9 +375,9 @@ public class FoodDAO {
             e.printStackTrace();
         } finally {
             try {
-                if (cn != null) {
-                    cn.close();
-                }
+                if (rs != null) rs.close();
+                if (pst != null) pst.close();
+                if (cn != null) cn.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }

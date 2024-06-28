@@ -56,20 +56,20 @@ public class registerServlet extends HttpServlet {
                                 if(newAcc != null){
                                     HttpSession session = request.getSession();
                                     session.setAttribute("CustomerAcc", newAcc);
-                                    request.getRequestDispatcher("MainControllerServlet?action="+ IConstant.HOME).forward(request, response);
+                                    request.getRequestDispatcher("ControllerServlet?action="+ IConstant.HOME).forward(request, response);
                                     return;
                                 }else{
                                      request.setAttribute("errorRegister", "Register failed");                                 
                                 }
 
                             } else {
-                                request.setAttribute("errorUserName", "username is not empty");
+                                request.setAttribute("errorUserName", "username must not be empty");
                             }
                         } else {
                             request.setAttribute("errorSamePass", "Passwords are not the same");
                         }
                     }else{
-                             request.setAttribute("emailExist", "Email was existed");
+                             request.setAttribute("emailExist", "Email existed");
                     }
                 } else {
                     request.setAttribute("errorEmail", "Invalid email address (e.g. example@gmail.com)");
@@ -78,8 +78,8 @@ public class registerServlet extends HttpServlet {
                 request.setAttribute("oldPass", password);
                 request.setAttribute("oldRePass", repass);
                 request.setAttribute("oldUserName", username);
-                request.getRequestDispatcher("MainControllerServlet?action=" + IConstant.REGISTERJSP).forward(request, response);
-            }
+                request.getRequestDispatcher("ControllerServlet?action=" + IConstant.REGISTERJSP).forward(request, response);
+            } 
         }
     }
 

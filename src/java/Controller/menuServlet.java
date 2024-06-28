@@ -41,7 +41,7 @@ public class menuServlet extends HttpServlet {
             
             request.setAttribute("ListFood", list);
             request.setAttribute("ListCate", listCate);
-            request.getRequestDispatcher("MainControllerServlet?action="+IConstant.MENUJSP).forward(request, response);
+            request.getRequestDispatcher("ControllerServlet?action="+IConstant.MENUJSP).forward(request, response);
             
         }
     } 
