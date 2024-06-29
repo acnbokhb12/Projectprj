@@ -4,6 +4,7 @@
     Author     : DELL
 --%>
 
+<%@page import="dto.Account"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,8 +26,31 @@
 </head>
 
 <body>
+    <%
+        Account user = (Account) session.getAttribute("CustomerAcc");
+            
+        int accId = 0;
+        String email="";
+        String password="";
+        String userName = "";
+        String phoneNumber="";
+        String role ="";
+        int aStatusId = 0;
+        if (user != null) {
+            accId = user.getAccId();
+            userName = user.getUserName();
+        }
+    %>
+    
+    <script>
+        var user = {
+           accid: '<%= accId %>',
+            name: '<%= userName %>'
+        };
+             
+    </script>
     <!-- nhung header -->
-    <!--<script src="./assets/js/header.js"></script>-->
+    <script src="./assets/js/header.js"></script>
     <div class="calendar__main">
 
 

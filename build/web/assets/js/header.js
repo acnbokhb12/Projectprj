@@ -106,7 +106,7 @@ const headerHTML = `<header class="header ">
         <section class="header__second__nav">
             <div class="header__second_nav-container container">
                 <div class="row header__second_nav-btn-new">
-                    <a href="MainControllerServlet?action=HomeServlet" class="header__second-img col-lg-3">
+                    <a href="ControllerServlet?action=homeServlet" class="header__second-img col-lg-3">
                         <img src="./assets/img/logo/K-Photoroom.png-Photoroom.png" alt="">
                     </a>
                     <div class="row col-lg-9 nav-bar-menu">
@@ -114,10 +114,10 @@ const headerHTML = `<header class="header ">
                         <div class="header__second-list col-lg-9 ">
                             <ul class="header-list-nav-page">
                                 <li><a href="ControllerServlet?action=homeServlet">Home</a></li>
-                                <li><a href="#">About</a></li>
+                                <li><a href="about.jsp">About</a></li>
                                 <li><a href="ControllerServlet?action=menuServlet">Menu</a></li>
-                                <li><a href="#">Blog</a></li>
-                                <li><a href="#">Contact</a></li>
+                                <li><a href="weekly.jsp">Weekly</a></li>
+                                <li><a href="contact.jsp">Contact</a></li>
 
                             </ul>
                         </div>
@@ -130,9 +130,9 @@ const headerHTML = `<header class="header ">
 
                                 <div href="" class="header__nav-search">
                                     <i class="fas fa-search js-search-icon"></i>
-                                    <form action="">
+                                    <form action="SearchFoodServlet">
                                         <br />
-                                        <input type="text" class="search-input" placeholder="Search..." />
+                                        <input type="text" class="search-input" name="txtnamesearch" placeholder="Search..." />
 
                                     </form>
                                 </div>

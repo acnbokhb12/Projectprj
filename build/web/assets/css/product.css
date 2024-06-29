@@ -35,6 +35,7 @@
 
 /* title name product */
 .product__content__detail-title {
+    text-transform: capitalize;
     font-weight: 700;
     font-size: 4.4rem;
     color: var(--black-color);
@@ -250,8 +251,8 @@ input[type=number]:focus {
     border-color: #e58e09;
     color: #000;
     font-weight: 600;
-    border-radius: 8px;
-    padding: 2px;
+    border-radius: 4px;
+    padding: 0 10px;
 }
 .btn-add-weekly {
     position: relative;
@@ -659,9 +660,20 @@ input[type=number]:focus {
         width: 100%;
         margin-bottom: 20px;
     }
+    #dateInput{
+        width: 100%;
+    }
 
 }
-
+@media screen and (max-width:575px) {
+    .product__content__detail-rating{
+        flex-direction: column;
+        align-items: start;
+    }
+    .product__content__detail-desc p{
+        margin-left: 4px;
+    }
+}
 @media screen and (max-width:420px) {
     .product__content__detail-info-img img {
         height: 260px;

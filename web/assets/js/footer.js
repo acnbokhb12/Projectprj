@@ -6,17 +6,17 @@ document.addEventListener("DOMContentLoaded", function() {
             <h3>Make Or <span>Made</span></h3>
 
             <p class="footer-links">
-                <a href="#" class="link-1">Home</a>
+                <a href="ControllerServlet?action=homeServlet" class="link-1">Home</a>
 
-                <a href="#">About </a>
+                <a href="about.jsp">About </a>
 
-                <a href="#">Menu</a>
+                <a href="ControllerServlet?action=menuServlet">Menu</a>
 
-                <a href="#">Blog</a>
+                <a href="weekly.jsp">Weekly</a>
 
                 <!-- <a href="#">Faq</a> -->
 
-                <a href="#">Contact</a>
+                <a href="contact.jsp">Contact</a>
             </p>
 
             <p class="footer-company-name">Kahof MaKade Prj301 © 2024</p>

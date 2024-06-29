@@ -6,10 +6,13 @@
 
 package Controller;
 
-import dao.AccountDAO;
-import dto.Account;
+import dao.FoodDAO;
+import dto.Food;
+import dto.Ingredient;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.HashMap;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +23,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author DELL
  */
-public class loginServlet extends HttpServlet {
+public class addToCartServlet extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -34,30 +37,50 @@ public class loginServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            String email = request.getParameter("txtemail");
-            String password = request.getParameter("txtpassword");
-            String url ="";
-             if(email!=null && password!=null){
-                AccountDAO d = new AccountDAO();
-                Account acc = d.getAccount(email, password);
-                if(acc!=null){
-                    HttpSession session = request.getSession();
-                    session.setAttribute("CustomerAcc", acc);
-                    if(acc.getRole().equals("Admin")){
-                        url = IConstant.ADMIN;
-                    }else{
-                        url =IConstant.HOME;
-                    }
-                    request.getRequestDispatcher("ControllerServlet?action="+url).forward(request, response);
-                    
+            String idFood = request.getParameter("idfood");
+            String quantity = request.getParameter("quantityF");
+            String btn =  request.getParameter("btnAdd");
+            FoodDAO fd = new FoodDAO();
+            Food f = fd.getFoodById(idFood);
+            ArrayList<Ingredient> ingr = fd.getIngredientsByFoodId(idFood);
+            float totalPrice = fd.getTotalPriceIng(ingr);   
+            
+            
+            if(btn.equals("BuyFood")){                               
+                
+                
+            }else if(btn.equals("BuyIngredient")){
+                
+                
+            }else{
+                
+            }
+            
+            
+            
+            
+            
+            if(f!= null && f.getfStatusId() == 1){
+                HttpSession session = request.getSession();
+                HashMap<Food, Integer> cartUser = (HashMap<Food, Integer>) session.getAttribute("cart");
+                if(cartUser==null){
+                    cartUser = new HashMap<>();
+                    cartUser.put(f, 1);
                 }else{
-                    request.setAttribute("loginError", "Wrong Email or Password!");
-                    request.setAttribute("emailError", email);
-                    request.setAttribute("passwordError", password);
-                    request.getRequestDispatcher("ControllerServlet?action="+IConstant.LOGINJSP).forward(request, response);
-
-                } 
-             }
+                    boolean find = false ;
+                    for(Food tmp : cartUser.keySet()){
+                        if(tmp.getFoodId() == Integer.parseInt(idFood)){
+//                            int quantity = cartUser.get(tmp);
+                            
+                        }
+                    }
+                }
+                request.setAttribute("Food", f);
+                request.setAttribute("ListIngr", ingr);
+                session.setAttribute("cart", cartUser);
+                request.setAttribute("TotalPriceIng", totalPrice);
+                request.getRequestDispatcher("ControllerServlet?action="+IConstant.DETAILFOOD).forward(request, response);
+            }
         }
     } 
 

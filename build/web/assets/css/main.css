@@ -1790,6 +1790,7 @@
 }
 
 .home-product-item__name {
+    text-transform: capitalize;
     font-size: 2.1rem;
     margin-bottom: 1rem;
     color: var(--black-color);
@@ -2162,7 +2163,9 @@ i.home-product-item__like-icon-fill {
     .nav-bar-menu {
         width: 104%;
     }
-
+    .home__script-container{
+        top: 25%;
+    }
     .header__infor-link-list {
         display: none;
     }

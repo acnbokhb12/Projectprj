@@ -36,6 +36,10 @@
         <servlet-name>ControllerServlet</servlet-name>
         <servlet-class>Controller.ControllerServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>addToCartServlet</servlet-name>
+        <servlet-class>Controller.addToCartServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>loginServlet</servlet-name>
         <url-pattern>/loginServlet</url-pattern>
@@ -71,6 +75,10 @@
     <servlet-mapping>
         <servlet-name>ControllerServlet</servlet-name>
         <url-pattern>/ControllerServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>addToCartServlet</servlet-name>
+        <url-pattern>/addToCartServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
