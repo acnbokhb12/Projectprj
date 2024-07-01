@@ -3,62 +3,77 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Controller;
 
 import dao.FoodDAO;
-import dto.Categories;
 import dto.Food;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.HashMap;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author DELL
  */
-public class SearchFoodServlet extends HttpServlet {
-   
-    /** 
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
+public class editCartServlet extends HttpServlet {
+
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-             request.setCharacterEncoding("UTF-8");
-            String nameS = request.getParameter("txtnamesearch");
-            FoodDAO fd = new FoodDAO();
-            ArrayList<Food> lfood = fd.searchFoodByName(nameS);
-            ArrayList<Categories> listCate = fd.getlistCategories();
-            HashMap <Integer ,String > listFstatus = fd.getFoodStatus();
-            
-            if(lfood!=null){
-                request.setAttribute("ListFoodStatus", listFstatus);
-                request.setAttribute("ListFood", lfood);
-                 request.setAttribute("ListCate", listCate);
-                 request.setAttribute("txtS", nameS);
-                request.getRequestDispatcher("ControllerServlet?action="+IConstant.MENUJSP).forward(request, response);
-            }else{
-               request.getRequestDispatcher("ControllerServlet?action="+IConstant.MENUJSP).forward(request, response);
-
+            String btnaction = request.getParameter("btnactioneditCart");
+            String foodid = request.getParameter("txteditId");
+            String type = request.getParameter("txtType");
+            HttpSession session = request.getSession();
+            HashMap<Food, Integer> cartUser = (HashMap<Food, Integer>) session.getAttribute("cart");
+            if (cartUser != null) {
+                Food f = null;
+                for (Food tmp : cartUser.keySet()) {
+                    if (tmp.getFoodId() == Integer.parseInt(foodid) && tmp.getTypeToBuy().equals(type)) {
+                        f = tmp;
+                        break;
+                    }
+                }
+                if (f != null) {
+                    if (btnaction.equalsIgnoreCase("remove")) {
+                        // delete food out cart
+                        cartUser.remove(f);
+                    } else {
+                        //update quantity
+                        String newQuantity = request.getParameter("txtQuantityF");
+                        cartUser.put(f, Integer.parseInt(newQuantity.trim()));
+                    }
+                    session.setAttribute("cart", cartUser);
+                    request.getRequestDispatcher("ControllerServlet?action=" + IConstant.CART).forward(request, response);
+                } else {
+                    request.getRequestDispatcher("ControllerServlet?action=" + IConstant.MENUSERVLET).forward(request, response);
+                }
+            } else {
+                request.getRequestDispatcher("ControllerServlet?action=" + IConstant.MENUSERVLET).forward(request, response);
             }
+
         }
-    } 
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /** 
+    /**
      * Handles the HTTP <code>GET</code> method.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -66,12 +81,13 @@ public class SearchFoodServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         processRequest(request, response);
-    } 
+    }
 
-    /** 
+    /**
      * Handles the HTTP <code>POST</code> method.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -79,12 +95,13 @@ public class SearchFoodServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    /** 
+    /**
      * Returns a short description of the servlet.
+     *
      * @return a String containing servlet description
      */
     @Override

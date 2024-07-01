@@ -99,6 +99,14 @@
                  ${Food.description}
               </p>
             </div>
+              <p class="product__content__detail-status">
+                  Status:
+                  <c:forEach items="${ListFoodStatus}" var="entry">
+                      <c:if test="${Food.fStatusId == entry.key}">
+                        <span>${entry.value}</span>                          
+                      </c:if> 
+                  </c:forEach>
+              </p>
             <p class="product__content__detail-price">
               <span id="product__detail-price-id" class="product__detail-price">${Food.price}</span>
             </p>
@@ -115,10 +123,10 @@
                   <input type="hidden" name="idfood" value="${Food.foodId}">
                   <!-- submit buy product -->
                   <div class="product__btnbuy-ing-pro">
-                    <button type="submit" name="btnAdd" value="BuyFood" class="product__detail-buybtn ">
+                    <button type="submit" name="btnAdd" value="Food" class="product__detail-buybtn ">
                       <i class="fa-solid fa-cart-shopping"></i> Add product to cart
                     </button>
-                    <button type="submit" name="btnAdd" value="BuyIngredient" class="product__detail-buybtn ">
+                    <button type="submit" name="btnAdd" value="Ingredient" class="product__detail-buybtn ">
                       <i class="fa-solid fa-cart-shopping"></i> Add ingredient to cart
                     </button>
                   </div>

@@ -28,5 +28,8 @@ public interface IConstant {
     public final String MENUSERVLET = "menuServlet";
     public final String MANAGECATEGORIES ="ManageCategories";
     
+    public final String MANAGECART = "manageCartServlet";
+    public final String CART  = "cartUser";
+    
     public final String DETAILFOOD = "detailFood";
 }

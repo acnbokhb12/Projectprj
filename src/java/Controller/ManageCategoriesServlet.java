@@ -12,6 +12,7 @@ import dto.Food;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -40,7 +41,9 @@ public class ManageCategoriesServlet extends HttpServlet {
             FoodDAO fd = new FoodDAO();
             ArrayList<Food> listC = fd.getFoodbyCateID(cateId);
             ArrayList<Categories> listCate = fd.getlistCategories();
+            HashMap <Integer ,String > listFstatus = fd.getFoodStatus();
             
+            request.setAttribute("ListFoodStatus", listFstatus);
             request.setAttribute("ListCate", listCate);
             request.setAttribute("ListFood", listC);
             request.setAttribute("tagCate", cateId);

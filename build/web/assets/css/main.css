@@ -1861,7 +1861,7 @@
         /* Di chuyển hết chiều dài của chữ */
     }
 }
-
+.home-product-item__fstatus,
 .home-product-item__price {
     font-size: 2rem;
     color: var(--black-color);

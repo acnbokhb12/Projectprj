@@ -73,6 +73,12 @@ public class ControllerServlet extends HttpServlet {
                 case IConstant.DETAILFOOD:
                     url = "product.jsp";
                     break;
+                case IConstant.MANAGECART:
+                    url = "manageCartServlet";
+                    break;
+                case IConstant.CART:
+                    url = "cart.jsp";
+                    break;    
                 default:
                     // If no matching action is found, set a default URL
                     url = "home.jsp";

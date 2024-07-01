@@ -71,9 +71,15 @@ public class FoodDAO {
             e.printStackTrace();
         } finally {
             try {
-                if (rs != null) rs.close();
-                if (pst != null) pst.close();
-                if (cn != null) cn.close();
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pst != null) {
+                    pst.close();
+                }
+                if (cn != null) {
+                    cn.close();
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -82,7 +88,7 @@ public class FoodDAO {
     }
 
     public ArrayList<Categories> getlistCategories() {
-         Connection cn = null;
+        Connection cn = null;
         PreparedStatement pst = null;
         ResultSet rs = null;
         ArrayList<Categories> listCate = new ArrayList<>();
@@ -107,9 +113,15 @@ public class FoodDAO {
             e.printStackTrace();
         } finally {
             try {
-                if (rs != null) rs.close();
-                if (pst != null) pst.close();
-                if (cn != null) cn.close();
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pst != null) {
+                    pst.close();
+                }
+                if (cn != null) {
+                    cn.close();
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -119,7 +131,7 @@ public class FoodDAO {
 
     public ArrayList<Food> getFoodbyCateID(String cateID) {
 
-         Connection cn = null;
+        Connection cn = null;
         PreparedStatement pst = null;
         ResultSet rs = null;
         ArrayList<Food> list = new ArrayList<>();
@@ -168,9 +180,15 @@ public class FoodDAO {
             e.printStackTrace();
         } finally {
             try {
-                if (rs != null) rs.close();
-                if (pst != null) pst.close();
-                if (cn != null) cn.close();
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pst != null) {
+                    pst.close();
+                }
+                if (cn != null) {
+                    cn.close();
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -229,9 +247,15 @@ public class FoodDAO {
             e.printStackTrace();
         } finally {
             try {
-                if (rs != null) rs.close();
-                if (pst != null) pst.close();
-                if (cn != null) cn.close();
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pst != null) {
+                    pst.close();
+                }
+                if (cn != null) {
+                    cn.close();
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -239,7 +263,7 @@ public class FoodDAO {
         return list;
     }
 
-    public ArrayList<Food> getNewFood() {
+      public ArrayList<Food> getNewFood() {
          Connection cn = null;
         PreparedStatement pst = null;
         ResultSet rs = null;
@@ -302,7 +326,7 @@ public class FoodDAO {
         PreparedStatement pst = null;
         ResultSet rs = null;
         Food food = null;
-        
+
         try {
             cn = myLib.makeConnection();
             if (cn != null) {
@@ -327,8 +351,79 @@ public class FoodDAO {
             e.printStackTrace();
         } finally {
             try {
-                if (rs != null) rs.close();
-                if (pst != null) pst.close();
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pst != null) {
+                    pst.close();
+                }
+                if (cn != null) {
+                    cn.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return food;
+    }
+
+    //
+    public Food getFoodWithTypeAndIngredients(String fid, String typeToby) {
+        Connection cn = null;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        Food food = null;
+        ArrayList<Food> listFN = new ArrayList<>();
+        try {
+            cn = myLib.makeConnection();
+            if (cn != null) {
+                String sql = " select f.FoodId, f.FoodName,  f.FoodImage,   f.Description, f.Recipe, f.Price, f.FStatusId, ing.IngredientId,ing.InImage,ing.IngredientName,ing.Quantity, ing.Unit,ing.Price as ingPrice\n"
+                        + "                                           from Food f left join Ingredient ing on f.FoodId = ing.FoodId                            \n"
+                        + "              where f.FoodId = ?";
+                pst = cn.prepareStatement(sql);
+                pst.setString(1, fid);
+                rs = pst.executeQuery();
+                HashMap<Integer, Food> foodMap = new HashMap<>();
+                if (rs != null) {
+                    while (rs.next()) {
+                        int id = rs.getInt("FoodId");
+                        String image = rs.getString("FoodImage");
+                        String name = rs.getString("FoodName");
+                        String desc = rs.getString("Description");
+                        String recipe = rs.getString("Recipe");
+                        float price = rs.getFloat("Price");
+                        int status = rs.getInt("FStatusId");
+
+                        food = foodMap.get(id);
+                        if (food == null) {
+                            food = new Food(id, image, name, desc, recipe, price, status, typeToby);
+                            foodMap.put(id, food);
+                        }
+
+                        int ingId = rs.getInt("IngredientId");
+                        String ingImg = rs.getString("InImage");
+                        String ingName = rs.getString("IngredientName");
+                        float ingQuantity = rs.getFloat("Quantity");
+                        String ingUnit = rs.getString("Unit");
+                        float ingPrice = rs.getFloat("ingPrice");
+                        if (ingId != 0 && ingPrice != 0) {
+                            Ingredient ingredient = new Ingredient(id,ingId, ingImg, ingName, ingQuantity, ingUnit, ingPrice);
+                            food.getListingredients().add(ingredient);
+                        }
+                    }
+                }
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pst != null) {
+                    pst.close();
+                }
                 if (cn != null) {
                     cn.close();
                 }
@@ -343,7 +438,7 @@ public class FoodDAO {
     public ArrayList<Ingredient> getIngredientsByFoodId(String idFood) {
         ArrayList<Ingredient> listIngredients = new ArrayList<>();
         Ingredient ingredient = null;
-         Connection cn = null;
+        Connection cn = null;
         PreparedStatement pst = null;
         ResultSet rs = null;
 
@@ -375,9 +470,15 @@ public class FoodDAO {
             e.printStackTrace();
         } finally {
             try {
-                if (rs != null) rs.close();
-                if (pst != null) pst.close();
-                if (cn != null) cn.close();
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pst != null) {
+                    pst.close();
+                }
+                if (cn != null) {
+                    cn.close();
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -392,13 +493,59 @@ public class FoodDAO {
         }
         return total;
     }
-
+    
+    public HashMap<Integer, String> getFoodStatus (){
+        HashMap<Integer,String> listStatus = new  HashMap<>();
+        
+         Connection cn = null;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+      
+       
+        try {
+            cn = myLib.makeConnection();
+            if(cn!=null){            
+                String sql = "select [FStatusId],[FStatus] from [dbo].[FoodStatus] ";
+                pst = cn.prepareStatement(sql);
+                rs = pst.executeQuery();
+                if(rs!=null){
+                    while (rs.next()) {                        
+                        int fStatusId = rs.getInt("FStatusId");
+                        String fStatusName = rs.getString("FStatus");
+                        listStatus.put(fStatusId, fStatusName);
+                    }
+                }
+                
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pst != null) {
+                    pst.close();
+                }
+                if (cn != null) {
+                    cn.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return  listStatus;
+    }
+    
     public static void main(String[] args) {
         FoodDAO fd = new FoodDAO();
-        String a = "1";
+        String a = "10";
         ArrayList<Food> ing = fd.searchFoodByName("dri");
-        for(Food f : ing){
-//            System.out.println(f);
+        ArrayList<Food> f = fd.getNewFood();
+        HashMap <Integer ,String > listFst = fd.getFoodStatus();
+        for(Food as :  f ){
+            
+        System.out.println(as);
         }
     }
 }

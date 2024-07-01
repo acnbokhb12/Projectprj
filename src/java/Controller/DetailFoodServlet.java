@@ -12,6 +12,7 @@ import dto.Ingredient;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -40,8 +41,11 @@ public class DetailFoodServlet extends HttpServlet {
             Food food = fd.getFoodById(id);
             ArrayList<Ingredient> ingr = fd.getIngredientsByFoodId(id);
             float totalPrice = fd.getTotalPriceIng(ingr);
+             HashMap <Integer ,String > listFstatus = fd.getFoodStatus();
+            
             if(id!=null && fd!=null && ingr!=null){
                 
+            request.setAttribute("ListFoodStatus", listFstatus);
             request.setAttribute("Food", food);
             request.setAttribute("ListIngr", ingr);
             request.setAttribute("TotalPriceIng", totalPrice);

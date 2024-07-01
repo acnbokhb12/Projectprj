@@ -7,11 +7,9 @@
 package Controller;
 
 import dao.FoodDAO;
-import dto.Categories;
 import dto.Food;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.HashMap;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -22,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author DELL
  */
-public class SearchFoodServlet extends HttpServlet {
+public class manageCartServlet extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -36,23 +34,11 @@ public class SearchFoodServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-             request.setCharacterEncoding("UTF-8");
-            String nameS = request.getParameter("txtnamesearch");
             FoodDAO fd = new FoodDAO();
-            ArrayList<Food> lfood = fd.searchFoodByName(nameS);
-            ArrayList<Categories> listCate = fd.getlistCategories();
             HashMap <Integer ,String > listFstatus = fd.getFoodStatus();
             
-            if(lfood!=null){
-                request.setAttribute("ListFoodStatus", listFstatus);
-                request.setAttribute("ListFood", lfood);
-                 request.setAttribute("ListCate", listCate);
-                 request.setAttribute("txtS", nameS);
-                request.getRequestDispatcher("ControllerServlet?action="+IConstant.MENUJSP).forward(request, response);
-            }else{
-               request.getRequestDispatcher("ControllerServlet?action="+IConstant.MENUJSP).forward(request, response);
-
-            }
+            request.setAttribute("ListFoodStatus", listFstatus);
+            request.getRequestDispatcher("ControllerServlet?action="+IConstant.CART).forward(request, response);
         }
     } 
 

@@ -124,7 +124,7 @@ const headerHTML = `<header class="header ">
                         <div class="header__second-icon col-lg-3">
 
                             <div class="header__second-bag-search">
-                                <a href="cart.jsp" class="header__nav-bag">
+                                <a href="ControllerServlet?action=manageCartServlet" class="header__nav-bag">
                                     <i class="fa-solid fa-cart-shopping"></i>
                                 </a>
 
