@@ -4,6 +4,7 @@
     Author     : DELL
 --%>
 
+<%@page import="dto.Account"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,6 +25,27 @@
      
 </head>
 <body  >
+    <%
+            Account user = (Account) session.getAttribute("CustomerAcc");
+
+            int accId = 0;
+            String email = "";
+            String password = "";
+            String userName = "";
+            String phoneNumber = "";
+            String role = "";
+            int aStatusId = 0;
+            if (user != null) {
+                accId = user.getAccId();
+                userName = user.getUserName();
+            }
+        %>
+
+        <script>
+            var user = {
+                accid: '<%= accId%>',
+                name: '<%= userName%>'
+            };</script>
     <script src="./assets/js/header.js"></script>
     <div class="checkout-page-main container" >
         <header class="checkout-page-main-introheader">
@@ -36,29 +58,33 @@
           <div class="form__checkout-infor-cast col-md-5 order-md-2 ">
              <h4 class="checkout-infor-cast-title">
                 <span>Your Cart</span>
-                <span class="badge badge-secondary badge-pill">3</span>
+                <span><a href="cart.jsp">Edit Cart</a></span>
              </h4>
              <ul class="list__product">
-                <li class="list-group-item">
-                    <h5>Bread</h5>
-                    <span class="price-item-checkout">10000</span>
+                 <li class="list-group-item">
+                  <div class="item-detail-desc">
+                    <div class="contain-img-product">
+                      <img src="https://www.allrecipes.com/thmb/CjzJwg2pACUzGODdxJL1BJDRx9Y=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/6788-amish-white-bread-DDMFS-4x3-6faa1e552bdb4f6eabdd7791e59b3c84.jpg" alt="">
+                    </div>
+                    <div class="description-product">
+                      <h4 class="description-product-name">Amish bread sdafsdafas  sdafsdafas</h4>
+                      <h4 class="description-product-type">Qty :  <span style="margin-left: 7px;">4</span></h4>
+                      <h4 class="description-product-type">Type : <span>Ingredient </span></h4>
+                      <h4 class="price-item-checkout">10000</h4>
+                    </div>
+                  </div>
+                  <div class="subtotal-item">
+                      <h4 class="name-price-subtotal">the total amount:</h4>
+                      <h4 class="price-subtotal">20000</h4>
+                  </div>
                 </li>
-                <li class="list-group-item">
-                    <h5>Bread</h5>
-                    <span class="price-item-checkout">10000</span>
-                </li>
-                <li class="list-group-item">
-                    <h5>Bread</h5>
-                    <span class="price-item-checkout">10000</span>
-                </li>
-                 
-                <li class="list-group-item">
+                       
+            </ul> 
+              <div class="list-group-item-total">
                     <h5 style="color: #FFA500;">Order total:</h5>
                     <span class="price-item-checkout">30000</span>
-                </li>
-                
-                
-            </ul>  
+                </div>
+              
           </div>
           <div class="form__checkout-infor-customer col-md-7 order-md-1">
              <h4>Add a new address</h4>
@@ -201,8 +227,14 @@
       </div>
      <script src="./assets/js/footer.js"></script>
        <script>
-              const priceItemCheckout = document.querySelectorAll('.price-item-checkout');
+             const priceItemCheckout = document.querySelectorAll('.price-item-checkout'),
+                    priceSubtotal = document.querySelectorAll('.price-subtotal');
               priceItemCheckout.forEach(function (element) {
+                let price = parseInt(element.innerText);
+                let formattedAmount = price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+                element.innerText = formattedAmount;
+            });
+            priceSubtotal.forEach(function (element) {
                 let price = parseInt(element.innerText);
                 let formattedAmount = price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
                 element.innerText = formattedAmount;
@@ -210,16 +242,16 @@
 
             const tickCardMethods = document.querySelectorAll('.card__payment-method');
             const tickBuyReal = document.querySelector('.card-tick-cash-byhand');  
-            const tableCardMethod = document.querySelector('.form__checkout-payment-method-card')
+            const tableCardMethod = document.querySelector('.form__checkout-payment-method-card');
             for(const tickCardSimple of tickCardMethods){
                 tickCardSimple.addEventListener('click',function(){
-                    tableCardMethod.classList.add('form__checkout-payment-method-card-open')
-                })
-            }
+                    tableCardMethod.classList.add('form__checkout-payment-method-card-open');
+                });
+            };
             tickBuyReal.addEventListener('click',function(){
-                tableCardMethod.classList.remove('form__checkout-payment-method-card-open')
+                tableCardMethod.classList.remove('form__checkout-payment-method-card-open');
 
-            })
+            });
        </script>
      
 </body>

@@ -17,6 +17,8 @@
   <!-- Font family -->
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
     rel="stylesheet">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
   <!-- Font icon -->
   <!-- <link rel="stylesheet" href="./assets/font/fontawesome-free-6.5.2-web/css/all.min.css"> -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
@@ -294,7 +296,34 @@
 
   <!-- footer  -->
   <script src="./assets/js/footer.js"></script>
-  <!--script chen header  -->
+  <c:if test="${addSuccess==true}">
+      
+  <div id="myModal" class="modal-success-add">
+    <div class=" modal-confirm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div class="icon-box">
+            <i class="material-icons">&#xE876;</i>
+          </div>				
+          <h4 class="modal-title w-100">Add Successfully!</h4>	
+        </div>
+        <div class="modal-body">
+          <p class="text-center">The product has been added to the cart.</p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn-accept-ok btn btn-success btn-block" data-dismiss="modal">OK</button>
+        </div>
+      </div>
+    </div>
+  </div>    
+       <%
+           request.setAttribute("addSuccess", false);
+           
+       %>
+  </c:if>
+  <%--<c:set var="sessionScope.addSuccess" value="false"></c:set>--%>
+  
+   
   <script>
 
 
@@ -376,7 +405,13 @@
       document.getElementById('dateInput').value = formattedDate;
       
       const dateInput = document.getElementById('dateInput');
+      
+      const modalMain = document.getElementById('myModal');
+      const btnAccept = document.querySelector('.btn-accept-ok');
 
+      modalMain.addEventListener('click', function(){
+        modalMain.classList.add('modal-success-add-close');
+      })
   </script>
 
 </body>

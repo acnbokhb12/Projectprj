@@ -12,12 +12,14 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/D:/f_code/PRJ301/Kahof/src/java/Controller/DetailFoodServlet.java</file>
             <file>file:/D:/f_code/PRJ301/Kahof/src/java/Controller/homeServlet.java</file>
+            <file>file:/D:/f_code/PRJ301/Kahof/src/java/Controller/addToCartServlet.java</file>
             <file>file:/D:/f_code/PRJ301/Kahof/src/java/Controller/ControllerServlet.java</file>
             <file>file:/D:/f_code/PRJ301/Kahof/src/java/dto/Food.java</file>
-            <file>file:/D:/f_code/PRJ301/Kahof/web/cart.jsp</file>
             <file>file:/D:/f_code/PRJ301/Kahof/src/java/Controller/editCartServlet.java</file>
-            <file>file:/D:/f_code/PRJ301/Kahof/src/java/dao/FoodDAO.java</file>
+            <file>file:/D:/f_code/PRJ301/Kahof/web/assets/css/product.css</file>
+            <file>file:/D:/f_code/PRJ301/Kahof/web/product.jsp</file>
         </group>
     </open-files>
 </project-private>

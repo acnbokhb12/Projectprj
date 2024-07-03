@@ -48,11 +48,8 @@ public class SearchFoodServlet extends HttpServlet {
                 request.setAttribute("ListFood", lfood);
                  request.setAttribute("ListCate", listCate);
                  request.setAttribute("txtS", nameS);
+            } 
                 request.getRequestDispatcher("ControllerServlet?action="+IConstant.MENUJSP).forward(request, response);
-            }else{
-               request.getRequestDispatcher("ControllerServlet?action="+IConstant.MENUJSP).forward(request, response);
-
-            }
         }
     } 
 

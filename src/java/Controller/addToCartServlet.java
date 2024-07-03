@@ -45,7 +45,8 @@ public class addToCartServlet extends HttpServlet {
             FoodDAO fd = new FoodDAO();
             ArrayList<Ingredient> ingr = fd.getIngredientsByFoodId(idFood);
             float totalPrice = fd.getTotalPriceIng(ingr);
-
+            boolean addsuccess = false;
+             HashMap <Integer ,String > listFstatus = fd.getFoodStatus();
             Food f = null;
             if (btnType.equals("Food")) {
                 f = fd.getFoodWithTypeAndIngredients(idFood, "Food");
@@ -81,16 +82,17 @@ public class addToCartServlet extends HttpServlet {
                     }
                     
                 } 
-               
+                addsuccess = true;
+                
+                session.setAttribute("cart", cartUser);
+                
+            }  
+                request.setAttribute("addSuccess", addsuccess);
                 request.setAttribute("Food", f);
                 request.setAttribute("ListIngr", ingr);
-                session.setAttribute("cart", cartUser);
+                 request.setAttribute("ListFoodStatus", listFstatus);
                 request.setAttribute("TotalPriceIng", totalPrice);
                 request.getRequestDispatcher("ControllerServlet?action=" + IConstant.DETAILFOOD).forward(request, response);
-            } else {
-                request.getRequestDispatcher("ControllerServlet?action=" + IConstant.MENUSERVLET).forward(request, response);
-
-            }
         }
     }
 

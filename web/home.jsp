@@ -204,7 +204,7 @@
                                     <h3>Chinese Cuisine</h3>
                                 </div>
                                 <div class="header-menu-item-price col-md-3">
-                                    <h3>300000 VND</h3>
+                                    <h3 class="price-food-weekly">300000  </h3>
                                 </div>
                             </div>
                         </a>
@@ -222,7 +222,7 @@
                                     <h3>Chinese Cuisine</h3>
                                 </div>
                                 <div class="header-menu-item-price col-md-3">
-                                    <h3>300000 VND</h3>
+                                    <h3 class="price-food-weekly">300000  </h3>
                                 </div>
                             </div>
                         </a>
@@ -241,7 +241,7 @@
 
                                 </div>
                                 <div class="header-menu-item-price col-md-3">
-                                    <h3>300000 VND</h3>
+                                    <h3 class="price-food-weekly">300000 VND</h3>
                                 </div>
                             </div>
                         </a>
@@ -259,7 +259,7 @@
                                     <h3>Chinese Cuisine</h3>
                                 </div>
                                 <div class="header-menu-item-price col-md-3">
-                                    <h3>300000 VND</h3>
+                                    <h3 class="price-food-weekly">300000 </h3>
                                 </div>
                             </div>
                         </a>
@@ -277,7 +277,7 @@
                                     <h3>Chinese Cuisine</h3>
                                 </div>
                                 <div class="header-menu-item-price col-md-3">
-                                    <h3>300000 VND</h3>
+                                    <h3 class="price-food-weekly">300000 </h3>
                                 </div>
                             </div>
                         </a>
@@ -296,7 +296,7 @@
                                     <h3>Chinese Cuisine</h3>
                                 </div>
                                 <div class="header-menu-item-price col-md-3">
-                                    <h3>300000 VND</h3>
+                                    <h3 class="price-food-weekly">300000 VND</h3>
                                 </div>
                             </div>
                         </a>
@@ -315,7 +315,7 @@
                                     <h3>Chinese Cuisine</h3>
                                 </div>
                                 <div class="header-menu-item-price col-md-3">
-                                    <h3>300000 VND</h3>
+                                    <h3 class="price-food-weekly">300000 </h3>
                                 </div>
                             </div>
                         </a>
@@ -336,7 +336,14 @@
     <!-- <div class="footer"></div> -->
     <!-- Footer -->
     <script src="./assets/js/footer.js"></script>
-    <script src="./assets/js/main.js"></script>
+    <script>
+         const priceweekly = document.querySelectorAll('.price-food-weekly');
+         priceweekly.forEach(function (element) {
+                let price = parseInt(element.innerText);
+                let formattedAmount = price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+                element.innerText = formattedAmount;
+            });
+    </script>
 </body>
 
 </html>

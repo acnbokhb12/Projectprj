@@ -227,7 +227,7 @@
                                     <h3 id="subtotal-quantity-price-item">${TotalProduct} </h3>
                                 </div>
                                 <div class="cart__about__checkout-btn col-md-4">
-                                    <a class="checkout-btn" href="checkout.html">Check Out </a>
+                                    <a class="checkout-btn" href="checkout.jsp">Check Out </a>
                                 </div>
 
                             </div>
