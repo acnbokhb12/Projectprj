@@ -20,7 +20,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author DELL
  */
-public class loginServlet extends HttpServlet {
+public class LoginServlet extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.

@@ -658,7 +658,8 @@
 .weekly__container__date {
     width: 82%;
     margin: 0 auto;
-    padding: 10px 0 20px;
+    padding: 116px 0 20px;
+    
 }
 
 .weekly__time-item {
@@ -727,8 +728,7 @@
 }
 
 .contain-food-weekly:hover .header-menu-item-img img {
-    transform: scale(1.1);
-    /* cursor: pointer; */
+    transform: scale(1.1);   
 }
 
 .header-menu-item-date {
@@ -757,6 +757,10 @@
     text-decoration: none;
 }
 
+.header-menu-item-date:hover .day-of-week {
+    text-decoration: none;
+}
+
 .header-menu-item-name,
 .header-menu-item-price {
     color: var(--black-color);
@@ -769,7 +773,13 @@
     transition: transform 0.4s ease;
 
 }
+.header-menu-item-name h3{
+    font-size: 2.2rem;
 
+}
+.price-food-weekly{
+    font-size: 2.2rem;
+}
 .contain-food-weekly:hover .header-menu-item-date h1,
 .contain-food-weekly:hover .header-menu-item-name,
 .contain-food-weekly:hover .header-menu-item-price {
@@ -828,7 +838,6 @@
 /* footer */
 .footer-distributed {
     background: #2b2a3f;
-    /* background-image: linear-gradient( 95.2deg, rgba(173,252,234,1) 26.8%, rgba(192,229,246,1) 64% ); */
     box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
     box-sizing: border-box;
     width: 100%;
@@ -1082,12 +1091,8 @@
 }
 
 .signin-user-body {
-    /* height: 60%; */
-    /* display: flex; */
-    /* justify-content: center; */
     margin: 0 10% 0 10%;
     position: relative;
-    /* padding-bottom: 22px; */
     padding: 10px 0 22px;
 }
 

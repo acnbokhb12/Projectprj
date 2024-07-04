@@ -19,7 +19,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author DELL
  */
-public class registerServlet extends HttpServlet {
+public class RegisterServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>

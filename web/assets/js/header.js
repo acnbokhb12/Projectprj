@@ -64,7 +64,7 @@ const headerHTML = `<header class="header ">
                     <div id="user-info" class="header__top-infor-welcome-user">
                         <div class="header__top-infor-intro">
 
-                            <p class="header__top-infor-welcome-name">
+                            <p class="header__top-infor-welcome-name" style="font-weight:600;">
                                 <i class="fa-solid fa-user"></i><span id="name-user-header">${user.name}</span>
                             </p>
                         </div>
@@ -83,11 +83,15 @@ const headerHTML = `<header class="header ">
                                 <section class="welcome-about-acc-body">
                                     <ul class="about-acc-header-list">
                                         <li class="about-acc-header-item">
+                                            <a href="weekly.jsp">
+                                                <i class="fa-solid fa-calendar-days"></i> My meal Plan
+                                            </a>
+                                        </li>    
+                                        <li class="about-acc-header-item">
                                             <a href='ControllerServlet?action=logout'>
                                                 <i class="fas fa-sign-out"></i> Log out
                                             </a>
                                         </li>
-
                                         <li class="about-acc-header-item">
                                             <a href="">
                                                 <i class="fa-regular fa-circle-question"></i> Support
@@ -116,7 +120,7 @@ const headerHTML = `<header class="header ">
                                 <li><a href="ControllerServlet?action=homeServlet">Home</a></li>
                                 <li><a href="about.jsp">About</a></li>
                                 <li><a href="ControllerServlet?action=menuServlet">Menu</a></li>
-                                <li><a href="weekly.jsp">Weekly</a></li>
+                                <li><a href="weeklymain.jsp">Weekly</a></li>
                                 <li><a href="contact.jsp">Contact</a></li>
 
                             </ul>
