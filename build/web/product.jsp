@@ -114,7 +114,7 @@
             </p>
             <!-- quantity buy product -->
             <div class="product__content__detail-form">
-              <form action="addToCartServlet" method="post">
+              <form action="AddProductToCartServlet" method="post">
                 <div class="product__detail-form-desc">
                   <h1>Quantity</h1>
                   <div class="product__detail-quantity-btn">

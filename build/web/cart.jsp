@@ -252,7 +252,7 @@
                                             Amissh bread
                                         </h1>
                                         <div class="modal__product-body-update-quantity">
-                                            <form action="editCartServlet" method="post">
+                                            <form action="EditProductCartServlet" method="post">
                                                 <input class="takeIdUpdate" type="hidden" name="txteditId" value="1">
                                                 <input class="tackTypeUpdate" type="hidden" name="txtType" value="Food">
                                                 <div class="product__detail-form-desc">
@@ -301,7 +301,7 @@
                                 </div>
                                 <div class="modal-footer justify-content-center">
                                     <button type="button" class="btn-cancel-delete btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                    <form action="editCartServlet" method="post">
+                                    <form action="EditProductCartServlet" method="post">
                                         <!-- value update-->
                                         <input class="takeIdDelete" type="hidden" name="txteditId" value="1">
                                         <input class="taketypeTodelete" type="hidden" name="txtType" value="Food">
@@ -324,7 +324,7 @@
                                     <!-- info -->
                                     <p class="mb-0">I think the below button is important. Hit this button and you will find a lot of interesting products on our "Shop" page</p>
                                     <!-- Button -->
-                                    <form action="menuServlet" method="post">                     
+                                    <form action="ManageMenuServlet" method="post">                     
                                         <button class="cssbuttons-io-button" type="submit">
                                             Back to Menu
 

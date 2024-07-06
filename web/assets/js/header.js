@@ -117,10 +117,10 @@ const headerHTML = `<header class="header ">
                         <span class="close-navbar-icon"><i class="fa-solid fa-xmark close-navbar-icon-btn"></i></span>
                         <div class="header__second-list col-lg-9 ">
                             <ul class="header-list-nav-page">
-                                <li><a href="ControllerServlet?action=homeServlet">Home</a></li>
+                                <li><a href="ControllerServlet?action=home">Home</a></li>
                                 <li><a href="about.jsp">About</a></li>
-                                <li><a href="ControllerServlet?action=menuServlet">Menu</a></li>
-                                <li><a href="weeklymain.jsp">Weekly</a></li>
+                                <li><a href="ControllerServlet?action=menu">Menu</a></li>
+                                <li><a href="ControllerServlet?action=weekly">Weekly</a></li>
                                 <li><a href="contact.jsp">Contact</a></li>
 
                             </ul>

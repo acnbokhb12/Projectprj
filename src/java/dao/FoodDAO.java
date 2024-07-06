@@ -9,6 +9,8 @@ import dto.Account;
 import dto.Categories;
 import dto.Food;
 import dto.Ingredient;
+import dto.WeeklyMenu;
+import dto.WeeklyMenuDetail;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -263,8 +265,8 @@ public class FoodDAO {
         return list;
     }
 
-      public ArrayList<Food> getNewFood() {
-         Connection cn = null;
+    public ArrayList<Food> getNewFood() {
+        Connection cn = null;
         PreparedStatement pst = null;
         ResultSet rs = null;
         ArrayList<Food> listFN = new ArrayList<>();
@@ -311,9 +313,15 @@ public class FoodDAO {
             e.printStackTrace();
         } finally {
             try {
-                if (rs != null) rs.close();
-                if (pst != null) pst.close();
-                if (cn != null) cn.close();
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pst != null) {
+                    pst.close();
+                }
+                if (cn != null) {
+                    cn.close();
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -344,6 +352,73 @@ public class FoodDAO {
                     float price = rs.getFloat("Price");
                     int status = rs.getInt("FStatusId");
                     food = new Food(id, image, name, desc, recipe, price, status);
+                }
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pst != null) {
+                    pst.close();
+                }
+                if (cn != null) {
+                    cn.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return food;
+    }
+
+    public Food getFoodbyIdWithIngr(String fid) {
+
+        Connection cn = null;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        Food food = null;
+
+        try {
+            cn = myLib.makeConnection();
+            if (cn != null) {
+                String sql = "SELECT  f.FoodId, f.FoodName,  f.FoodImage,   f.Description, f.Recipe, f.Price, f.FStatusId, ct.CategoryId,ct.CateImage,ct.CategoryName   \n"
+                        + "                                         from Food f left join FoodCate fd on f.FoodId = fd.FoodId   \n"
+                        + "                                            left join Categories ct on fd.CategoriesId = ct.CategoryId\n"
+                        + "											where f.FoodId = ?";
+                pst = cn.prepareStatement(sql);
+                pst.setString(1, fid);
+                rs = pst.executeQuery();
+                HashMap<Integer, Food> foodMap = new HashMap<>();
+
+                if (rs != null) {
+                    while (rs.next()) {
+                        int id = rs.getInt("FoodId");
+                        String image = rs.getString("FoodImage");
+                        String name = rs.getString("FoodName");
+                        String desc = rs.getString("Description");
+                        String recipe = rs.getString("Recipe");
+                        float price = rs.getFloat("Price");
+                        int status = rs.getInt("FStatusId");
+
+                        food = foodMap.get(id);
+                        if (food == null) {
+                            food = new Food(id, image, name, desc, recipe, price, status);
+                            foodMap.put(id, food);
+                        }
+
+                        int cateId = rs.getInt("CategoryId");
+                        String cateImg = rs.getString("CateImage");
+                        String cateName = rs.getString("CategoryName");
+                        if (cateName != null) {
+                            Categories cat = new Categories(cateId, cateImg, cateName);
+                            food.getCategories().add(cat);
+                        }
+                    }
+
                 }
 
             }
@@ -407,7 +482,7 @@ public class FoodDAO {
                         String ingUnit = rs.getString("Unit");
                         float ingPrice = rs.getFloat("ingPrice");
                         if (ingId != 0 && ingPrice != 0) {
-                            Ingredient ingredient = new Ingredient(id,ingId, ingImg, ingName, ingQuantity, ingUnit, ingPrice);
+                            Ingredient ingredient = new Ingredient(id, ingId, ingImg, ingName, ingQuantity, ingUnit, ingPrice);
                             food.getListingredients().add(ingredient);
                         }
                     }
@@ -493,29 +568,28 @@ public class FoodDAO {
         }
         return total;
     }
-    
-    public HashMap<Integer, String> getFoodStatus (){
-        HashMap<Integer,String> listStatus = new  HashMap<>();
-        
-         Connection cn = null;
+
+    public HashMap<Integer, String> getFoodStatus() {
+        HashMap<Integer, String> listStatus = new HashMap<>();
+
+        Connection cn = null;
         PreparedStatement pst = null;
         ResultSet rs = null;
-      
-       
+
         try {
             cn = myLib.makeConnection();
-            if(cn!=null){            
+            if (cn != null) {
                 String sql = "select [FStatusId],[FStatus] from [dbo].[FoodStatus] ";
                 pst = cn.prepareStatement(sql);
                 rs = pst.executeQuery();
-                if(rs!=null){
-                    while (rs.next()) {                        
+                if (rs != null) {
+                    while (rs.next()) {
                         int fStatusId = rs.getInt("FStatusId");
                         String fStatusName = rs.getString("FStatus");
                         listStatus.put(fStatusId, fStatusName);
                     }
                 }
-                
+
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -534,18 +608,227 @@ public class FoodDAO {
                 e.printStackTrace();
             }
         }
-        return  listStatus;
+        return listStatus;
     }
-    
+
+    public ArrayList<WeeklyMenu> getAllWeeklyMenu() {
+        ArrayList<WeeklyMenu> listWeeklyMenu = new ArrayList<>();
+
+        Connection cn = null;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+
+        try {
+            cn = myLib.makeConnection();
+            if (cn != null) {
+                String sql = "select [MenuId],[MenuName],[MenuImg]\n"
+                        + "from  [dbo].[WeeklyMenu]";
+                pst = cn.prepareStatement(sql);
+                rs = pst.executeQuery();
+                float totalWeekLyMenu = 0;
+                if (rs != null) {
+                    while (rs.next()) {
+                        WeeklyMenu wm = new WeeklyMenu();
+                        int mId = rs.getInt("MenuId");
+                        String mName = rs.getString("MenuName");
+                        String mImg = rs.getString("MenuImg");
+                        wm.setMenuId(mId);
+                        wm.setMenuName(mName);
+                        wm.setMenuImg(mImg);
+
+                        //Lay danh sach weekly detai
+                        String sql2 = "select  [MenuId],[DOW],[FoodId],[SessionId]\n"
+                                + "from  [dbo].[WeeklyMenuDetail]\n"
+                                + "where [MenuId] = ?";
+                        PreparedStatement pst2 = cn.prepareStatement(sql2);
+                        pst2.setInt(1, mId);
+                        ResultSet rs2 = pst2.executeQuery();
+
+                        if (rs2 != null) {
+                            while (rs2.next()) {
+                                int mIdDe = rs2.getInt("MenuId");
+                                int dow = rs2.getInt("DOW");
+                                int fid = rs2.getInt("FoodId");
+                                int sessId = rs2.getInt("SessionId");
+
+                                WeeklyMenuDetail wmd = new WeeklyMenuDetail(mIdDe, dow, fid, sessId);
+
+                                wm.addWeeklyDetail(wmd);
+                            }
+                        }
+
+                        float total = 0;
+                        for (WeeklyMenuDetail wmdl : wm.getDetailWeekMenu()) {
+                            Food food = getFoodById(String.valueOf(wmdl.getFoodIdW()));
+                            total += food.getPrice();
+                        }
+                        wm.setPriceTotalWeek(total);
+                        listWeeklyMenu.add(wm);
+                    }
+                }
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pst != null) {
+                    pst.close();
+                }
+                if (cn != null) {
+                    cn.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return listWeeklyMenu;
+    }
+
+    public HashMap<Integer, ArrayList<Food>> getAllWeeklyMenuDetail(String menuid) {
+//        ArrayList<WeeklyMenu> listWeeklyMenu = new ArrayList<>();
+
+        Connection cn = null;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        HashMap<Integer, ArrayList<Food>> hashmenu = new HashMap<>();
+        try {
+            cn = myLib.makeConnection();
+            if (cn != null) {
+                String sql = "	 select [MenuId],[DOW] ,[FoodId],[SessionId]\n"
+                        + "	 from  [dbo].[WeeklyMenuDetail]  \n"
+                        + "      where  [MenuId] = ? ";
+                pst = cn.prepareStatement(sql);
+                pst.setString(1, menuid);
+                rs = pst.executeQuery();
+                if (rs != null) {
+                    while (rs.next()) {
+                        int menuidWeek = rs.getInt("MenuId");
+                        int dow = rs.getInt("DOW");
+                        int fid = rs.getInt("FoodId");
+                        int sessionid = rs.getInt("SessionId");
+
+                        Food fp = getFoodbyIdWithIngr(String.valueOf(fid));
+                        if (!hashmenu.containsKey(dow)) {
+                            ArrayList<Food> f = new ArrayList<>();
+                            hashmenu.put(dow, f);
+                        }
+                        hashmenu.get(dow).add(fp);
+
+                    }
+                }
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pst != null) {
+                    pst.close();
+                }
+                if (cn != null) {
+                    cn.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return hashmenu;
+    }
+
+    public ArrayList<WeeklyMenu> searchWeeklyMenu(String txtNameW) {
+        ArrayList<WeeklyMenu> listWeeklyMenu = new ArrayList<>();
+
+        Connection cn = null;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+
+        try {
+            cn = myLib.makeConnection();
+            if (cn != null) {
+                String sql = "select [MenuId],[MenuName],[MenuImg]\n"
+                        + "from  [dbo].[WeeklyMenu]\n"
+                        + "where [MenuName] like ?";
+                pst = cn.prepareStatement(sql);
+                pst.setString(1, "%" + txtNameW + "%");
+                rs = pst.executeQuery();
+              
+                if (rs != null) {
+                    while (rs.next()) {
+                        WeeklyMenu wm = new WeeklyMenu();
+                        int mId = rs.getInt("MenuId");
+                        String mName = rs.getString("MenuName");
+                        String mImg = rs.getString("MenuImg");
+                        wm.setMenuId(mId);
+                        wm.setMenuName(mName);
+                        wm.setMenuImg(mImg);
+
+                        //Lay danh sach weekly detai
+                        String sql2 = "select  [MenuId],[DOW],[FoodId],[SessionId]\n"
+                                + "from  [dbo].[WeeklyMenuDetail]\n"
+                                + "where [MenuId] = ?";
+                        PreparedStatement pst2 = cn.prepareStatement(sql2);
+                        pst2.setInt(1, mId);
+                        ResultSet rs2 = pst2.executeQuery();
+
+                        if (rs2 != null) {
+                            while (rs2.next()) {
+                                int mIdDe = rs2.getInt("MenuId");
+                                int dow = rs2.getInt("DOW");
+                                int fid = rs2.getInt("FoodId");
+                                int sessId = rs2.getInt("SessionId");
+
+                                WeeklyMenuDetail wmd = new WeeklyMenuDetail(mIdDe, dow, fid, sessId);
+
+                                wm.addWeeklyDetail(wmd);
+                            }
+                        }
+
+                        float total = 0;
+                        for (WeeklyMenuDetail wmdl : wm.getDetailWeekMenu()) {
+                            Food food = getFoodById(String.valueOf(wmdl.getFoodIdW()));
+                            total += food.getPrice();
+                        }
+                        wm.setPriceTotalWeek(total);
+                        listWeeklyMenu.add(wm);
+                    }
+                }
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pst != null) {
+                    pst.close();
+                }
+                if (cn != null) {
+                    cn.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return listWeeklyMenu;
+    }
+
     public static void main(String[] args) {
         FoodDAO fd = new FoodDAO();
         String a = "10";
         ArrayList<Food> ing = fd.searchFoodByName("dri");
         ArrayList<Food> f = fd.getNewFood();
-        HashMap <Integer ,String > listFst = fd.getFoodStatus();
-        for(Food as :  f ){
-            
-        System.out.println(as);
-        }
+        HashMap<Integer, String> listFst = fd.getFoodStatus();
+        ArrayList<WeeklyMenu> lmn = fd.getAllWeeklyMenu();
+        Food fdddd = fd.getFoodbyIdWithIngr(a);
+        System.out.println(fdddd);
     }
 }

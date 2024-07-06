@@ -151,7 +151,7 @@
                 <div class="menu-search-item">
 
 
-                    <form action="SearchFoodServlet" method="post">
+                    <form action="ManageMenuServlet" method="post">
                         <input type="text" value="${txtS}" class="menu-search-find-input" name="txtnamesearch" placeholder="Search">
                         <button type="submit" class="menu-search-find-btn"><i class="fas fa-search"></i> </button>
                     </form>

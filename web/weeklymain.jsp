@@ -4,6 +4,7 @@
     Author     : DELL
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="dto.Account"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -62,8 +63,8 @@
             </div>
             <div class="container__slider-menu-search">
                 <div class="menu-search-item">
-                  <form action="" method="post">
-                    <input type="text" class="menu-search-find-input" placeholder="Search...">
+                  <form action="ManageWeeklyMenuServlet" method="post">
+                      <input type="text" class="menu-search-find-input" name="txtmenuweeklySearch" value="${NameWeekSearch}" placeholder="Search...">
                     <button type="submit" class="menu-search-find-btn"><i class="fas fa-search"></i> </button>
                   </form>
                 </div>
@@ -92,22 +93,24 @@
                     </div>
                 </div>
                 <div class="weekly-body-menu">
-                    
-                    <a href="weeklydetail.jsp" class="contain-food-weekly">
+                     <c:forEach items="${WeekMenu}" var="wm">
+                        
+                    <a href="ManageWeeklyDetailServlet?mid=${wm.menuId}" class="contain-food-weekly">
                         <div class="weekly-body-header-menu row">
                            
                             <div class="header-menu-item-img col-md-4">
-                                <img src="https://www.thespruceeats.com/thmb/zdOpgFEZzWh4OJA4BFJnherE83M=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/Greeksalad-GettyImages-123668796-592188af3df78cf5fa0be1f5.jpg"
+                                <img src="${wm.menuImg}"
                                     alt="">
                             </div>
                             <div class="header-menu-item-name col-md-4">
-                                <h3>Horiatiki salata</h3>
+                                <h3>${wm.menuName}</h3>
                             </div>
                             <div class="header-menu-item-price col-md-4">
-                                <h3 class="price-food-weekly">140000</h3>
+                                <h3 class="price-food-weekly">${wm.priceTotalWeek}</h3>
                             </div>
                         </div>
                     </a>               
+                    </c:forEach>
                 </div>
             </div>
         </div>

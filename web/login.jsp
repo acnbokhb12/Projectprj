@@ -44,7 +44,7 @@
                         <p class="signin-header-desc">Enter your Information to access your account</p>
                     </header>
                     <div class="signin-user-body">
-                        <form action="LoginServlet" class="form" id="form1" method="post">
+                        <form action="ControllerServlet?action=login" class="form" id="form1" method="post">
                             <!-- username -->
                             <label for="email-log" class="label-title-infor"><i
                                     class="fa-solid fa-envelope"></i></i>Email</label><br>

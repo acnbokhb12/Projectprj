@@ -6,6 +6,7 @@
 
 <%@page import="dto.Account"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -68,19 +69,23 @@
                     <div class="header-title-item col-md-3 ">
                         <h3 style="background-image: linear-gradient(109.6deg, rgba(156, 252, 248, 1) 11.2%, rgba(110, 123, 251, 1) 91.1%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; color: transparent; opacity: 1;">Date</h3>
                     </div>
-                    <div class="header-title-item col-md-3">
+                    <div class="header-title-item col-sm-4 col-md-3">
                         <h3>Breakfast</h3>
                     </div>
-                    <div class="header-title-item col-md-3">
+                    <div class="header-title-item col-sm-4 col-md-3">
                         <h3>Lunch</h3>
                     </div>
-                    <div class="header-title-item col-md-3">
+                    <div class="header-title-item col-sm-4 col-md-3">
                         <h3>Dinner</h3>
                     </div>
                 </div>
                 <div class="weekly-body-menu">
                     <div class="contain-food-weekly">
-
+                         
+                        
+                        <c:forEach items="${hashMenu}" var="entry">
+                            
+                         
                         <!-- cai the row nay contain 1 day va bao gom 3 bua -->
                         <div class="weekly-body-header-menu row">
                              <!-- The dau nay la cho Day 1,2,3... -->
@@ -88,64 +93,49 @@
                                 <a href="#" class="flip-card">
                                     <div class="flip-card-inner">
                                         <div class="flip-card-front">                       
-                                            <p class="title" style="height: auto; line-height: normal; font-size: 3rem;">Day <span>1</span></p>                              
+                                            <p class="title" style="height: auto; line-height: normal; font-size: 3rem;">Day <span>${entry.key}</span></p>                              
                                         </div>
                                         <div class="flip-card-back">
                                             <p class="title">Total</p>
-                                            <p class="price-detailfood-date">300000</p>
+                                            <c:set var="totalPriceDay" value="0"></c:set>
+                                            <c:forEach items="${entry.value}" var="fp" >
+                                               <c:set var="totalPriceDay" value="${totalPriceDay+ fp.price}"></c:set>
+                                            </c:forEach>
+
+                                            <p class="price-detailfood-date">${totalPriceDay}</p>
                                         </div>
                                     </div>
                                 </a>
                              </div>
                              <!-- 3 the voi col-md-3 nay la 3 bua breakfast , luch,...-->
-                             <div class="container-infor-fooditem col-md-3" >
-                                <a href="#" class="flip-card">
+                             <c:forEach items="${entry.value}" var="f" >
+                                 
+                             <div class="container-infor-fooditem col-sm-4 col-md-3" >
+                                <a href="DetailFoodServlet?fid=${f.foodId}" class="flip-card">
                                     <div class="flip-card-inner">
                                         <div class="flip-card-front">
-                                            <img src="https://www.thespruceeats.com/thmb/t4lCYagGImoWlxPtNTGO9LyzFcE=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/SES-chawanmushi-2031018-b28c243bca854d51a259c0ab4ce6e64f.jpg" alt="">
-                                            <p class="title">chawanmushi</p>
+                                            <img src="${f.image}" alt="">
+                                            <p class="title">${f.name}</p>
                                             <!-- <p>Hover Me</p> -->
                                         </div>
                                         <div class="flip-card-back">
-                                            <p class="title">soup</p>
-                                            <p class="price-detailfood-date">300000</p>
+                                            <c:forEach items="${f.categories}" var="cat">
+                                                
+                                            <p class="title">-${cat.categoriesName} </p>
+                                            </c:forEach>
+                                                
+                                            
+                                            <p class="price-detailfood-date">${f.price}</p>
                                         </div>
                                     </div>
                                 </a>
                              </div>
-                             <div class="container-infor-fooditem col-md-3" >
-                                <a href="#" class="flip-card">
-                                    <div class="flip-card-inner">
-                                        <div class="flip-card-front">
-                                            <img src="https://www.salepepe.it/files/2014/06/bigoli-sugo-anatra.jpg" alt="">
-                                            <p class="title">Bigoli con l'anatra</p>
-                                            <!-- <p>Hover Me</p> -->
-                                        </div>
-                                        <div class="flip-card-back">
-                                            <p class="title">pasta</p>
-                                            <p class="price-detailfood-date">160000</p>
-                                        </div>
-                                    </div>
-                                </a>
-                             </div>
-                             <div class="container-infor-fooditem col-md-3" >
-                                <a href="#" class="flip-card">
-                                    <div class="flip-card-inner">
-                                        <div class="flip-card-front">
-                                            <img src="https://www.jocooks.com/wp-content/uploads/2020/06/chicken-gyros-1-14.jpg" alt="">
-                                            <p class="title">Gyros</p>
-                                            <!-- <p>Hover Me</p> -->
-                                        </div>
-                                        <div class="flip-card-back">
-                                            <p class="title">appentizer</p>
-                                            <p class="price-detailfood-date">200000</p>
-                                        </div>
-                                    </div>
-                                </a>
-                             </div>
+                             </c:forEach>
+                             
                             <!-- dong 3 the  -->   
                         </div>
-                        
+                       </c:forEach>
+
                     </div>
                 
                 </div>

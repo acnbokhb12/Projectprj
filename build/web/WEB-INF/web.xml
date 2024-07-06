@@ -9,16 +9,16 @@
         <servlet-class>Controller.LogoutServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>menuServlet</servlet-name>
-        <servlet-class>Controller.menuServlet</servlet-class>
+        <servlet-name>ManageMenuServlet</servlet-name>
+        <servlet-class>Controller.ManageMenuServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ManageCategoriesServlet</servlet-name>
         <servlet-class>Controller.ManageCategoriesServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>homeServlet</servlet-name>
-        <servlet-class>Controller.homeServlet</servlet-class>
+        <servlet-name>ManageHomeServlet</servlet-name>
+        <servlet-class>Controller.ManageHomeServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>DetailFoodServlet</servlet-name>
@@ -37,16 +37,24 @@
         <servlet-class>Controller.ControllerServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>addToCartServlet</servlet-name>
-        <servlet-class>Controller.addToCartServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>manageCartServlet</servlet-name>
         <servlet-class>Controller.manageCartServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>editCartServlet</servlet-name>
-        <servlet-class>Controller.editCartServlet</servlet-class>
+        <servlet-name>AddProductToCartServlet</servlet-name>
+        <servlet-class>Controller.AddProductToCartServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditProductCartServlet</servlet-name>
+        <servlet-class>Controller.EditProductCartServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ManageWeeklyMenuServlet</servlet-name>
+        <servlet-class>Controller.ManageWeeklyMenuServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ManageWeeklyDetailServlet</servlet-name>
+        <servlet-class>Controller.ManageWeeklyDetailServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
@@ -57,16 +65,16 @@
         <url-pattern>/LogoutServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>menuServlet</servlet-name>
-        <url-pattern>/menuServlet</url-pattern>
+        <servlet-name>ManageMenuServlet</servlet-name>
+        <url-pattern>/ManageMenuServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ManageCategoriesServlet</servlet-name>
         <url-pattern>/ManageCategoriesServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>homeServlet</servlet-name>
-        <url-pattern>/homeServlet</url-pattern>
+        <servlet-name>ManageHomeServlet</servlet-name>
+        <url-pattern>/ManageHomeServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>DetailFoodServlet</servlet-name>
@@ -85,16 +93,24 @@
         <url-pattern>/ControllerServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>addToCartServlet</servlet-name>
-        <url-pattern>/addToCartServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>manageCartServlet</servlet-name>
         <url-pattern>/manageCartServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>editCartServlet</servlet-name>
-        <url-pattern>/editCartServlet</url-pattern>
+        <servlet-name>AddProductToCartServlet</servlet-name>
+        <url-pattern>/AddProductToCartServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditProductCartServlet</servlet-name>
+        <url-pattern>/EditProductCartServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManageWeeklyMenuServlet</servlet-name>
+        <url-pattern>/ManageWeeklyMenuServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManageWeeklyDetailServlet</servlet-name>
+        <url-pattern>/ManageWeeklyDetailServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

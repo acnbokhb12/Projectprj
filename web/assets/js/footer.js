@@ -6,11 +6,11 @@ document.addEventListener("DOMContentLoaded", function() {
             <h3>Make Or <span>Made</span></h3>
 
             <p class="footer-links">
-                <a href="ControllerServlet?action=homeServlet" class="link-1">Home</a>
+                <a href="ControllerServlet?action=home" class="link-1">Home</a>
 
                 <a href="about.jsp">About </a>
 
-                <a href="ControllerServlet?action=menuServlet">Menu</a>
+                <a href="ControllerServlet?action=menu">Menu</a>
 
                 <a href="weekly.jsp">Weekly</a>
 

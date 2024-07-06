@@ -44,7 +44,7 @@ public class ControllerServlet extends HttpServlet {
                     url = "home.jsp";
                     break;
                 case IConstant.HOME:
-                    url = "homeServlet";
+                    url = "ManageHomeServlet";
                     break;
                 case IConstant.REGISTERJSP:
                     url = "register.jsp";
@@ -65,7 +65,7 @@ public class ControllerServlet extends HttpServlet {
                     url = "menu.jsp";
                     break;
                 case IConstant.MENUSERVLET:
-                    url = "menuServlet";
+                    url = "ManageMenuServlet";
                     break;
                 case IConstant.MANAGECATEGORIES:
                     url = "ManageCategoriesServlet";
@@ -78,10 +78,19 @@ public class ControllerServlet extends HttpServlet {
                     break;
                 case IConstant.CART:
                     url = "cart.jsp";
+                    break;
+                case IConstant.MANAGEWEEKLYMENU:
+                    url="ManageWeeklyMenuServlet";
+                    break;
+                case IConstant.WEEKLYMAINJSP:
+                    url= "weeklymain.jsp";
+                    break;
+                case IConstant.MENUDETAILJSP:
+                    url= "weeklydetail.jsp";
                     break;    
                 default:
                     // If no matching action is found, set a default URL
-                    url = "home.jsp";
+                    url = "ManageHomeServlet";
                     break;
             }
              
