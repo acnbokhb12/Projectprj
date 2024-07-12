@@ -6,6 +6,7 @@
 
 <%@page import="dto.Account"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -105,8 +106,41 @@
 
             <!-- </div> -->
         </div>
+        <div class="btn-save-weekly container">
+        <button class="learn-more">
+            <a href="SaveMealPlanServlet" class="text-capitalize">Save Meal</a>
+        </button>
+
     </div>
+    </div>
+     
     <script src="./assets/js/footer.js"></script>
+     <script>
+        var eventsArr = [
+        <c:forEach items="${sessionScope.dateFood}" var="en" varStatus="status">
+            {
+                day: parseInt("${en.key}".substring(8, 10)), // assuming the key is a date in 'yyyy-MM-dd' format
+                month: parseInt("${en.key}".substring(5, 7)),
+                year: parseInt("${en.key}".substring(0, 4)),
+                events: [
+                    <c:forEach items="${en.value}" var="f" varStatus="innerStatus">
+                        {
+                            id: "${f.foodId}",
+                            img: "${f.image}",
+                            name: "${f.name}",
+                             <c:forEach items="${f.categories}" var="ca">
+                              cate: "${ca.categoriesName}",
+                            </c:forEach>
+                        }<c:if test="${!innerStatus.last}">,</c:if>
+                    </c:forEach>
+                ]
+            }<c:if test="${!status.last}">,</c:if>
+        </c:forEach>
+    ];
+    
+    console.log("eventsArr:", eventsArr); // Output eventsArr to console for debugging
+</script>
+
     <script src="./assets/js/calendar.js">
         
     </script>

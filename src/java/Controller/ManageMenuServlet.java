@@ -40,7 +40,7 @@ public class ManageMenuServlet extends HttpServlet {
             request.setCharacterEncoding("UTF-8");
             String nameS = request.getParameter("txtnamesearch");
             FoodDAO fd = new FoodDAO();
-            ArrayList<Food> list = null;
+            ArrayList<Food> list = new ArrayList<>();
             ArrayList<Categories> listCate = fd.getlistCategories();
             HashMap<Integer, String> listFstatus = fd.getFoodStatus();
             if (nameS != null) {

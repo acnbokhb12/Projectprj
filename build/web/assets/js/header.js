@@ -83,15 +83,15 @@ const headerHTML = `<header class="header ">
                                 <section class="welcome-about-acc-body">
                                     <ul class="about-acc-header-list">
                                         <li class="about-acc-header-item">
-                                            <a href="ControllerServlet?action=OrderHistory&acId=${user.accid}">
-                                                <i class="fa-solid fa-eye"></i> Order History
-                                            </a>
-                                        </li>
-                                        <li class="about-acc-header-item">
-                                            <a href="weekly.jsp">
+                                            <a href="AddToMealPlanServlet">
                                                 <i class="fa-solid fa-calendar-days"></i> My meal Plan
                                             </a>
                                         </li>    
+                                        <li class="about-acc-header-item">
+                                            <a href="ControllerServlet?action=OrderHistory">
+                                                <i class="fa-solid fa-eye"></i> Order History
+                                            </a>
+                                        </li>
                                         <li class="about-acc-header-item">
                                             <a href='ControllerServlet?action=logout'>
                                                 <i class="fas fa-sign-out"></i> Log out

@@ -181,7 +181,233 @@
     </div>
     <script src="./assets/js/footer.js"></script>
     <style>
-       
+       .main-order {
+    padding-top: 116px;
+}
+
+.row-title-order h1 {
+    font-size: 3.4rem;
+    font-weight: 700;
+}
+
+.container-order-history {
+    padding: 24px;
+}
+
+.card-body {
+    padding: 24px;
+    border-radius: 8px;
+}
+.desc-infor-order-product{
+    /*justify-content: space-around;*/
+}
+.title-order-history>h4 {
+    font-size: 2.6rem;
+}
+
+.title-order-history>p {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+}
+
+.name-order-date {
+    font-size: 1.8rem;
+}
+
+.name-order-date>h5 {
+    font-size: 1.8rem;
+    margin-right: 12px;
+    background-color: var(--orange-color);
+    padding: 2px 6px;
+    border-radius: 8px;
+}
+.cotain-img-order-detail{
+     height: 140px;
+    width: 40%;
+    overflow: auto;
+}
+.cotain-img-order-detail img {
+    width: 100%;
+    height: 140px;
+    border-radius: 10px;
+    background-position: center;
+    background-size: cover;
+    object-fit: cover;
+}
+
+.contain-description-order-detail {
+    margin-left: 4rem;
+    font-size: 1.6rem;
+}
+
+.contain-description-order-detail>h5 {
+    font-size: 2rem;
+    /* font-weight: 700; */
+    text-transform: capitalize;
+}
+
+.contain-type-qty {
+    text-transform: capitalize;
+
+    padding: 1px 1px;
+
+}
+
+.contain-price-order-detail {
+    margin-top: 20px;
+}
+
+.contain-price-order-detail>h4 {
+    font-size: 2rem;
+}
+.contain-status-order-detail{
+    /*margin-left: 10rem;*/
+    display: flex;
+    /*flex-direction: column;*/
+    justify-content: space-around;
+   
+}
+.contain-status-order-detail h5{
+    font-size: 1.8rem
+}
+.contain-status-order-detail h5:first-child{
+    color: #888;
+    margin-right: 10px;
+}
+.contain-subtotal-order-detail{
+    margin-left: 5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    
+}
+.contain-subtotal-order-detail h5{
+    font-size: 2rem
+}
+/* nut */
+.btn-buy-again {
+    background-color: #00BFA6;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    cursor: pointer;
+    border-radius: 10px;
+    border: 2px dashed #00BFA6;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    transition: .4s;
+}
+
+.btn-buy-again>a {
+    color: #fff;
+    font-weight: 700;
+    font-size: 1.2rem;
+    display: block;
+    padding: 8px 20px;
+    text-decoration: none;
+}
+
+.btn-buy-again span:last-child {
+    display: none;
+}
+
+.btn-buy-again:hover {
+    transition: .4s;
+    border: 2px dashed #00BFA6;
+    background-color: #fff;
+    color: #00BFA6;
+}
+
+.btn-buy-again:hover a {
+    color: #00BFA6;
+
+}
+
+.btn-buy-again:active {
+    background-color: #87dbd0;
+}
+.status-onhold {
+        color: yellow;
+    }
+    .status-processing {
+        color: blue;
+    }
+ .status-delivering {
+        color: orange;
+    }
+    .status-success {
+        color: green;
+    }
+    .status-canceled {
+        color: red;
+    }
+    .grand-total-order-detail{
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+    }
+    .grand-total-order-detail h1:first-child {
+        margin-right: 10px;
+        background-color: #00BFA6;
+        padding: 4px 10px;
+        border-radius: 8px;
+        color: #fff;
+    }
+
+    @media screen and (max-width:992px) {
+        .contain-status-order-detail{
+            justify-content: flex-start;
+            margin-top: 10px;   
+        }
+        .btn-buy-again{
+            margin-top: 12px;
+        }
+    }
+
+@media screen and (max-width:768px) {
+    .post-entry-aboutus h1{
+        font-size: 5rem;
+    }
+    .post-entry-aboutus p{
+        font-size: 1.4rem;
+    }
+    .item-desc-intro{
+        flex-direction: column;
+    }
+    .space-betw{
+        display: block;
+        width: 100%;
+        height: 30px;
+    }
+    .img-first{
+        width: 100%;
+        height: 450px;
+    }
+    .text-desc{
+        width: 100%;
+        padding: 30px;
+    }
+    .img-first-secondchild{
+        order: 1;
+    }
+    .text-first-secondchild{
+        order: 2;
+    }
+    .contain-description-order-detail {
+        margin-left: 0;
+    }    
+    .contain-status-order-detail{
+        margin-left: 0;
+    }
+    .contain-subtotal-order-detail{
+        margin-left: 0;
+        flex-direction: row;
+        justify-content: flex-start;
+    }
+    .contain-subtotal-order-detail h5:last-child{
+        margin-left: 10px;
+        
+    }
+}
     </style>
     <script>
         const priceElements = document.querySelectorAll('.price-detail-product');

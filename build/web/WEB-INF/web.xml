@@ -60,6 +60,18 @@
         <servlet-name>OrderHistoryServlet</servlet-name>
         <servlet-class>Controller.OrderHistoryServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddToMealPlanServlet</servlet-name>
+        <servlet-class>Controller.AddToMealPlanServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SaveMealPlanServlet</servlet-name>
+        <servlet-class>Controller.SaveMealPlanServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteMealPlanSessionServlet</servlet-name>
+        <servlet-class>Controller.DeleteMealPlanSessionServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
@@ -119,6 +131,18 @@
     <servlet-mapping>
         <servlet-name>OrderHistoryServlet</servlet-name>
         <url-pattern>/OrderHistoryServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddToMealPlanServlet</servlet-name>
+        <url-pattern>/AddToMealPlanServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SaveMealPlanServlet</servlet-name>
+        <url-pattern>/SaveMealPlanServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteMealPlanSessionServlet</servlet-name>
+        <url-pattern>/DeleteMealPlanSessionServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

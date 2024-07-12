@@ -20,47 +20,7 @@ const calendar = document.querySelector('.calendar__weekly'),
             "January", "February", "March", "April", "May", "June",
             "July", "August", "September", "October", "November", "December"
         ];
-        const eventsArr = [
-            {
-                day: 20,
-                month: 6,
-                year: 2024,
-
-                events: [
-                    {
-                        id: "4",
-                        img: "https://www.allrecipes.com/thmb/CjzJwg2pACUzGODdxJL1BJDRx9Y=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/6788-amish-white-bread-DDMFS-4x3-6faa1e552bdb4f6eabdd7791e59b3c84.jpg",
-                        name: "Amish bread",
-                        cate: "Bread"
-                    },
-                    {
-                        id: "5",
-                        img: "",
-                        name: "Amish bread",
-                        cate: "Bread"
-                    }
-                ]
-            },
-            {
-                day: 30,
-                month: 5,
-                year: 2024,
-                events: [
-                    {
-                        id: "1",
-                        img: "https://www.allrecipes.com/thmb/CjzJwg2pACUzGODdxJL1BJDRx9Y=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/6788-amish-white-bread-DDMFS-4x3-6faa1e552bdb4f6eabdd7791e59b3c84.jpg",
-                        name: "Amish bread",
-                        cate: "Bread"
-                    },
-                    {
-                        id: "3",
-                        img: "https://www.allrecipes.com/thmb/CjzJwg2pACUzGODdxJL1BJDRx9Y=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/6788-amish-white-bread-DDMFS-4x3-6faa1e552bdb4f6eabdd7791e59b3c84.jpg",
-                        name: "Amish bread",
-                        cate: "Bread"
-                    }
-                ]
-            }
-        ];
+        
         // function to add days
         function initCalendar() {
             const firstDay = new Date(year, month, 1);
@@ -328,34 +288,60 @@ const calendar = document.querySelector('.calendar__weekly'),
         // const btndelete = document.querySelectorAll('.delete-food-weekly');
 
         eventsContainer.addEventListener("click", (e) => {
-            if (e.target.classList.contains("event")) {
+    if (e.target.classList.contains("event")) {
+        if (confirm("Are you sure you want to delete this event?")) {
+            const eventId = e.target.children[0].innerHTML;
+            const idfood = eventId;
+            let dateNeedToDelete = '';
 
-                if (confirm("Are you sure you want to delete this event?")) {
-                    const eventId = e.target.children[0].innerHTML;
+            eventsArr.forEach((event) => {
+                if (
+                    event.day === activeDay &&
+                    event.month === month + 1 &&
+                    event.year === year
+                ) {
+                    const formattedMonth = String(event.month).padStart(2, '0');
+                    const formattedDay = String(event.day).padStart(2, '0');
+                    dateNeedToDelete = `${event.year}-${formattedMonth}-${formattedDay}`;
 
-                    eventsArr.forEach((event) => {
-                        if (
-                            event.day === activeDay &&
-                            event.month === month + 1 &&
-                            event.year === year
-                        ) {
-                            event.events.forEach((item, index) => {
-                                if (item.id === eventId) {
-                                    event.events.splice(index, 1);
-                                }
-                            });
-                            //if no events left in a day then remove that day from eventsArr
-                            if (event.events.length === 0) {
-                                eventsArr.splice(eventsArr.indexOf(event), 1);
-                                //remove event class from day
-                                const activeDayEl = document.querySelector(".day-item.active");
-                                if (activeDayEl.classList.contains("calendar-event")) {
-                                      activeDayEl.classList.remove("calendar-event");
-                                }
-                            }
+                    event.events.forEach((item, index) => {
+                        if (item.id === eventId) {
+                            // event.events.splice(index, 1);
                         }
                     });
-                    updateEvents(activeDay);
+
+                    // If no events left in a day then remove that day from eventsArr
+                    if (event.events.length === 0) {
+                        eventsArr.splice(eventsArr.indexOf(event), 1);
+                        // Remove event class from day
+                        const activeDayEl = document.querySelector(".day-item.active");
+                        if (activeDayEl.classList.contains("calendar-event")) {
+                            activeDayEl.classList.remove("calendar-event");
+                        }
+                    }
                 }
-            }
-        });
+            });
+
+            updateEvents(activeDay);
+
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = 'DeleteMealPlanSessionServlet';
+
+            const input1 = document.createElement('input');
+            input1.type = 'hidden';
+            input1.name = 'Foodid';
+            input1.value = idfood;
+            form.appendChild(input1);
+
+            const input2 = document.createElement('input');
+            input2.type = 'hidden';
+            input2.name = 'datetodel';
+            input2.value = dateNeedToDelete;
+            form.appendChild(input2);
+
+            document.body.appendChild(form);
+            form.submit();
+        }
+    }
+});

@@ -7,6 +7,7 @@
 package Controller;
 
 import dao.FoodDAO;
+import dao.WeeklyDAO;
 import dto.WeeklyMenu;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -35,15 +36,15 @@ public class ManageWeeklyMenuServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             String menuName = request.getParameter("txtmenuweeklySearch");
-            FoodDAO fd = new FoodDAO();
-            ArrayList<WeeklyMenu> wm = null;
+            WeeklyDAO wld = new WeeklyDAO();
+            ArrayList<WeeklyMenu> wm = new ArrayList<>();
             if(menuName !=null){
                 menuName = menuName.trim();
                 menuName = menuName.replaceAll(" +"," ");
-                wm = fd.searchWeeklyMenu(menuName);
+                wm = wld.searchWeeklyMenu(menuName);
                 request.setAttribute("NameWeekSearch", menuName);
             }else{                
-                wm = fd.getAllWeeklyMenu();
+                wm = wld.getAllWeeklyMenu();
             }
             
             if(wm!=null){

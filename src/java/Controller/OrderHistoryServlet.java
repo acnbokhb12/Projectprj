@@ -7,6 +7,7 @@
 package Controller;
 
 import dao.OrderDAO;
+import dto.Account;
 import dto.OrderAcc;
 import dto.OrderDetail;
 import java.io.IOException;
@@ -16,6 +17,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -35,17 +37,17 @@ public class OrderHistoryServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            String accId = request.getParameter("acId");
+            HttpSession session = request.getSession();
+            Account acc = (Account) session.getAttribute("CustomerAcc");
+            int accId = acc.getAccId();
             OrderDAO od = new OrderDAO();
-            ArrayList <OrderAcc> oa = od.getOrderAccHistory(accId);
+            ArrayList <OrderAcc> oa = od.getOrderAccHistory(String.valueOf(accId));
             
-            if(accId!=null ){
+            
                 request.setAttribute("ListOrderHistory", oa);
                 request.getRequestDispatcher("ControllerServlet?action="+IConstant.ORDERHIST0RYJSP).forward(request, response);
                 
-            }else{
-                request.getRequestDispatcher("error.jsp").forward(request, response);
-            }
+            
             
         }
     } 

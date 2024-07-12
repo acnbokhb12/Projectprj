@@ -176,9 +176,9 @@ public class OrderDAO {
     public static void main(String[] args) {
         OrderDAO od = new OrderDAO();
         String a ="2" ;
-        ArrayList<OrderAcc> oa = od.getOrderAccHistory(a);
-        for(OrderAcc o : oa){
-            System.out.println(o);
-        }
+//        ArrayList<OrderAcc> oa = od.getOrderAccHistory(a);
+//        for(OrderAcc o : oa){
+//            System.out.println(o);
+//        }
     }
 }
