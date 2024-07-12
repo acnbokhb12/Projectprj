@@ -5,6 +5,8 @@
  */
 package dto;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author DELL
@@ -14,23 +16,28 @@ public class OrderDetail {
     private int orderFoodId ;
     private String type;
     private int orderDetailQuantity;
-    private float orderDetailCost ;
+    private Food food;
+//    private ArrayList<Food> listDetailFood ;
 
     public OrderDetail() {
         orderDetailId = 0;
         orderFoodId = 0;
         type = "";
         orderDetailQuantity = 0;
-        orderDetailCost = 0 ;
+//        listDetailFood = new ArrayList<>();
     }
 
-    public OrderDetail(int orderDetailId, int orderFoodId, String type, int orderDetailQuantity, float orderDetailCost) {
+    public OrderDetail(int orderDetailId, int orderFoodId, String type, int orderDetailQuantity, Food food) {
         this.orderDetailId = orderDetailId;
         this.orderFoodId = orderFoodId;
         this.type = type;
         this.orderDetailQuantity = orderDetailQuantity;
-        this.orderDetailCost = orderDetailCost;
+        this.food = food;
     }
+
+    
+
+     
 
     public int getOrderDetailId() {
         return orderDetailId;
@@ -64,18 +71,29 @@ public class OrderDetail {
         this.orderDetailQuantity = orderDetailQuantity;
     }
 
-    public float getOrderDetailCost() {
-        return orderDetailCost;
+    public Food getFood() {
+        return food;
     }
 
-    public void setOrderDetailCost(float orderDetailCost) {
-        this.orderDetailCost = orderDetailCost;
+    public void setFood(Food food) {
+        this.food = food;
     }
+
+    
+//    public void addFoodToList(Food food){
+//        this.listDetailFood.add(food);
+//    }
 
     @Override
     public String toString() {
-        return "OrderDetail{" + "orderDetailId=" + orderDetailId + ", orderFoodId=" + orderFoodId + ", type=" + type + ", orderDetailQuantity=" + orderDetailQuantity + ", orderDetailCost=" + orderDetailCost + '}';
+        return "OrderDetail{" + "orderDetailId=" + orderDetailId + ", orderFoodId=" + orderFoodId + ", type=" + type + ", orderDetailQuantity=" + orderDetailQuantity + ", food=" + food + '}';
     }
+
+    
+
+    
+    
+     
     
     
 }

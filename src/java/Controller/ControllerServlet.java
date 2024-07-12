@@ -34,7 +34,7 @@ public class ControllerServlet extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             String ac = request.getParameter("action");
             String url = "";
-
+            String a= "";
             if (ac == null || ac.isEmpty()) {
                 ac = IConstant.HOME;
             }
@@ -70,9 +70,12 @@ public class ControllerServlet extends HttpServlet {
                 case IConstant.MANAGECATEGORIES:
                     url = "ManageCategoriesServlet";
                     break;
-                case IConstant.DETAILFOOD:
-                    url = "product.jsp";
+                case IConstant.DETAILFOODSERVLET:
+                    url = "DetailFoodServlet";
                     break;
+                case IConstant.DETAILFOODJSP:
+                    url = "product.jsp";
+                    break;    
                 case IConstant.MANAGECART:
                     url = "manageCartServlet";
                     break;
@@ -87,7 +90,13 @@ public class ControllerServlet extends HttpServlet {
                     break;
                 case IConstant.MENUDETAILJSP:
                     url= "weeklydetail.jsp";
-                    break;    
+                    break;
+                case IConstant.ORDERHISTORYSERVLET:
+                    url="OrderHistoryServlet";
+                    break;
+                case IConstant.ORDERHIST0RYJSP:
+                    url="orderHistory.jsp";
+                    break;
                 default:
                     // If no matching action is found, set a default URL
                     url = "ManageHomeServlet";

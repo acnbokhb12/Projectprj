@@ -31,11 +31,17 @@ public interface IConstant {
     public final String MANAGECART = "manageCartServlet";
     public final String CART  = "cartUser";
     
-    public final String DETAILFOOD = "detailFood";
+    public final String DETAILFOODSERVLET = "foodDe";
+    public final String DETAILFOODJSP = "detailFood";
     
     public final String MANAGEWEEKLYMENU = "weekly";
     public final String WEEKLYMAINJSP = "weeklyMainJs";
     
     public final String MENUDETAIL = "menudetail";
     public final String MENUDETAILJSP = "menuDetailjs";
+    
+    public final String ORDERHISTORYSERVLET = "OrderHistory";
+    public final String ORDERHIST0RYJSP = "OrderHistoryjsp";
+
+
 }

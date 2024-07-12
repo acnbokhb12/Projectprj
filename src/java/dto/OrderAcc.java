@@ -6,6 +6,7 @@
 package dto;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 /**
@@ -17,22 +18,26 @@ public class OrderAcc {
     private int accId ;
     private float total;
     private String addressOrder;
-    private Date orderDate ;
+    private LocalDateTime  orderDate ;
     private int orderStatus;
-    private ArrayList<OrderDetail> details ;
+    private ArrayList<OrderDetail> orderDetails ;
 
     public OrderAcc() {
-         
+         orderDate = LocalDateTime.now();
+         orderDetails = new ArrayList<>();
     }
 
-    public OrderAcc(int orderId, int accId, float total, String addressOrder, Date orderDate, int orderStatus) {
+    public OrderAcc(int orderId, int accId, float total, String addressOrder, LocalDateTime orderDate, int orderStatus, ArrayList<OrderDetail> orderDetails) {
         this.orderId = orderId;
         this.accId = accId;
         this.total = total;
         this.addressOrder = addressOrder;
         this.orderDate = orderDate;
         this.orderStatus = orderStatus;
+        this.orderDetails = orderDetails;
     }
+
+     
 
     public int getOrderId() {
         return orderId;
@@ -66,13 +71,15 @@ public class OrderAcc {
         this.addressOrder = addressOrder;
     }
 
-    public Date getOrderDate() {
+    public LocalDateTime getOrderDate() {
         return orderDate;
     }
 
-    public void setOrderDate(Date orderDate) {
+    public void setOrderDate(LocalDateTime orderDate) {
         this.orderDate = orderDate;
     }
+
+    
 
     public int getOrderStatus() {
         return orderStatus;
@@ -82,18 +89,23 @@ public class OrderAcc {
         this.orderStatus = orderStatus;
     }
 
-    public ArrayList<OrderDetail> getDetails() {
-        return details;
+    public ArrayList<OrderDetail> getOrderDetails() {
+        return orderDetails;
     }
 
-    public void setDetails(ArrayList<OrderDetail> details) {
-        this.details = details;
+    public void setOrderDetails(ArrayList<OrderDetail> orderDetails) {
+        this.orderDetails = orderDetails;
+    }
+    
+    public void addOrderDetails(OrderDetail orderDetail){
+        this.orderDetails.add(orderDetail);
     }
 
     @Override
     public String toString() {
-        return "OrderAcc{" + "orderId=" + orderId + ", accId=" + accId + ", total=" + total + ", addressOrder=" + addressOrder + ", orderDate=" + orderDate + ", orderStatus=" + orderStatus + ", details=" + details + '}';
+        return "OrderAcc{" + "orderId=" + orderId + ", accId=" + accId + ", total=" + total + ", addressOrder=" + addressOrder + ", orderDate=" + orderDate + ", orderStatus=" + orderStatus + ", orderDetails=" + orderDetails + '}';
     }
+     
     
     
 }

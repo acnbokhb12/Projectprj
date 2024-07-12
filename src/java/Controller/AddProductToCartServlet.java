@@ -46,9 +46,9 @@ public class AddProductToCartServlet extends HttpServlet {
             boolean addsuccess = false;
              HashMap <Integer ,String > listFstatus = fd.getFoodStatus();
             Food f = null;
-            if (btnType.equals("Food")) {
+            if (btnType.equalsIgnoreCase("Food")) {
                 f = fd.getFoodWithTypeAndIngredients(idFood, "Food");
-            } else if (btnType.equals("Ingredient")) {
+            } else if (btnType.equalsIgnoreCase("Ingredient")) {
                 f = fd.getFoodWithTypeAndIngredients(idFood, "Ingredient");
             }
 
@@ -90,7 +90,7 @@ public class AddProductToCartServlet extends HttpServlet {
                 request.setAttribute("ListIngr", ingr);
                  request.setAttribute("ListFoodStatus", listFstatus);
                 request.setAttribute("TotalPriceIng", totalPrice);
-                request.getRequestDispatcher("ControllerServlet?action=" + IConstant.DETAILFOOD).forward(request, response);
+                request.getRequestDispatcher("ControllerServlet?action=" + IConstant.DETAILFOODJSP).forward(request, response);
         }
     } 
 

@@ -187,7 +187,7 @@
                                         <c:choose>
 
 
-                                            <c:when test="${entry.key.typeToBuy.equals('Food')}">
+                                            <c:when test="${entry.key.typeToBuy.equalsIgnoreCase('Food')}">
                                                 <c:set var="PriceFood" value="${entry.key.price}" />
                                                 <c:set var="PriceIngrs" value="${null}" />
 

@@ -138,7 +138,8 @@
             <!-- Add Food to weeklyfood -->
             <div class="contain-btn-add-weekly">
               <form action="#" method="post">
-                <input type="date" id="dateInput">
+                  <input type="date" name="" id="dateInput">
+                  <input type="hidden" name="" value="${Food.foodId}">
                 <button class="btn-add-weekly" type="submit">
                   Add Product to weekly menu
                   <div class="star-1">

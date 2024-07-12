@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
                 <a href="ControllerServlet?action=menu">Menu</a>
 
-                <a href="weekly.jsp">Weekly</a>
+                <a href="ControllerServlet?action=weekly">Weekly</a>
 
                 <!-- <a href="#">Faq</a> -->
 

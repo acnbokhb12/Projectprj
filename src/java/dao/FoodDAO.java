@@ -9,9 +9,12 @@ import dto.Account;
 import dto.Categories;
 import dto.Food;
 import dto.Ingredient;
+import dto.OrderAcc;
+import dto.OrderDetail;
 import dto.WeeklyMenu;
 import dto.WeeklyMenuDetail;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -35,8 +38,8 @@ public class FoodDAO {
             cn = myLib.makeConnection();
             if (cn != null) {
                 String sql = "SELECT  f.FoodId, f.FoodName,  f.FoodImage,   f.Description, f.Recipe, f.Price, f.FStatusId, ct.CategoryId,ct.CateImage,ct.CategoryName  \n"
-                        + "                         from Food f left join FoodCate fd on f.FoodId = fd.FoodId  \n"
-                        + "                        left join Categories ct on fd.CategoriesId = ct.CategoryId";
+                        + "                         from Food f inner join FoodCate fd on f.FoodId = fd.FoodId  \n"
+                        + "                        inner join Categories ct on fd.CategoriesId = ct.CategoryId";
                 pst = cn.prepareStatement(sql);
                 rs = pst.executeQuery();
                 HashMap<Integer, Food> foodMap = new HashMap<>();
@@ -142,8 +145,8 @@ public class FoodDAO {
             cn = myLib.makeConnection();
             if (cn != null) {
                 String sql = "select   f.FoodId, f.FoodImage, f.FoodName, f.Description, f.Recipe, f.Price, f.FStatusId, c.CategoryId,c.CateImage,c.CategoryName \n"
-                        + "from Food f left join FoodCate fc on f.FoodId = fc.FoodId\n"
-                        + "     left join Categories c on fc.CategoriesId = c.CategoryId\n"
+                        + "from Food f inner join FoodCate fc on f.FoodId = fc.FoodId\n"
+                        + "     inner join Categories c on fc.CategoriesId = c.CategoryId\n"
                         + "                     WHERE c.CategoryId = ?";
                 pst = cn.prepareStatement(sql);
                 pst.setString(1, cateID);
@@ -209,8 +212,8 @@ public class FoodDAO {
             cn = myLib.makeConnection();
             if (cn != null) {
                 String sql = "select   f.FoodId, f.FoodImage, f.FoodName, f.Description, f.Recipe, f.Price, f.FStatusId, c.CategoryId,c.CateImage,c.CategoryName \n"
-                        + "                       from Food f left join FoodCate fc on f.FoodId = fc.FoodId\n"
-                        + "                           left join Categories c on fc.CategoriesId = c.CategoryId\n"
+                        + "                       from Food f inner join FoodCate fc on f.FoodId = fc.FoodId\n"
+                        + "                           inner join Categories c on fc.CategoriesId = c.CategoryId\n"
                         + "                                        WHERE f.FoodName like ?";
                 pst = cn.prepareStatement(sql);
                 pst.setString(1, "%" + txtnamesearch + "%");
@@ -274,8 +277,8 @@ public class FoodDAO {
             cn = myLib.makeConnection();
             if (cn != null) {
                 String sql = "SELECT top 5  f.FoodId, f.FoodName,  f.FoodImage,   f.Description, f.Recipe, f.Price, f.FStatusId, ct.CategoryId,ct.CateImage,ct.CategoryName  \n"
-                        + "                         from Food f left join FoodCate fd on f.FoodId = fd.FoodId  \n"
-                        + "                        left join Categories ct on fd.CategoriesId = ct.CategoryId  \n"
+                        + "                         from Food f inner join FoodCate fd on f.FoodId = fd.FoodId  \n"
+                        + "                        inner join Categories ct on fd.CategoriesId = ct.CategoryId  \n"
                         + " order by  f.FoodId desc ";
                 pst = cn.prepareStatement(sql);
                 rs = pst.executeQuery();
@@ -375,7 +378,7 @@ public class FoodDAO {
         return food;
     }
 
-    public Food getFoodbyIdWithIngr(String fid) {
+    public Food getFoodbyIdWithCate(String fid) {
 
         Connection cn = null;
         PreparedStatement pst = null;
@@ -386,8 +389,8 @@ public class FoodDAO {
             cn = myLib.makeConnection();
             if (cn != null) {
                 String sql = "SELECT  f.FoodId, f.FoodName,  f.FoodImage,   f.Description, f.Recipe, f.Price, f.FStatusId, ct.CategoryId,ct.CateImage,ct.CategoryName   \n"
-                        + "                                         from Food f left join FoodCate fd on f.FoodId = fd.FoodId   \n"
-                        + "                                            left join Categories ct on fd.CategoriesId = ct.CategoryId\n"
+                        + "                                         from Food f inner join FoodCate fd on f.FoodId = fd.FoodId   \n"
+                        + "                                            inner join Categories ct on fd.CategoriesId = ct.CategoryId\n"
                         + "											where f.FoodId = ?";
                 pst = cn.prepareStatement(sql);
                 pst.setString(1, fid);
@@ -453,7 +456,7 @@ public class FoodDAO {
             cn = myLib.makeConnection();
             if (cn != null) {
                 String sql = " select f.FoodId, f.FoodName,  f.FoodImage,   f.Description, f.Recipe, f.Price, f.FStatusId, ing.IngredientId,ing.InImage,ing.IngredientName,ing.Quantity, ing.Unit,ing.Price as ingPrice\n"
-                        + "                                           from Food f left join Ingredient ing on f.FoodId = ing.FoodId                            \n"
+                        + "                                           from Food f inner join Ingredient ing on f.FoodId = ing.FoodId                            \n"
                         + "              where f.FoodId = ?";
                 pst = cn.prepareStatement(sql);
                 pst.setString(1, fid);
@@ -711,7 +714,7 @@ public class FoodDAO {
                         int fid = rs.getInt("FoodId");
                         int sessionid = rs.getInt("SessionId");
 
-                        Food fp = getFoodbyIdWithIngr(String.valueOf(fid));
+                        Food fp = getFoodbyIdWithCate(String.valueOf(fid));
                         if (!hashmenu.containsKey(dow)) {
                             ArrayList<Food> f = new ArrayList<>();
                             hashmenu.put(dow, f);
@@ -820,15 +823,16 @@ public class FoodDAO {
         }
         return listWeeklyMenu;
     }
-
+//    order Acc
+        
     public static void main(String[] args) {
         FoodDAO fd = new FoodDAO();
-        String a = "10";
+        String a = "1";
         ArrayList<Food> ing = fd.searchFoodByName("dri");
         ArrayList<Food> f = fd.getNewFood();
         HashMap<Integer, String> listFst = fd.getFoodStatus();
         ArrayList<WeeklyMenu> lmn = fd.getAllWeeklyMenu();
-        Food fdddd = fd.getFoodbyIdWithIngr(a);
-        System.out.println(fdddd);
+        Food fdddd = fd.getFoodbyIdWithCate(a);
+        
     }
 }

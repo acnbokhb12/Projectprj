@@ -49,7 +49,7 @@ public class DetailFoodServlet extends HttpServlet {
             request.setAttribute("Food", food);
             request.setAttribute("ListIngr", ingr);
             request.setAttribute("TotalPriceIng", totalPrice);
-            request.getRequestDispatcher("ControllerServlet?action="+IConstant.DETAILFOOD).forward(request, response);
+            request.getRequestDispatcher("ControllerServlet?action="+IConstant.DETAILFOODJSP).forward(request, response);
             
             }else{
             request.getRequestDispatcher("ControllerServlet?action="+IConstant.HOME).forward(request, response);

@@ -72,16 +72,21 @@ const headerHTML = `<header class="header ">
                             <div class="welcome-about-acc-list">
                                 <section class="welcome-about-acc-header">
                                     <div class="welcome-about-detail-account">
-                                        <p>
+                                        <p style="color:#000;">
                                             ${user.name}
                                         </p>
                                         <a href="">
-                                            View detail your account
+                                            <i class="fa-solid fa-file-invoice"></i> My Account
                                         </a>
                                     </div>
                                 </section>
                                 <section class="welcome-about-acc-body">
                                     <ul class="about-acc-header-list">
+                                        <li class="about-acc-header-item">
+                                            <a href="ControllerServlet?action=OrderHistory&acId=${user.accid}">
+                                                <i class="fa-solid fa-eye"></i> Order History
+                                            </a>
+                                        </li>
                                         <li class="about-acc-header-item">
                                             <a href="weekly.jsp">
                                                 <i class="fa-solid fa-calendar-days"></i> My meal Plan

@@ -12,7 +12,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Weekly Details</title>
       <!-- Font family -->
       <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
       rel="stylesheet">
@@ -111,7 +111,7 @@
                              <c:forEach items="${entry.value}" var="f" >
                                  
                              <div class="container-infor-fooditem col-sm-4 col-md-3" >
-                                <a href="DetailFoodServlet?fid=${f.foodId}" class="flip-card">
+                                <a href="ControllerServlet?action=foodDe&fid=${f.foodId}" class="flip-card">
                                     <div class="flip-card-inner">
                                         <div class="flip-card-front">
                                             <img src="${f.image}" alt="">

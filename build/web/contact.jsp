@@ -11,7 +11,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Contact</title>
     <!-- Font icon -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <!-- bootstrap -->
@@ -79,7 +79,7 @@
                             
                                 <div class="item-contact">
                                     <label>Message</label><br>
-                                    <textarea type="text" class=""></textarea>
+                                    <textarea type="text" class="" style="height: 14.5rem;"></textarea>
                                 </div>
                             
                                 <span>
