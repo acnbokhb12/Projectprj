@@ -39,67 +39,62 @@ public class AddToMealPlanServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             HttpSession session = request.getSession();
-            WeeklyDAO wld = new WeeklyDAO();
+//            WeeklyDAO wld = new WeeklyDAO();
             FoodDAO fd = new FoodDAO();
             String date = request.getParameter("date");
             String fid = request.getParameter("foodid");
-            Account acc = (Account) session.getAttribute("CustomerAcc");
-            String AID = String.valueOf(acc.getAccId());
-            HashMap<String, ArrayList<Food>> mealMap = wld.getMealPlanById(AID);
-            if (mealMap != null && !mealMap.isEmpty()) {
-                session.setAttribute("dateFood", mealMap);
-            }
-            if (date != null && fid != null && !date.isEmpty() && !fid.isEmpty()) {
-                Food food = fd.getFoodById(fid);
-                food.setCategories(fd.getCateByFoodId(fid));
-                mealMap = (HashMap<String, ArrayList<Food>>) session.getAttribute("dateFood");
-                ArrayList<Food> foodL = new ArrayList<>();
-                String yes = "yes";
+//            Account acc = (Account) session.getAttribute("CustomerAcc");
+//            String AID = String.valueOf(acc.getAccId());
+            Food food = fd.getFoodById(fid);
+            food.setCategories(fd.getCateByFoodId(fid));
+            HashMap<String,ArrayList<Food>> mealMap = (HashMap<String, ArrayList<Food>>) session.getAttribute("dateFood");
+            ArrayList<Food> foodL = new ArrayList<>();
+            String yes = "yes";
 
-                if (mealMap == null) {
-                    mealMap = new HashMap<>();
+            if (mealMap == null) {
+                mealMap = new HashMap<>();
 
-                    foodL.add(food);
+                foodL.add(food);
 
-                    mealMap.put(date, foodL);
-                    yes = "rong";
+                mealMap.put(date, foodL);
+                yes = "rong";
 
-                } else {
-                    boolean coko = false;
-                    for (String key : mealMap.keySet()) {
-                        if (key.equalsIgnoreCase(date)) {
-                            foodL = mealMap.get(date);
-                            coko = true;
-                            break;
-                        }
+            } else {
+                boolean coko = false;
+                for (String key : mealMap.keySet()) {
+                    if (key.equalsIgnoreCase(date)) {
+                        foodL = mealMap.get(date);
+                        coko = true;
+                        break;
                     }
-                    if (coko) {
-                        boolean find = false;
-                        if (foodL != null) {
-                            yes = "null";
-                            for (Food f : foodL) {
-                                if (f.getFoodId() == Integer.parseInt(fid)) {
-                                    find = true;
-                                    yes = "co";
-                                    break;
-                                }
-                            }
-                            if (!find) {
-                                foodL.add(food);
-                                yes = "co nhung ko co cai do";
-                            }
-                        }
-                    } else {
-                        foodL.add(food);
-                        yes = "hash rong";
-
-                    }
-                    mealMap.put(date, foodL);
                 }
-                session.setAttribute("dateFood", mealMap);
-                request.setAttribute("y", yes);
-//            request.setAttribute("date", date);
+                if (coko) {
+                    boolean find = false;
+                    if (foodL != null) {
+                        yes = "null";
+                        for (Food f : foodL) {
+                            if (f.getFoodId() == Integer.parseInt(fid)) {
+                                find = true;
+                                yes = "co";
+                                break;
+                            }
+                        }
+                        if (!find) {
+                            foodL.add(food);
+                            yes = "co nhung ko co cai do";
+                        }
+                    }
+                } else {
+                    foodL.add(food);
+                    yes = "hash rong";
+
+                }
+                mealMap.put(date, foodL);
             }
+            session.setAttribute("dateFood", mealMap);
+            request.setAttribute("y", yes);
+//            request.setAttribute("date", date);
+
             request.getRequestDispatcher("weekly.jsp").forward(request, response);
         }
     } 

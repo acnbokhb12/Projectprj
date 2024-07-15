@@ -390,7 +390,7 @@
 .status-onhold {
         color: yellow;
     }
-    .status-processing {
+    .status-pending {
         color: blue;
     }
  .status-delivering {

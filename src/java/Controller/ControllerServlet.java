@@ -55,9 +55,9 @@ public class ControllerServlet extends HttpServlet {
                 case IConstant.LOGINJSP:
                     url = "login.jsp";
                     break;
-//                case IConstant.ADMIN:
-//                    url="adminHome.jsp";
-//                    break;
+                case IConstant.ADMIN:
+                    url="dashboard.jsp";
+                    break;
                 case IConstant.LOGOUT:
                     url = "LogoutServlet";
                     break;
@@ -91,9 +91,28 @@ public class ControllerServlet extends HttpServlet {
                 case IConstant.MENUDETAILJSP:
                     url= "weeklydetail.jsp";
                     break;
+                case IConstant.GETMEALPLASERVLET:
+                    url= "GetMealPlanServlet";
+                    break;
+                case IConstant.MEALPLAN:
+                    url= "weekly.jsp";
+                    break;      
                 case IConstant.ORDERHISTORYSERVLET:
                     url="OrderHistoryServlet";
                     break;
+//                ADMIN
+                case IConstant.ORDERMANAGESERVLET:
+                    url="ManageOrderAdminServlet";
+                    break;
+                case IConstant.ORDERMANAGEJSP:
+                    url="manageOrder.jsp";
+                    break;
+                case IConstant.MENUMANAGESERVLET:
+                    url="ManageMenuAdminServlet";
+                    break;
+                case IConstant.MENUMANAGEJSP:
+                    url="manageProduct.jsp";
+                    break;    
                 case IConstant.ORDERHIST0RYJSP:
                     url="orderHistory.jsp";
                     break;

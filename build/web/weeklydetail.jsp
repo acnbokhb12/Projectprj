@@ -30,7 +30,7 @@
 </head>
 <body>
     <%
-        Account user = (Account) session.getAttribute("CustomerAcc");
+        Account user = (Account) session.getAttribute("UserAcc");
             
         int accId = 0;
         String email="";

@@ -27,7 +27,7 @@
 <body>
     <div class="screen__info__user">
         <div class="btn__back-home ">
-            <a href="home.jsp" class="link-back-home btn ">
+            <a href="ControllerServlet?action=home" class="link-back-home btn ">
                 <div class=" btn__back-detail">
                     <h2><i class="fa-solid fa-reply"></i>Back To Home</h2>
                 </div>

@@ -38,7 +38,7 @@ public class OrderHistoryServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             HttpSession session = request.getSession();
-            Account acc = (Account) session.getAttribute("CustomerAcc");
+            Account acc = (Account) session.getAttribute("UserAcc");
             int accId = acc.getAccId();
             OrderDAO od = new OrderDAO();
             ArrayList <OrderAcc> oa = od.getOrderAccHistory(String.valueOf(accId));

@@ -40,7 +40,7 @@ public class SaveMealPlanServlet extends HttpServlet {
             HttpSession session= request.getSession();
             WeeklyDAO wld = new WeeklyDAO();
             HashMap<String,ArrayList<Food>> mealMap= (HashMap<String,ArrayList<Food>>) session.getAttribute("dateFood");
-            Account acc= (Account) session.getAttribute("CustomerAcc");
+            Account acc= (Account) session.getAttribute("UserAcc");
             int accid=acc.getAccId();
             if(mealMap!=null){
                 wld.addToMealPlan(mealMap, accid);

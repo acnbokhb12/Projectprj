@@ -31,7 +31,7 @@
 
     <body style="color: #e5e7eb">
         <%
-            Account user = (Account) session.getAttribute("CustomerAcc");
+            Account user = (Account) session.getAttribute("UserAcc");
 
             int accId = 0;
             String email = "";
@@ -227,7 +227,7 @@
                                     <h3 id="subtotal-quantity-price-item">${TotalProduct} </h3>
                                 </div>
                                 <div class="cart__about__checkout-btn col-md-4">
-                                    <a class="checkout-btn" href="checkout.jsp">Check Out </a>
+                                    <a class="checkout-btn" href="CalculateTotalServlet">Check Out </a>
                                 </div>
 
                             </div>
@@ -392,7 +392,7 @@
                 let subTotal = parseInt(document.getElementById('subtotal-quantity-price-item').innerText);
                 let formattedsubTotal = subTotal.toLocaleString('vi-VN', {style: 'currency', currency: 'VND'});
                 document.getElementById('subtotal-quantity-price-item').innerText = formattedsubTotal;
-
+                
 
             });
 

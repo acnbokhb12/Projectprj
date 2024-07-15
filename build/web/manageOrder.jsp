@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -52,7 +53,7 @@
 
 
                     <li class="navbar-desc-function-detail">
-                        <a href="manageProduct.jsp" class="nav-link-item-desc" style="text-decoration: none;">
+                        <a href="ControllerServlet?action=MenuManage" class="nav-link-item-desc" style="text-decoration: none;">
                             <i class="fa-solid fa-bowl-food icon-navbar-staff"></i>product
                         </a>
 
@@ -60,7 +61,7 @@
 
 
                     <li class="navbar-desc-function-detail">
-                        <a href="manageOrder.jsp" class="nav-link-item-desc" style="text-decoration: none;">
+                        <a href="ControllerServlet?action=OrderManage" class="nav-link-item-desc" style="text-decoration: none;">
                             <i class="fa-solid fa-cart-shopping icon-navbar-staff"></i> Order
                         </a>
                     </li>    
@@ -138,12 +139,12 @@
                     <!-- end search -->
                     <!-- start title link -->
                     <div class="row row-order-processing">
-                        <a class="link-processing-order col-2" href="">All</a>
-                        <a class="link-processing-order col-2" href="">On hold</a>
-                        <a class="link-processing-order col-2" href="">Processing</a>
-                        <a class="link-processing-order col-2" href="">Delivering</a>
-                        <a class="link-processing-order col-2" href="">Success</a>
-                        <a class="link-processing-order col-2" href="">Cancle</a>
+                        <a class="link-processing-order  ${tagSt == null ? "active" : ""} col-2" href="ControllerServlet?action=OrderManage">All</a>
+                        <c:forEach items="${ListStatus}" var="tls">
+                            
+                        <a class="link-processing-order ${tagSt == tls.idOrderStatus ? "active" : ""} col-2" href="ManageStatusOrderAdminServlet?stid=${tls.idOrderStatus}">${tls.nameOrderStatus}</a>             
+                        </c:forEach>
+                        
                     </div>
                     <!-- end title link -->
                     <div class="app-content-table">
@@ -162,66 +163,36 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr class="tr-row-oder">
-                                            <td scope="row" class="cell-col">1</td>
-                                            <td class="cell-col">2</td>
+                                  
+                                        <c:forEach items="${ListOrder}" var="lo">
+                                            
+                                          <tr class="tr-row-oder">
+                                            <td scope="row" class="cell-col">${lo.orderId}</td>
+                                            <td class="cell-col"> ${lo.accId}</td>
                                             <td class="cell-col">
-                                                <span>2024-07-09</span>
+                                                <span>${lo.orderDate}</span>
                                                 <span class="note-processing">12:19</span>
                                             </td>
                                             
                                             <td class="cell-col">
-                                                <div class="badge bg-success">
-                                                    On hold
-                                                </div>
+                                                <c:forEach items="${ListStatus}" var="ls">
+                                                    <c:if test="${ls.idOrderStatus == lo.orderStatus}">                                                        
+                                                    <div class="badge ${lo.orderStatus == 1 ? "badge-secondary" :( lo.orderStatus == 2 ? "badge-primary" : ( lo.orderStatus == 3 ? "badge-warning": (lo.orderStatus==4 ? "badge-success" : (lo.orderStatus==5 ? "badge-danger" : '') )))}">
+                                                            ${ls.nameOrderStatus}
+                                                    </div>
+                                                    </c:if>
+                                                </c:forEach>
                                             </td>
-                                            <td class="cell-col cell-col-price">100000</td>
+                                            <td class="cell-col cell-col-price">${lo.total}</td>
                                             <td class="cell-col">
                                                 <a href="manageOrderDetail.jsp" class="btn-sm app-btn-secondary">
                                                     View
                                                 </a>
                                             </td>
                                         </tr>
-                                        <tr class="tr-row-oder">
-                                            <td scope="row" class="cell-col">1</td>
-                                            <td class="cell-col">2</td>
-                                            <td class="cell-col">
-                                                <span>2024-07-09</span>
-                                                <span class="note-processing">12:19</span>
-                                            </td>
-                                          
-                                            <td class="cell-col">
-                                                <div class="badge badge-danger">
-                                                    Cancel
-                                                </div>
-                                            </td>
-                                            <td class="cell-col cell-col-price">100000</td>
-                                            <td class="cell-col">
-                                                <a href="manageOrderDetail.jsp" class="btn-sm app-btn-secondary">
-                                                    View
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr class="tr-row-oder">
-                                            <td scope="row" class="cell-col">1</td>
-                                            <td class="cell-col">2</td>
-                                            <td class="cell-col">
-                                                <span>2024-07-09</span>
-                                                <span class="note-processing">12:19</span>
-                                            </td>
-                                             
-                                            <td class="cell-col">
-                                                <div class="badge badge-primary">
-                                                    Delivering
-                                                </div>
-                                            </td>
-                                            <td class="cell-col cell-col-price">100000</td>
-                                            <td class="cell-col">
-                                                <a href="manageOrderDetail.jsp" class="btn-sm app-btn-secondary">
-                                                    View
-                                                </a>
-                                            </td>
-                                        </tr>
+                                     
+                                        </c:forEach>
+                                       
                                     </tbody>
                                 </table>
                             </div>
@@ -234,6 +205,12 @@
     <script src="./assets/js/main.js">
          
     </script>
+    <style>
+        .link-processing-order.active{
+    color: #15a362;
+    border-bottom: 2px solid #15a362;
+}
+    </style>
 </body>
 
 </html>

@@ -37,7 +37,7 @@
                 <ul class=" navbar-desc-function">
                     <li class="nav-header-desc">overview </li>
                     <li class="navbar-desc-function-detail">
-                        <a href="dashboard.jsp" class="nav-link-item-desc" style="text-decoration: none;">
+                        <a href="#" class="nav-link-item-desc" style="text-decoration: none;">
                             <i class="fas fa-home icon-navbar-staff"></i>Dash Board
                         </a>
 
@@ -52,7 +52,7 @@
 
 
                     <li class="navbar-desc-function-detail">
-                        <a href="manageProduct.jsp" class="nav-link-item-desc" style="text-decoration: none;">
+                        <a href="ControllerServlet?action=MenuManage" class="nav-link-item-desc" style="text-decoration: none;">
                             <i class="fa-solid fa-bowl-food icon-navbar-staff"></i>product
                         </a>
 
@@ -60,7 +60,7 @@
 
 
                     <li class="navbar-desc-function-detail">
-                        <a href="manageOrder.jsp" class="nav-link-item-desc" style="text-decoration: none;">
+                        <a href="ControllerServlet?action=OrderManage" class="nav-link-item-desc" style="text-decoration: none;">
                             <i class="fa-solid fa-cart-shopping icon-navbar-staff"></i> Order
                         </a>
                     </li>    
@@ -91,7 +91,7 @@
                             <div class="box-admin">
                                
                                 <div class="welcome-admin">
-                                    <i class="fa-solid fa-user"></i>  Khanhhn
+                                    <i class="fa-solid fa-user" style="margin-right: 6px;"></i>${sessionScope.UserAcc.userName}
                                 </div>
                             </div>
                             <div class="modal-more-info">
@@ -100,7 +100,7 @@
                                         <a href="#">Account</a>  
                                     </li>                                    
                                     <li class="modal-more-info-items">
-                                        <a href="#">Log out</a>  
+                                        <a href="ControllerServlet?action=logout">Log out</a>  
                                     </li>                                    
                                 </ul>
                             </div>

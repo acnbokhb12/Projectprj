@@ -34,7 +34,7 @@
 
 <body>
     <%
-        Account user = (Account) session.getAttribute("CustomerAcc");
+        Account user = (Account) session.getAttribute("UserAcc");
             
         int accId = 0;
         String email="";
@@ -119,7 +119,7 @@
                   <h1>Quantity</h1>
                   <div class="product__detail-quantity-btn">
                     <button type="button" class="minus-btn-quantity"><i class="fa-solid fa-minus"></i></button>
-                    <input type="number" min="1" id="quantity-input" name="quantityF" value="1">
+                    <input type="number" min="1" max="20" id="quantity-input" name="quantityF" value="1">
                     <button type="button" class="plus-btn-quantity"><i class="fa-solid fa-plus"></i></button>
                   </div>
                   <input type="hidden" name="idfood" value="${Food.foodId}">
@@ -376,7 +376,6 @@
       let amount = parseInt(document.getElementById('product__detail-price-id').innerText),
         totalIngre = parseInt(document.getElementById('price-detial-ingrs').innerText);
 
-          const priceIngr = document.querySelectorAll('.price-detail-ingre');
 
 
       let formattedAmount = amount.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }),
@@ -385,6 +384,7 @@
 
       document.getElementById('product__detail-price-id').innerText = formattedAmount;
       document.getElementById('price-detial-ingrs').innerText = formattedTotalInge;
+          const priceIngr = document.querySelectorAll('.price-detail-ingre');
       
       priceIngr.forEach(function (element) {
       let price = parseInt(element.innerText);

@@ -8,6 +8,7 @@ package dao;
 import dto.Account;
 import dto.Categories;
 import dto.Food;
+import dto.FoodStatus;
 import dto.Ingredient;
 import dto.OrderAcc;
 import dto.OrderDetail;
@@ -711,18 +712,112 @@ public class FoodDAO {
 //        }
 //        return hashmenu;
 //    }
+        public ArrayList<FoodStatus> getAllFoodStatus() {
+        Connection cn = null;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        ArrayList<FoodStatus> listStatus = new ArrayList<>();
 
- 
+        try {
+            cn = myLib.makeConnection();
+            if (cn != null) {
+                String sql = " select [FStatusId],[FStatus]  from [dbo].[FoodStatus]";
+                pst = cn.prepareStatement(sql);
+                rs = pst.executeQuery();
+
+                if (rs != null ) {
+                    while(rs.next()){                                         
+                    int id = rs.getInt("FStatusId");
+                    String nameSt = rs.getString("FStatus");
+                    
+                    FoodStatus fst = new FoodStatus(id, nameSt);
+                    listStatus.add(fst);
+                    }
+                    
+                }
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pst != null) {
+                    pst.close();
+                }
+                if (cn != null) {
+                    cn.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return listStatus;
+    }
+        public ArrayList<Food> getFoodWithStatusId(String sfid) {
+        Connection cn = null;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        ArrayList<Food> listFN = new ArrayList<>();
+        try {
+            cn = myLib.makeConnection();
+            if (cn != null) {
+                String sql = " select [FoodId],[FoodImage],[FoodName], [Description],[Recipe],[Price],[FStatusId] from  [dbo].[Food] where [FStatusId] = ? ";
+                pst = cn.prepareStatement(sql);
+                pst.setString(1, sfid);
+                rs = pst.executeQuery();
+                HashMap<Integer, Food> foodMap = new HashMap<>();
+                if (rs != null) {
+                    while (rs.next()) {
+                        int id = rs.getInt("FoodId");
+                        String image = rs.getString("FoodImage");
+                        String name = rs.getString("FoodName");
+                        String desc = rs.getString("Description");
+                        String recipe = rs.getString("Recipe");
+                        float price = rs.getFloat("Price");
+                        int status = rs.getInt("FStatusId");
+                        
+                        Food f = new Food(id, image, name, desc, recipe, price, status);
+                        
+                        listFN.add(f);
+                    }
+
+                    
+                }
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pst != null) {
+                    pst.close();
+                }
+                if (cn != null) {
+                    cn.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return listFN;
+    }
 //    order Acc
         
     public static void main(String[] args) {
         FoodDAO fd = new FoodDAO();
         String a = "1";
-        ArrayList<Food> ing = fd.searchFoodByName("dri");
+        ArrayList<Food> ing = fd.getFoodWithStatusId(a);
         ArrayList<Food> f = fd.getNewFood();
         HashMap<Integer, String> listFst = fd.getFoodStatus();
      
-        Food fdddd = fd.getFoodbyIdWithCate(a);
-        
+        for(Food as : ing){
+            System.out.println(as);
+        }
     }
 }

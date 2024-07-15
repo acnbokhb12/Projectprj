@@ -1,5 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <filter>
+        <filter-name>LoginFinishedFilter</filter-name>
+        <filter-class>filter.LoginFinishedFilter</filter-class>
+    </filter>
+    <filter>
+        <filter-name>LoginFilter</filter-name>
+        <filter-class>filter.LoginFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>LoginFinishedFilter</filter-name>
+        <url-pattern>/login.jsp</url-pattern>
+        <url-pattern>/register.jsp</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>LoginFilter</filter-name>
+        <servlet-name>AddToMealPlanServlet</servlet-name>
+        <servlet-name>AddProductToCartServlet</servlet-name>
+        <servlet-name>EditProductCartServlet</servlet-name>
+        <servlet-name>OrderHistoryServlet</servlet-name>
+        
+        <servlet-name>GetMealPlanServlet</servlet-name>
+        <servlet-name>DeleteMealPlanSessionServlet</servlet-name>
+        <servlet-name>SaveMealPlanServlet</servlet-name>
+        
+        <servlet-name>ManageMenuAdminServlet</servlet-name>
+        <servlet-name>ManageOrderAdminServlet</servlet-name>
+        <servlet-name>ManageStatusFoodAdminServlet</servlet-name>
+        <servlet-name>ManageStatusOrderAdminServlet</servlet-name>
+                
+        <url-pattern>/profile.jsp</url-pattern>
+        <url-pattern>/cart.jsp</url-pattern>
+        <url-pattern>/checkout.jsp</url-pattern>
+        <url-pattern>/weekly.jsp</url-pattern>
+        <url-pattern>/orderHistory.jsp</url-pattern>
+        
+        <url-pattern>/dashboard.jsp</url-pattern>
+        <url-pattern>/manageOrder.jsp</url-pattern>
+        <url-pattern>/manageOrderDetail.jsp</url-pattern>
+        <url-pattern>/manageProduct.jsp</url-pattern>
+        <url-pattern>/manageProductDetail.jsp</url-pattern>
+        <url-pattern>/manageUser.jsp</url-pattern>
+        <url-pattern>/manageUserDetail.jsp</url-pattern>
+
+
+    </filter-mapping>
     <servlet>
         <servlet-name>LoginServlet</servlet-name>
         <servlet-class>Controller.LoginServlet</servlet-class>
@@ -72,6 +117,34 @@
         <servlet-name>DeleteMealPlanSessionServlet</servlet-name>
         <servlet-class>Controller.DeleteMealPlanSessionServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ManageOrderAdminServlet</servlet-name>
+        <servlet-class>Controller.ManageOrderAdminServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ManageStatusOrderAdminServlet</servlet-name>
+        <servlet-class>Controller.ManageStatusOrderAdminServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ManageMenuAdminServlet</servlet-name>
+        <servlet-class>Controller.ManageMenuAdminServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ManageStatusFoodAdminServlet</servlet-name>
+        <servlet-class>Controller.ManageStatusFoodAdminServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetMealPlanServlet</servlet-name>
+        <servlet-class>Controller.GetMealPlanServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CheckOutServlet</servlet-name>
+        <servlet-class>Controller.CheckOutServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CalculateTotalServlet</servlet-name>
+        <servlet-class>Controller.CalculateTotalServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
@@ -143,6 +216,34 @@
     <servlet-mapping>
         <servlet-name>DeleteMealPlanSessionServlet</servlet-name>
         <url-pattern>/DeleteMealPlanSessionServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManageOrderAdminServlet</servlet-name>
+        <url-pattern>/ManageOrderAdminServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManageStatusOrderAdminServlet</servlet-name>
+        <url-pattern>/ManageStatusOrderAdminServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManageMenuAdminServlet</servlet-name>
+        <url-pattern>/ManageMenuAdminServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManageStatusFoodAdminServlet</servlet-name>
+        <url-pattern>/ManageStatusFoodAdminServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetMealPlanServlet</servlet-name>
+        <url-pattern>/GetMealPlanServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CheckOutServlet</servlet-name>
+        <url-pattern>/CheckOutServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CalculateTotalServlet</servlet-name>
+        <url-pattern>/CalculateTotalServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

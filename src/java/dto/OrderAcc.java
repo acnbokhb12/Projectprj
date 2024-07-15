@@ -20,6 +20,8 @@ public class OrderAcc {
     private String addressOrder;
     private LocalDateTime  orderDate ;
     private int orderStatus;
+    private String CusName;
+    private String Phone;
     private ArrayList<OrderDetail> orderDetails ;
 
     public OrderAcc() {
@@ -27,16 +29,19 @@ public class OrderAcc {
          orderDetails = new ArrayList<>();
     }
 
-    public OrderAcc(int orderId, int accId, float total, String addressOrder, LocalDateTime orderDate, int orderStatus, ArrayList<OrderDetail> orderDetails) {
+    public OrderAcc(int orderId, int accId, float total, String addressOrder, LocalDateTime orderDate, int orderStatus, String CusName, String Phone, ArrayList<OrderDetail> orderDetails) {
         this.orderId = orderId;
         this.accId = accId;
         this.total = total;
         this.addressOrder = addressOrder;
         this.orderDate = orderDate;
         this.orderStatus = orderStatus;
+        this.CusName = CusName;
+        this.Phone = Phone;
         this.orderDetails = orderDetails;
     }
 
+  
      
 
     public int getOrderId() {
@@ -101,6 +106,23 @@ public class OrderAcc {
         this.orderDetails.add(orderDetail);
     }
 
+    public String getCusName() {
+        return CusName;
+    }
+
+    public void setCusName(String CusName) {
+        this.CusName = CusName;
+    }
+
+    public String getPhone() {
+        return Phone;
+    }
+
+    public void setPhone(String Phone) {
+        this.Phone = Phone;
+    }
+
+    
     @Override
     public String toString() {
         return "OrderAcc{" + "orderId=" + orderId + ", accId=" + accId + ", total=" + total + ", addressOrder=" + addressOrder + ", orderDate=" + orderDate + ", orderStatus=" + orderStatus + ", orderDetails=" + orderDetails + '}';

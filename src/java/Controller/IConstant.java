@@ -20,7 +20,7 @@ public interface IConstant {
     public final String LOGINSERVLET = "login";
     public final String LOGINJSP = "loginJsp";
     
-    public final String ADMIN = "adminhome";
+    public final String ADMIN = "admin";
     
     public final String LOGOUT = "logout";
     
@@ -37,11 +37,23 @@ public interface IConstant {
     public final String MANAGEWEEKLYMENU = "weekly";
     public final String WEEKLYMAINJSP = "weeklyMainJs";
     
+    public final String GETMEALPLASERVLET = "GetMealPlanServlet";
+    public final String MEALPLAN = "MealPlan";
+    
+
+    
     public final String MENUDETAIL = "menudetail";
     public final String MENUDETAILJSP = "menuDetailjs";
     
     public final String ORDERHISTORYSERVLET = "OrderHistory";
     public final String ORDERHIST0RYJSP = "OrderHistoryjsp";
 
+//    admin tu day
+    public final String ORDERMANAGESERVLET = "OrderManage";
+    public final String ORDERMANAGEJSP = "OrderManageJsp";
+    
+    public final String MENUMANAGESERVLET = "MenuManage";
+    public final String MENUMANAGEJSP = "MenuManageJsp";
+    
 
 }

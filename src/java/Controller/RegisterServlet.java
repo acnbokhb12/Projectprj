@@ -55,7 +55,7 @@ public class RegisterServlet extends HttpServlet {
                                 Account newAcc =  acd.getAccount(email, password);
                                 if(newAcc != null){
                                     HttpSession session = request.getSession();
-                                    session.setAttribute("CustomerAcc", newAcc);
+                                    session.setAttribute("UserAcc", newAcc);
                                     request.getRequestDispatcher("ControllerServlet?action="+ IConstant.HOME).forward(request, response);
                                     return;
                                 }else{

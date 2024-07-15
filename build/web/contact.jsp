@@ -24,7 +24,7 @@
 </head>
 <body style="background: #000;">
     <%
-        Account user = (Account) session.getAttribute("CustomerAcc");
+        Account user = (Account) session.getAttribute("UserAcc");
             
         int accId = 0;
         String email="";

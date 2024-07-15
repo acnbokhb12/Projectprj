@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -52,7 +53,7 @@
 
 
                     <li class="navbar-desc-function-detail">
-                        <a href="manageProduct.jsp" class="nav-link-item-desc" style="text-decoration: none;">
+                        <a href="ControllerServlet?action=MenuManage" class="nav-link-item-desc" style="text-decoration: none;">
                             <i class="fa-solid fa-bowl-food icon-navbar-staff"></i>product
                         </a>
 
@@ -60,7 +61,7 @@
 
 
                     <li class="navbar-desc-function-detail">
-                        <a href="manageOrder.jsp" class="nav-link-item-desc" style="text-decoration: none;">
+                        <a href="ControllerServlet?action=OrderManage" class="nav-link-item-desc" style="text-decoration: none;">
                             <i class="fa-solid fa-cart-shopping icon-navbar-staff"></i> Order
                         </a>
                     </li>   
@@ -139,9 +140,12 @@
                     <!-- end search -->
                     <!-- start title link -->
                     <div class="row row-order-processing">
-                        <a class="link-processing-order col-4" href="">All</a>
-                        <a class="link-processing-order col-4" href="">Available</a>
-                        <a class="link-processing-order col-4" href="">Unavailable</a>
+                        <a class="link-processing-order  ${Sftag == null ? "active" : ""  } col-4" href="ControllerServlet?action=MenuManage">All</a>
+                        <c:forEach items="${ListStatusF}" var="stf" >
+                            
+                        <a class="link-processing-order ${Sftag == stf.idFoodStatus ? "active" : ""  } col-4" href="ManageStatusFoodAdminServlet?sfid=${stf.idFoodStatus}">  ${stf.nameFoodStatus}</a>
+                        </c:forEach>
+                        
                     </div>
                     <!-- end title link -->
                     <div class="app-content-table">
@@ -158,24 +162,33 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <c:forEach items="${ListF}" var="lf">
+                                            
                                         <tr class="tr-row-oder">
-                                            <td scope="row" class="cell-col">1</td>
+                                            <th scope="row" class="cell-col">${lf.foodId}</th>
                                             <td class="cell-col">
-                                                Amish bread
+                                               ${lf.name}
                                             </td>
                                             <td class="cell-col">
-                                                <div class="badge bg-success">
-                                                    Available
+                                                <c:forEach items="${ListStatusF}" var="stf">
+                                                    <c:if test="${lf.fStatusId == stf.idFoodStatus}">                                                        
+                                                <div class="badge ${lf.fStatusId == 1 ? "badge-success" : (lf.fStatusId == 2 ? "badge-danger" : "" ) }">
+                                                    ${stf.nameFoodStatus}
                                                 </div>
+                                                    </c:if>
+                                                </c:forEach>
                                             </td>
-                                            <td class="cell-col cell-col-price">100000</td>
+                                            <td class="cell-col cell-col-price">${lf.price}</td>
                                             <td class="cell-col">
-                                                <a href="prductDetailAdmin.html" class="btn-sm app-btn-secondary">
+                                                <a href="manageProductDetail.jsp" class="btn-sm app-btn-secondary">
                                                     View
                                                 </a>
                                             </td>
                                         </tr>
-
+                                        </c:forEach>       
+                                            
+                                    
+                                 
                                     </tbody>
                                 </table>
                             </div>

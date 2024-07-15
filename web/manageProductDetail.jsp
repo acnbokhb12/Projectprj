@@ -53,7 +53,7 @@
 
 
                     <li class="navbar-desc-function-detail">
-                        <a href="manageProduct.jsp" class="nav-link-item-desc" style="text-decoration: none;">
+                        <a href="ControllerServlet?action=MenuManage" class="nav-link-item-desc" style="text-decoration: none;">
                             <i class="fa-solid fa-bowl-food icon-navbar-staff"></i>product
                         </a>
 
@@ -61,7 +61,7 @@
 
 
                     <li class="navbar-desc-function-detail">
-                        <a href="manageOrder.jsp" class="nav-link-item-desc" style="text-decoration: none;">
+                        <a href="ControllerServlet?action=OrderManage" class="nav-link-item-desc" style="text-decoration: none;">
                             <i class="fa-solid fa-cart-shopping icon-navbar-staff"></i> Order
                         </a>
                     </li>

@@ -75,7 +75,7 @@ const headerHTML = `<header class="header ">
                                         <p style="color:#000;">
                                             ${user.name}
                                         </p>
-                                        <a href="">
+                                        <a href="profile.jsp">
                                             <i class="fa-solid fa-file-invoice"></i> My Account
                                         </a>
                                     </div>
@@ -83,15 +83,15 @@ const headerHTML = `<header class="header ">
                                 <section class="welcome-about-acc-body">
                                     <ul class="about-acc-header-list">
                                         <li class="about-acc-header-item">
-                                            <a href="AddToMealPlanServlet">
-                                                <i class="fa-solid fa-calendar-days"></i> My meal Plan
-                                            </a>
-                                        </li>    
-                                        <li class="about-acc-header-item">
                                             <a href="ControllerServlet?action=OrderHistory">
                                                 <i class="fa-solid fa-eye"></i> Order History
                                             </a>
                                         </li>
+                                        <li class="about-acc-header-item">
+                                            <a href="ControllerServlet?action=MealPlan">
+                                                <i class="fa-solid fa-calendar-days"></i> My meal Plan
+                                            </a>
+                                        </li>    
                                         <li class="about-acc-header-item">
                                             <a href='ControllerServlet?action=logout'>
                                                 <i class="fas fa-sign-out"></i> Log out
@@ -133,7 +133,7 @@ const headerHTML = `<header class="header ">
                         <div class="header__second-icon col-lg-3">
 
                             <div class="header__second-bag-search">
-                                <a href="ControllerServlet?action=manageCartServlet" class="header__nav-bag">
+                                <a href="cart.jsp" class="header__nav-bag">
                                     <i class="fa-solid fa-cart-shopping"></i>
                                 </a>
 

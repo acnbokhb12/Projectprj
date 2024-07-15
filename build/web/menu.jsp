@@ -29,7 +29,7 @@
 
     <body> <!-- style="background-color: rgb(10, 10, 10);"-->
         <%
-            Account user = (Account) session.getAttribute("CustomerAcc");
+            Account user = (Account) session.getAttribute("UserAcc");
 
             int accId = 0;
             String email = "";
@@ -164,7 +164,7 @@
                     <div class="col-lg-3">
                         <nav class="category__menu">
                             <h3 class="category__menu-heading">
-                                <a href="ControllerServlet?action=menuServlet#container__myproduct" >
+                                <a href="ControllerServlet?action=menu#container__myproduct" >
                                     <i class="category__menu-heading-icon fa-solid fa-list"></i>Categories
                                 </a>
                             </h3>
@@ -369,8 +369,9 @@
                   }
               };
         </script>
-
+        
         <!-- <script src="./assets/js/main.js"></script> -->
+        
     </body>
 
 </html>

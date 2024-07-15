@@ -263,7 +263,7 @@ const calendar = document.querySelector('.calendar__weekly'),
                         <div class="id-food">${event.id}</div>
                         <img class="img-food-weekly" src="${event.img}" alt="">
                         <div class="link-food-weekly">
-                            <a href="Product.html" class="name-food-weekly">${event.name}</a>
+                            <a href="DetailFoodServlet?fid=${event.id}" class="name-food-weekly">${event.name}</a>
                             <h5 class="cate-food-wekkly">
                                 <p>${event.cate}</p>
                             </h5>

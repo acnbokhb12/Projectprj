@@ -42,11 +42,11 @@ public class LoginServlet extends HttpServlet {
                 Account acc = d.getAccount(email, password);
                 if(acc!=null){
                     HttpSession session = request.getSession();
-                    session.setAttribute("CustomerAcc", acc);
+                    session.setAttribute("UserAcc", acc);
                     if(acc.getRole().equals("Admin")){
                         url = IConstant.ADMIN;
                     }else{
-                        url =IConstant.HOME;
+                        url =IConstant.GETMEALPLASERVLET;
                     }
                     request.getRequestDispatcher("ControllerServlet?action="+url).forward(request, response);
                     

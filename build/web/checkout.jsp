@@ -6,6 +6,7 @@
 
 <%@page import="dto.Account"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,7 +27,7 @@
 </head>
 <body  >
     <%
-            Account user = (Account) session.getAttribute("CustomerAcc");
+            Account user = (Account) session.getAttribute("UserAcc");
 
             int accId = 0;
             String email = "";
@@ -45,7 +46,8 @@
             var user = {
                 accid: '<%= accId%>',
                 name: '<%= userName%>'
-            };</script>
+            };
+                    </script>
     <script src="./assets/js/header.js"></script>
     <div class="checkout-page-main container" >
         <header class="checkout-page-main-introheader">
@@ -61,52 +63,74 @@
                 <span><a href="cart.jsp">Edit Cart</a></span>
              </h4>
              <ul class="list__product">
+                  <c:set var="TotalProduct" value="0"></c:set>
+                  <c:set var="CountProduct" value="0"></c:set>
+                 <c:forEach items="${sessionScope.cart}" var="entry">
+                     
                  <li class="list-group-item">
                   <div class="item-detail-desc">
                     <div class="contain-img-product">
-                      <img src="https://www.allrecipes.com/thmb/CjzJwg2pACUzGODdxJL1BJDRx9Y=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/6788-amish-white-bread-DDMFS-4x3-6faa1e552bdb4f6eabdd7791e59b3c84.jpg" alt="">
+                      <img src="${entry.key.image}" alt="">
                     </div>
                     <div class="description-product">
-                      <h4 class="description-product-name">Amish bread sdafsdafas  sdafsdafas</h4>
-                      <h4 class="description-product-type">Qty :  <span style="margin-left: 7px;">4</span></h4>
-                      <h4 class="description-product-type">Type : <span>Ingredient </span></h4>
-                      <h4 class="price-item-checkout">10000</h4>
+                      <h4 class="description-product-name">${entry.key.name}</h4>
+                      <h4 class="description-product-type">Qty :  <span style="margin-left: 7px;">${entry.value}</span></h4>
+                      <h4 class="description-product-type">Type : <span>${entry.key.typeToBuy} </span></h4>
+                        <c:choose>
+
+
+                                            <c:when test="${entry.key.typeToBuy.equalsIgnoreCase('Food')}">
+                                                <c:set var="PriceFood" value="${entry.key.price}" />
+                                                <c:set var="PriceIngrs" value="${null}" />
+
+                                            </c:when>
+                                            <c:otherwise>
+                                                <c:set var="PriceFood" value="${null}" />
+                                                <c:set var="PriceIngrs" value="0" />
+                                                <c:forEach items="${entry.key.listingredients}" var="prIngr">   
+                                                    <c:set var="PriceIngrs" value="${PriceIngrs + (prIngr.ingredientPrice) }" />
+                                                </c:forEach>                                          
+                                            </c:otherwise>
+                                        </c:choose>
+                      <h4 class="price-item-checkout">${ PriceFood != null ? PriceFood : PriceIngrs }</h4>
                     </div>
                   </div>
+                          
                   <div class="subtotal-item">
                       <h4 class="name-price-subtotal">the total amount:</h4>
-                      <h4 class="price-subtotal">20000</h4>
+                      <h4 class="price-subtotal">${PriceFood != null ? PriceFood*entry.value : PriceIngrs*entry.value }</h4>
                   </div>
                 </li>
+                 </c:forEach> 
                        
             </ul> 
               <div class="list-group-item-total">
                     <h5 style="color: #FFA500;">Order total:</h5>
-                    <span class="price-item-checkout">30000</span>
+                    <span class="price-item-checkout">${sessionScope.TOTAL} </span>
                 </div>
               
           </div>
           <div class="form__checkout-infor-customer col-md-7 order-md-1">
              <h4>Add a new address</h4>
              <div class="form__checkout-infor-desc">          
-             <form action="">
+                 <form action="CheckOutServlet" method="post">
                 <div class="form__checkout-name form-simple">
                     <label for="fullname">
                         Full name (First and Last name)
                     </label>
-                    <input id="fullname" type="text" required>
+                    <input id="fullname" type="text" name="cusname" required>
                 </div>
                 <div class="form__checkout-phone form-simple">
                     <label for="phonenumber">
                         Phone number
                     </label>
-                    <input id="phonenumber" type="text" required>
+                    <input id="phonenumber" type="text" name="phone" required>
                 </div>
                 <div class="form__checkout-address-street form-simple">
                     <label for="address-street-checkout">
                         Address
                     </label>
-                    <input id="address-street-checkout" type="text" placeholder="Street address">
+                    <input id="address-street-checkout" type="text" name="address" placeholder="Street address">
                 </div>
                 
                 <div class="form__checkout-payment-method">
@@ -209,7 +233,7 @@
                     </div> -->
                 </div>
                  
-                <button class="form__checkout-btn" type="button">Complete</button>
+                     <button class="form__checkout-btn" type="submit">Complete</button>
             </form>
         </div>
           </div>

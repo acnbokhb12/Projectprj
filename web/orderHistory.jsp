@@ -30,7 +30,7 @@
 
 <body>
     <%
-            Account user = (Account) session.getAttribute("CustomerAcc");
+            Account user = (Account) session.getAttribute("UserAcc");
 
             int accId = 0;
             String email = "";
@@ -84,7 +84,7 @@
                                      <div class="d-flex contain-status-order-detail">
                                      
                                         <h5>Status: </h5>
-                                        <h5 class="${oa.orderStatus == 1 ? "status-onhold" :( oa.orderStatus == 2 ? "status-processing" : ( oa.orderStatus == 3 ? "status-delivering": (oa.orderStatus==4 ? "status-success" : (oa.orderStatus==5 ? "status-canceled" : '') )))}">
+                                        <h5 class="${oa.orderStatus == 1 ? "status-onhold" :( oa.orderStatus == 2 ? "status-pending" : ( oa.orderStatus == 3 ? "status-delivering": (oa.orderStatus==4 ? "status-success" : (oa.orderStatus==5 ? "status-canceled" : '') )))}">
                                             Delivered
                                         </h5>
                                     </div> 

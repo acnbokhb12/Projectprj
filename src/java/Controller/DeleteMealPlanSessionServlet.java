@@ -41,7 +41,7 @@ public class DeleteMealPlanSessionServlet extends HttpServlet {
             String date=request.getParameter("datetodel");
             WeeklyDAO wld = new WeeklyDAO();
             HttpSession session = request.getSession();
-            Account acc= (Account) session.getAttribute("CustomerAcc");
+            Account acc= (Account) session.getAttribute("UserAcc");
             int accid= acc.getAccId();
             int i=0;
             HashMap<String,ArrayList<Food>> mealMap= (HashMap<String,ArrayList<Food>>) session.getAttribute("dateFood");
