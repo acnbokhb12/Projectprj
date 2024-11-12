@@ -4,7 +4,9 @@
     Author     : DELL
 --%>
 
+ 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -32,20 +34,20 @@
     <div id="db-wrapper">
         <div class="left-navbar-staff-manage  vh-100 simplebar-scrollable-y ">
             <div class="left-navbar-detail  ">
-                <a href="dashboard.jsp" class="navbar-brand contain-img-navbar">
+                <a href="DashboardAdminServlet" class="navbar-brand contain-img-navbar">
                     <img src="./assets/img/logo/LogoImg.png" alt="">
                 </a>
                 <ul class=" navbar-desc-function">
                     <li class="nav-header-desc">overview </li>
                     <li class="navbar-desc-function-detail">
-                        <a href="dashboard.jsp" class="nav-link-item-desc" style="text-decoration: none;">
+                        <a href="DashboardAdminServlet" class="nav-link-item-desc" style="text-decoration: none;">
                             <i class="fas fa-home icon-navbar-staff"></i>Dash Board
                         </a>
 
                     </li>
 
                     <li class="navbar-desc-function-detail">
-                        <a href="manageUser.jsp" class="nav-link-item-desc" style="text-decoration: none;">
+                        <a href="ControllerServlet?action=UserManage" class="nav-link-item-desc" style="text-decoration: none;">
                             <i class="fa-solid fa-user icon-navbar-staff"></i> User
                         </a>
 
@@ -67,7 +69,7 @@
                     </li>
                 </ul>
                 <div class="helloadmin">
-                    <div class="card">Khanhhn</div>
+                    <div class="card">${sessionScope.UserAcc.userName}</div>
                 </div>
             </div>
         </div>
@@ -91,17 +93,17 @@
                             <div class="box-admin">
 
                                 <div class="welcome-admin">
-                                    <i class="fa-solid fa-user"></i> Khanhhn
+                                    <i class="fa-solid fa-user"></i> ${sessionScope.UserAcc.userName}
                                 </div>
                             </div>
                             <div class="modal-more-info">
                                 <ul class="modal-more-info-list">
                                     <li class="modal-more-info-items">
-                                        <a href="#">Account</a>
-                                    </li>
+                                        <a href="profile.jsp">Account</a>  
+                                    </li>                                    
                                     <li class="modal-more-info-items">
-                                        <a href="#">Log out</a>
-                                    </li>
+                                        <a href="ControllerServlet?action=logout">Log out</a>  
+                                    </li>  
                                 </ul>
                             </div>
                         </div>
@@ -113,26 +115,33 @@
                 <div class="container-xl container-content-admin">
                     <div class="row row-order-main">
                         <div class="col-auto">
-                            <h1 class="app-page-title">FoodID: 1</h1>
+                            <h1 class="app-page-title">FoodID: ${Food.foodId}</h1>
 
 
                         </div>
                         <div class="col-auto">
-                            <form class="table-search-form row gx-1 align-items-center" action="">
+                            <form class="table-search-form row gx-1 align-items-center" action="UpdateStatusProductAdminServlet" method="post">
+                                <div class="col-auto ">
+                                    <!-- <input type="text" class="search-order" placeholder="Search..." id="searchInput"> -->
+                                    <a href="#" data-delete-url="/Kahof/DeleteProductAdminServlet?fid=${Food.foodId}" id="delete-product" class="status-update" style="background-color: rgb(115, 189, 81); color: #fff;">
+                                        Delete Product
+                                    </a>
+                                </div>
                                 <div class="col-auto ">
                                     <!-- <input type="text" class="search-order" placeholder="Search..." id="searchInput"> -->
                                     <div class="status-update">
                                         Status
                                     </div>
                                 </div>
+                                <input type="hidden" name="txtfid" value="${Food.foodId}" > 
                                 <div class="col-auto contain-btn-select-order">
 
-                                    <select class="contain-btn-select-search" name="searchChoice" id="searchChoice">
-                                        <option value="onhold">On hold</option>
-                                        <option value="processing">Processing</option>
-                                        <option value="Delivering">Delivering</option>
-                                        <option value="success">Success</option>
-                                        <option value="cancel">Cancle</option>
+                                    <select class="contain-btn-select-search" name="updatechoiceF" id="searchChoice">
+                                        <c:forEach items="${ListStatusF}" var="lstf">
+                                            
+                                        <option value="${lstf.idFoodStatus}">${lstf.nameFoodStatus}</option>
+                                        </c:forEach>
+                                         
 
                                     </select>
                                 </div>
@@ -159,44 +168,45 @@
                                     <tbody>
                                         <tr class="tr-row-oder-detail">
                                             <th scope="row" class="col-cell-detail col-cell-detail-title">Name </th>
-                                            <td class="col-cell-detail text-capitalize">caesar salad</td>
+                                            <td class="col-cell-detail text-capitalize">${Food.name}</td>
                                         </tr>
                                         <tr class="tr-row-oder-detail">
                                             <th scope="row" class="col-cell-detail col-cell-detail-title">Imgage </th>
                                             <td class="col-cell-detail">
-                                                https://www.cookingclassy.com/wp-content/uploads/2023/05/sun-dried-tomato-pasta-4.jpg
+                                              ${Food.image}
                                             </td>
                                         </tr>
                                         <tr class="tr-row-oder-detail">
                                             <th scope="row" class="col-cell-detail col-cell-detail-title">Description
                                             </th>
-                                            <td class="col-cell-detail">This 30-minute sun-dried tomato pasta recipe is
-                                                a bright meatless meal that feels a touch luxurious! The creamy sauce
-                                                has garlic, spinach, and a dusting of parmesan.</td>
+                                            <td class="col-cell-detail">
+                                                ${Food.description}
+                                            </td>
                                         </tr>
                                         <tr class="tr-row-oder-detail">
                                             <th scope="row" class="col-cell-detail col-cell-detail-title">Recipe</th>
-                                            <td class="col-cell-detail">Cook the pasta al dente. Meanwhile, in a
-                                                skillet, melt the butter and stir in the flour and garlic until
-                                                fragrant. Whisk in the wine, Dijon, lemon juice, and Italian seasoning.
-                                                Let it reduce by half. Adding in sun dried tomatoes and cream and
-                                                tossing with pasta in a skillet. Add in the sun-dried tomatoes and
-                                                cream, then cook for about 5 minutes. Stir in the parmesan, then add in
-                                                the spinach and let it wilt. Toss with the drained pasta, and season
-                                                with salt & pepper as needed.</td>
+                                            <td class="col-cell-detail">
+                                                ${Food.recipe}
+                                            </td>
                                         </tr>
                                         <tr class="tr-row-oder-detail">
                                             <th scope="row" class="col-cell-detail col-cell-detail-title">Price </th>
                                             <td class="col-cell-detail price-detail-food-admin">
-                                                150000
+                                                ${Food.price}
                                             </td>
                                         </tr>
                                         <tr class="tr-row-oder-detail">
                                             <th scope="row" class="col-cell-detail col-cell-detail-title">Status</th>
                                             <td class="col-cell-detail">
-                                                <div class="badge badge-success">
-                                                    Available
-                                                </div>
+                                                <c:forEach items="${ListStatusF}" var="stf">
+                                                     
+                                                    <c:if test="${Food.fStatusId == stf.idFoodStatus}">
+                                                        
+                                                        <div class="badge ${Food.fStatusId == 1 ? "badge-success" : (Food.fStatusId == 2 ? "badge-danger" : "" ) }">
+                                                              ${stf.nameFoodStatus}
+                                                        </div>
+                                                    </c:if> 
+                                                </c:forEach>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -221,26 +231,22 @@
                                     </thead>
                                     <tbody>
                                         <!-- 1 tr tuonf duong vs 1 han -->
+                                        <c:forEach items="${Food.listingredients}" var="ling">
+                                            
+                                            
                                         <tr class="tr-row-oder">
-                                            <td class="cell-col  ">1</td>
-                                            <td class="cell-col text-capitalize">Pasta</td>
+                                            <td class="cell-col  ">${ling.ingredientId}</td>
+                                            <td class="cell-col text-capitalize">${ling.ingredientName}</td>
                                             <td class="cell-col truncate">
-                                                https://www.jessicagavin.com/wp-content/uploads/2020/07/how-to-cook-pasta-3-1200-500x500.jpg
+                                                 ${ling.ingredientImg}
                                             </td>
-                                            <td class="cell-col ">60</td>
-                                            <td class="cell-col ">g</td>
-                                            <td class="cell-col price-ingredient-admin">50000</td>
+                                            <td class="cell-col "> ${ling.ingredientQuantity}</td>
+                                            <td class="cell-col "> ${ling.ingredientUnit}</td>
+                                            <td class="cell-col price-ingredient-admin">${ling.ingredientPrice}</td>
                                         </tr>
-                                        <tr class="tr-row-oder">
-                                            <td class="cell-col  ">2</td>
-                                            <td class="cell-col text-capitalize">Butter</td>
-                                            <td class="cell-col truncate">
-                                                https://5.imimg.com/data5/SELLER/Default/2021/4/QI/MW/RX/6975039/butter-500x500.jpg
-                                            </td>
-                                            <td class="cell-col ">60</td>
-                                            <td class="cell-col ">g</td>
-                                            <td class="cell-col price-ingredient-admin">30000</td>
-                                        </tr>
+                                      
+                                        </c:forEach>
+                                         
 
                                     </tbody>
                                 </table>
@@ -265,6 +271,22 @@
             let price = parseInt(element.innerText);
             let formattedAmount = price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
             element.innerText = formattedAmount;
+        });
+        
+        
+        document.getElementById('delete-product').addEventListener('click', function(event) {
+            event.preventDefault(); // Ngăn chặn hành động mặc định của liên kết
+
+            // Hiển thị hộp thoại xác nhận
+            var confirmation = confirm('Are you sure you want to delete this account?');
+            if (confirmation) {
+                // Nếu người dùng xác nhận, chuyển hướng đến URL của servlet
+                var deleteUrl = event.target.getAttribute('data-delete-url');
+                window.location.href = deleteUrl;
+            } else {
+                // Nếu người dùng hủy, không làm gì cả
+                console.log('Account deletion cancelled.');
+            }
         });
     </script>
 </body>

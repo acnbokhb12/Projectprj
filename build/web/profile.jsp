@@ -56,9 +56,9 @@
                                                                     <div class="cot-img-user col-md-4 bg-c-lite-green user-profile">
                                                                         <div class="  text-center text-white">
                                                                             <div class=" container-img-profile">
-                                                                                <img src="https://static0.gamerantimages.com/wordpress/wp-content/uploads/2022/07/Nanika-crying.jpg" class="img-radius" alt="User-Profile-Image">
+                                                                                <img style=" padding: 4px 0; border-radius: 0;" src="https://mir-s3-cdn-cf.behance.net/project_modules/hd/c575d435418291.56f613efddcf7.jpg" class="img-radius" alt="User-Profile-Image">
                                                                             </div>
-                                                                            <h6 class="name-user">${sessionScope.UserAcc.userName}</h6>
+                                                                            <h6 class="name-user" style="font-size: 2rem; background-color: #000; color: #fff;">${sessionScope.UserAcc.userName}</h6>
                                                                             <p class="role-user">
                                                                                 ${sessionScope.UserAcc.role}
                                                                             </p>
@@ -140,6 +140,13 @@
                                                                                 <li><a href="#!" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="instagram" data-abc="true"><i class="mdi mdi-instagram feather icon-instagram instagram" aria-hidden="true"></i></a></li>
                                                                             </ul>
                                                                         </div>
+                                                                                <div>
+                                                                                    <h2>Update phone number</h2>
+                                                                                    <form action="UpdatePhoneServlet" method="post">
+                                                                                        <input name="phone" type="text">
+                                                                                        <button type="submit">Update</button>
+                                                                                    </form>
+                                                                                </div>        
                                                                     </div>
                                                                 </div>
                                                             </div>

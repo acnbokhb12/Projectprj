@@ -18,14 +18,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import utils.myLib;
 
-
 /**
  *
  * @author DELL
  */
 public class WeeklyDAO {
 //    lay het list menu cua app
-     public ArrayList<WeeklyMenu> getAllWeeklyMenu() {
+
+    public ArrayList<WeeklyMenu> getAllWeeklyMenu() {
         ArrayList<WeeklyMenu> listWeeklyMenu = new ArrayList<>();
 
         Connection cn = null;
@@ -101,7 +101,8 @@ public class WeeklyDAO {
         }
         return listWeeklyMenu;
     }
-     public ArrayList<WeeklyMenu> searchWeeklyMenu(String txtNameW) {
+
+    public ArrayList<WeeklyMenu> searchWeeklyMenu(String txtNameW) {
         ArrayList<WeeklyMenu> listWeeklyMenu = new ArrayList<>();
 
         Connection cn = null;
@@ -117,7 +118,7 @@ public class WeeklyDAO {
                 pst = cn.prepareStatement(sql);
                 pst.setString(1, "%" + txtNameW + "%");
                 rs = pst.executeQuery();
-              
+
                 if (rs != null) {
                     while (rs.next()) {
                         WeeklyMenu wm = new WeeklyMenu();
@@ -179,6 +180,7 @@ public class WeeklyDAO {
         }
         return listWeeklyMenu;
     }
+
     public HashMap<Integer, ArrayList<Food>> getAllWeeklyMenuDetail(String menuid) {
         Connection cn = null;
         PreparedStatement pst = null;
@@ -232,7 +234,8 @@ public class WeeklyDAO {
         return hashmenu;
     }
 //    ADD VAO DATABASE
-     public void addToMealPlan(HashMap<String, ArrayList<Food>> mealMap, int AID) {
+
+    public void addToMealPlan(HashMap<String, ArrayList<Food>> mealMap, int AID) {
         Connection cn = null;
         PreparedStatement pst = null;
         ResultSet rs = null;
@@ -279,7 +282,7 @@ public class WeeklyDAO {
         }
         return;
     }
-    
+
     public HashMap<String, ArrayList<Food>> getMealPlanById(String accId) {
         Connection cn = null;
         PreparedStatement pst = null;
@@ -344,7 +347,8 @@ public class WeeklyDAO {
         }
         return mealMap;
     }
-     public void deleteFoodFromMealPlan(int accid, int foodid, String date) {
+
+    public void deleteFoodFromMealPlan(int accid, int foodid, String date) {
         Connection cn = null;
         PreparedStatement pst = null;
         ResultSet rs = null;
@@ -355,12 +359,12 @@ public class WeeklyDAO {
                         + "where [AccId]=?\n"
                         + "and [FoodId]=?\n"
                         + "and [Date]=?";
-                pst=cn.prepareStatement(sql);
+                pst = cn.prepareStatement(sql);
                 pst.setInt(1, accid);
                 pst.setInt(2, foodid);
-                DateFormat df=new SimpleDateFormat("yyyy-MM-dd");
+                DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
                 java.util.Date da = df.parse(date);
-                java.sql.Date sqldate= new java.sql.Date (da.getTime());
+                java.sql.Date sqldate = new java.sql.Date(da.getTime());
                 pst.setDate(3, sqldate);
                 pst.executeUpdate();
 
@@ -384,15 +388,55 @@ public class WeeklyDAO {
         }
         return;
     }
+
+    public WeeklyMenu getWeeklyMenuById(String MENUID) {
+        Connection cn = null;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        WeeklyMenu wm = new WeeklyMenu();
+        try {
+            cn = myLib.makeConnection();
+            if (cn != null) {
+                String sql = "select [MenuId], [MenuName], [MenuImg], [MenuDes]\n"
+                        + "from [dbo].[WeeklyMenu]\n"
+                        + "where [MenuId]=?";
+                pst = cn.prepareStatement(sql);
+                pst.setInt(1, Integer.parseInt(MENUID));
+                rs = pst.executeQuery();
+                if (rs != null && rs.next()) {
+                    wm = new WeeklyMenu(rs.getInt(1), rs.getString(2), rs.getString(3), null);
+                }
+                wm.setDes(rs.getString(4));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pst != null) {
+                    pst.close();
+                }
+                if (cn != null) {
+                    cn.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return wm;
+    }
+
     public static void main(String[] args) {
         WeeklyDAO wld = new WeeklyDAO();
-        FoodDAO fd=new FoodDAO();
-        String a="2024-04-12";
-        String b ="1";
-        ArrayList<Food> fL=new ArrayList<>();
+        FoodDAO fd = new FoodDAO();
+        String a = "2024-04-12";
+        String b = "1";
+        ArrayList<Food> fL = new ArrayList<>();
         fL.add(fd.getFoodById(b));
-        HashMap<String,ArrayList<Food>> fMap= new HashMap<>();
-        fMap.put(a,fL);
+        HashMap<String, ArrayList<Food>> fMap = new HashMap<>();
+        fMap.put(a, fL);
         wld.addToMealPlan(fMap, 1);
     }
 }

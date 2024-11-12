@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -64,7 +65,22 @@
                             <%
                                 }
                             %>
-
+                             
+                            
+                            
+                             <c:if test="${AccountBand != null }">
+                                
+                            <span id="wrongNameOrPass" class="error-user">${AccountBand } </span><br><br>
+                            </c:if>
+                            
+                        
+                            
+                            
+                             <c:if test="${AccountDeleted != null and not empty AccountDeleted}">
+                                
+                            <span id="wrongNameOrPass" class="error-user">${(AccountDeleted != null and not empty AccountDeleted) ? AccountDeleted : ""  } </span><br><br>
+                            </c:if>
+                                         
                             <button type="submit" class="btn btn-info btn-login-user" name="action" value="loginServlet">Sign In</button><br>
                             <a href="#" class="user-forgot">Forgot your password?</a><br>
                         </form>

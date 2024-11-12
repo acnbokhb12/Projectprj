@@ -7,6 +7,7 @@
 <%@page import="dto.Account"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+ 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -118,19 +119,19 @@
                     <label for="fullname">
                         Full name (First and Last name)
                     </label>
-                    <input id="fullname" type="text" name="cusname" required>
+                    <input id="fullname" type="text" name="cusname" value="${sessionScope.UserAcc.userName !=null ? sessionScope.UserAcc.userName : "" }" required>
                 </div>
                 <div class="form__checkout-phone form-simple">
                     <label for="phonenumber">
                         Phone number
                     </label>
-                    <input id="phonenumber" type="text" name="phone" required>
+                    <input id="phonenumber" type="text" name="phone" value="${sessionScope.UserAcc.phoneNumber !=null ? sessionScope.UserAcc.phoneNumber : "" }" required>
                 </div>
                 <div class="form__checkout-address-street form-simple">
                     <label for="address-street-checkout">
                         Address
                     </label>
-                    <input id="address-street-checkout" type="text" name="address" placeholder="Street address">
+                    <input id="address-street-checkout" type="text" name="address" required="" placeholder="Street address">
                 </div>
                 
                 <div class="form__checkout-payment-method">

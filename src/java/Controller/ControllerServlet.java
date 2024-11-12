@@ -58,6 +58,9 @@ public class ControllerServlet extends HttpServlet {
                 case IConstant.ADMIN:
                     url="dashboard.jsp";
                     break;
+                case IConstant.DASHBOARDSERVLET:
+                    url="DashboardAdminServlet";
+                    break;    
                 case IConstant.LOGOUT:
                     url = "LogoutServlet";
                     break;
@@ -112,7 +115,13 @@ public class ControllerServlet extends HttpServlet {
                     break;
                 case IConstant.MENUMANAGEJSP:
                     url="manageProduct.jsp";
-                    break;    
+                    break;
+                case IConstant.USERMANAGESERVLET:
+                    url="ManageUserAdminServlet";
+                    break;
+                case IConstant.USERMANAGEJSP:
+                    url="manageUser.jsp";
+                    break;     
                 case IConstant.ORDERHIST0RYJSP:
                     url="orderHistory.jsp";
                     break;

@@ -38,7 +38,7 @@ public class ManageHomeServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             FoodDAO fd = new FoodDAO();
-            ArrayList<Food> listNewfood = fd.getNewFood();
+            ArrayList<Food> listNewfood = fd.getNewFoodFive();
             ArrayList<Categories> listCate = fd.getlistCategories();
              
             

@@ -32,20 +32,20 @@
     <div id="db-wrapper">
         <div class="left-navbar-staff-manage  vh-100 simplebar-scrollable-y ">
             <div class="left-navbar-detail  ">
-                <a href="dashboard.jsp" class="navbar-brand contain-img-navbar">
+                <a href="DashboardAdminServlet" class="navbar-brand contain-img-navbar">
                     <img src="./assets/img/logo/LogoImg.png" alt="">
                 </a>
                 <ul class=" navbar-desc-function">
                     <li class="nav-header-desc">overview </li>
                     <li class="navbar-desc-function-detail">
-                        <a href="dashboard.jsp" class="nav-link-item-desc" style="text-decoration: none;">
+                        <a href="DashboardAdminServlet" class="nav-link-item-desc" style="text-decoration: none;">
                             <i class="fas fa-home icon-navbar-staff"></i>Dash Board
                         </a>
 
                     </li>
 
                     <li class="navbar-desc-function-detail">
-                        <a href="manageUser.jsp" class="nav-link-item-desc" style="text-decoration: none;">
+                        <a href="ControllerServlet?action=UserManage" class="nav-link-item-desc" style="text-decoration: none;">
                             <i class="fa-solid fa-user icon-navbar-staff"></i> User
                         </a>
 
@@ -67,7 +67,7 @@
                     </li>    
                 </ul>
                 <div class="helloadmin">
-                    <div class="card">Khanhhn</div>
+                    <div class="card">${sessionScope.UserAcc.userName}</div>
                 </div>
             </div>
         </div>
@@ -91,17 +91,17 @@
                             <div class="box-admin">
 
                                 <div class="welcome-admin">
-                                    <i class="fa-solid fa-user"></i> Khanhhn
+                                    <i class="fa-solid fa-user"></i> ${sessionScope.UserAcc.userName}
                                 </div>
                             </div>
                             <div class="modal-more-info">
                                 <ul class="modal-more-info-list">
                                     <li class="modal-more-info-items">
-                                        <a href="#">Account</a>
-                                    </li>
+                                        <a href="profile.jsp">Account</a>  
+                                    </li>                                    
                                     <li class="modal-more-info-items">
-                                        <a href="#">Log out</a>
-                                    </li>
+                                        <a href="ControllerServlet?action=logout">Log out</a>  
+                                    </li>  
                                 </ul>
                             </div>
                         </div>
@@ -154,9 +154,9 @@
                                     <thead>
                                         <tr>
                                             <th scope="col" class="cell-col">Order Id</th>
-                                            <th scope="col" class="cell-col">Customer Id</th>
+                                            <th scope="col" class="cell-col">Email customer</th>
                                             <th scope="col" class="cell-col">Date</th>
-                                            
+                                                <th scope="col" class="cell-col">Phone</th>
                                             <th scope="col" class="cell-col">Status</th>
                                             <th scope="col" class="cell-col">Total</th>
                                             <th scope="col" class="cell-col"></th>
@@ -168,12 +168,12 @@
                                             
                                           <tr class="tr-row-oder">
                                             <td scope="row" class="cell-col">${lo.orderId}</td>
-                                            <td class="cell-col"> ${lo.accId}</td>
+                                            <td class="cell-col"> ${lo.acc.email}</td>
                                             <td class="cell-col">
                                                 <span>${lo.orderDate}</span>
                                                 <span class="note-processing">12:19</span>
                                             </td>
-                                            
+                                            <td class="cell-col"> ${lo.getPhone()}</td>
                                             <td class="cell-col">
                                                 <c:forEach items="${ListStatus}" var="ls">
                                                     <c:if test="${ls.idOrderStatus == lo.orderStatus}">                                                        
@@ -185,7 +185,7 @@
                                             </td>
                                             <td class="cell-col cell-col-price">${lo.total}</td>
                                             <td class="cell-col">
-                                                <a href="manageOrderDetail.jsp" class="btn-sm app-btn-secondary">
+                                                <a href="ManageOrderDetailAdminServlet?oid=${lo.orderId}" class="btn-sm app-btn-secondary">
                                                     View
                                                 </a>
                                             </td>

@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -31,20 +32,20 @@
     <div id="db-wrapper">
         <div class="left-navbar-staff-manage  vh-100 simplebar-scrollable-y ">
             <div class="left-navbar-detail  ">
-                <a href="dashboard.jsp" class="navbar-brand contain-img-navbar">
+                <a href="DashboardAdminServlet" class="navbar-brand contain-img-navbar">
                     <img src="./assets/img/logo/LogoImg.png" alt="">
                 </a>
                 <ul class=" navbar-desc-function">
                     <li class="nav-header-desc">overview </li>
                     <li class="navbar-desc-function-detail">
-                        <a href="dashboard.jsp" class="nav-link-item-desc" style="text-decoration: none;">
+                        <a href="DashboardAdminServlet" class="nav-link-item-desc" style="text-decoration: none;">
                             <i class="fas fa-home icon-navbar-staff"></i>Dash Board
                         </a>
 
                     </li>
 
                     <li class="navbar-desc-function-detail">
-                        <a href="manageUser.jsp" class="nav-link-item-desc" style="text-decoration: none;">
+                        <a href="ControllerServlet?action=UserManage" class="nav-link-item-desc" style="text-decoration: none;">
                             <i class="fa-solid fa-user icon-navbar-staff"></i> User
                         </a>
 
@@ -66,7 +67,7 @@
                     </li>   
                 </ul>
                 <div class="helloadmin">
-                    <div class="card">Khanhhn</div>
+                    <div class="card">${sessionScope.UserAcc.userName}</div>
                 </div>
             </div>
         </div>
@@ -90,17 +91,17 @@
                             <div class="box-admin">
 
                                 <div class="welcome-admin">
-                                    <i class="fa-solid fa-user"></i> Khanhhn
+                                    <i class="fa-solid fa-user"></i> ${sessionScope.UserAcc.userName}
                                 </div>
                             </div>
                             <div class="modal-more-info">
                                 <ul class="modal-more-info-list">
                                     <li class="modal-more-info-items">
-                                        <a href="#">Account</a>
-                                    </li>
+                                        <a href="profile.jsp">Account</a>  
+                                    </li>                                    
                                     <li class="modal-more-info-items">
-                                        <a href="#">Log out</a>
-                                    </li>
+                                        <a href="ControllerServlet?action=logout">Log out</a>  
+                                    </li>  
                                 </ul>
                             </div>
                         </div>
@@ -116,18 +117,18 @@
                             <h1 class="app-page-title">User</h1>
                         </div>
                         <div class="col-auto">
-                            <form class="table-search-form row gx-1 align-items-center" action="">
+                            <form  class="table-search-form row gx-1 align-items-center" action="SearchUserAdminServlet" method="post">
                                 <div class="col-auto ">
-                                    <input type="text" class="search-order" placeholder="Search..." id="searchInput">
+                                    <input type="text" name="txtsearch" class="search-order" value="${oldSearch != null ? oldSearch : "" }" placeholder="Search..." id="searchInput">
                                     
                                 </div>
-                                <div class="col-auto contain-btn-select-order">
+<!--                                <div class="col-auto contain-btn-select-order">
                                     <select class="contain-btn-select-search" name="searchChoice" id="searchChoice">
                                         <option value="email" selected>Email</option>
                                         <option value="phone">Phone</option>
                                         
                                     </select>
-                                </div>
+                                </div>-->
                                 <div class="col-auto contain-btn-search-order">
                                     <button class="btn-submit-search-order" type="submit">Search</button>
                                 </div>
@@ -137,10 +138,12 @@
                     <!-- end search -->
                     <!-- start title link -->
                     <div class="row row-order-processing">
-                        <a class="link-processing-order col-3" href="">All</a>
-                        <a class="link-processing-order col-3" href="">Daily</a>
-                        <a class="link-processing-order col-3" href="">Weekly</a>
-                        <a class="link-processing-order col-3" href="">Monthly</a>
+                        <a class="link-processing-order ${tagStA == null ? "active" : ""} col-3" href="ManageUserAdminServlet">All</a>
+                        <c:forEach items="${listStatusAcc}" var="sa" >
+                            
+                        <a class="link-processing-order ${tagStA == sa.AStatusId ? "active" : ""} col-3" href="ManageStatusUserAdminServlet?stid=${sa.AStatusId}">${sa.nameAStatus}</a>
+                         
+                        </c:forEach>
                     </div>
                     <!-- end title link -->
                     <div class="app-content-table">
@@ -158,24 +161,34 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        
+                                        <c:forEach items="${ListAcc}" var="a">
+                                            
+                                            
                                         <tr class="tr-row-oder">
-                                            <td scope="row" class="cell-col">1</td>
-                                            <td class="cell-col  ">khanh@gmail.com</td>
-                                            <td class="cell-col truncate">Khanhhn dsfafafasdfsdfafasdf</td>
-                                            <td class="cell-col">0987654321</td>
+                                            <th scope="row" class="cell-col">${a.accId}</td>
+                                            <td class="cell-col  ">${a.email}</td>
+                                            <td class="cell-col  "> ${a.userName}</td>
+                                            <td class="cell-col">${a.phoneNumber}</td>
                                             <td class="cell-col">
-                                                <div class="badge bg-success">
-                                                    Weekly
+                                                <c:forEach items="${listStatusAcc}" var="stacc">
+                                                    <c:if test="${stacc.AStatusId == a.aStatusId}">
+                                                        
+                                                <div class="badge ${a.aStatusId == 1 ? "badge-success" : (a.aStatusId == 2 ? "badge-primary" : (a.aStatusId == 3 ? "badge-danger" : "") ) }">
+                                                    ${stacc.nameAStatus}
                                                 </div>
+                                                    </c:if>
+                                                </c:forEach>
                                             </td>
 
                                             <td class="cell-col">
-                                                <a href="manageUserDetail.jsp" class="btn-sm app-btn-secondary">
+                                                <a href="ViewManageUserDetailAdminServlet?uid=${a.accId}" class="btn-sm app-btn-secondary">
                                                     View
                                                 </a>
                                             </td>
                                         </tr>
 
+                                        </c:forEach>
                                     </tbody>
                                 </table>
                             </div>

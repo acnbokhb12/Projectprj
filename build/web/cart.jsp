@@ -227,7 +227,7 @@
                                     <h3 id="subtotal-quantity-price-item">${TotalProduct} </h3>
                                 </div>
                                 <div class="cart__about__checkout-btn col-md-4">
-                                    <a class="checkout-btn" href="CalculateTotalServlet">Check Out </a>
+                                    <a class="checkout-btn" href="checkout.jsp">Check Out </a>
                                 </div>
 
                             </div>
@@ -263,7 +263,7 @@
                                                     <div class="product__detail-quantity-btn">
                                                         <button type="button" class="minus-btn-quantity"><i
                                                                 class="fa-solid fa-minus"></i></button>
-                                                        <input type="number" min="1" id="quantity-input" value="1" name="txtQuantityF">
+                                                                <input type="number" min="1" max="20" id="quantity-input" value="1" name="txtQuantityF">
                                                         <button type="button" class="plus-btn-quantity"><i
                                                                 class="fa-solid fa-plus"></i></button>
                                                     </div>

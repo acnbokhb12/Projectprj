@@ -22,6 +22,7 @@ public class OrderAcc {
     private int orderStatus;
     private String CusName;
     private String Phone;
+    private Account acc;
     private ArrayList<OrderDetail> orderDetails ;
 
     public OrderAcc() {
@@ -38,6 +39,7 @@ public class OrderAcc {
         this.orderStatus = orderStatus;
         this.CusName = CusName;
         this.Phone = Phone;
+        this.acc = acc;
         this.orderDetails = orderDetails;
     }
 
@@ -122,11 +124,24 @@ public class OrderAcc {
         this.Phone = Phone;
     }
 
-    
+    public Account getAcc() {
+        return acc;
+    }
+
+    public void setAcc(Account acc) {
+        this.acc = acc;
+    }
+
     @Override
     public String toString() {
-        return "OrderAcc{" + "orderId=" + orderId + ", accId=" + accId + ", total=" + total + ", addressOrder=" + addressOrder + ", orderDate=" + orderDate + ", orderStatus=" + orderStatus + ", orderDetails=" + orderDetails + '}';
+        return "OrderAcc{" + "orderId=" + orderId + ", accId=" + accId + ", total=" + total + ", addressOrder=" + addressOrder + ", orderDate=" + orderDate + ", orderStatus=" + orderStatus + ", CusName=" + CusName + ", Phone=" + Phone + ", acc=" + acc + ", orderDetails=" + orderDetails + '}';
     }
+    
+
+   
+
+    
+   
      
     
     

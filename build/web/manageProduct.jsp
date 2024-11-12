@@ -32,20 +32,20 @@
     <div id="db-wrapper">
         <div class="left-navbar-staff-manage  vh-100 simplebar-scrollable-y ">
             <div class="left-navbar-detail  ">
-                <a href="dashboard.jsp" class="navbar-brand contain-img-navbar">
+                <a href="DashboardAdminServlet" class="navbar-brand contain-img-navbar">
                     <img src="./assets/img/logo/LogoImg.png" alt="">
                 </a>
                 <ul class=" navbar-desc-function">
                     <li class="nav-header-desc">overview </li>
                     <li class="navbar-desc-function-detail">
-                        <a href="dashboard.jsp" class="nav-link-item-desc" style="text-decoration: none;">
+                        <a href="DashboardAdminServlet" class="nav-link-item-desc" style="text-decoration: none;">
                             <i class="fas fa-home icon-navbar-staff"></i>Dash Board
                         </a>
 
                     </li>
 
                     <li class="navbar-desc-function-detail">
-                        <a href="manageUser.jsp" class="nav-link-item-desc" style="text-decoration: none;">
+                        <a href="ControllerServlet?action=UserManage" class="nav-link-item-desc" style="text-decoration: none;">
                             <i class="fa-solid fa-user icon-navbar-staff"></i> User
                         </a>
 
@@ -67,7 +67,7 @@
                     </li>   
                 </ul>
                 <div class="helloadmin">
-                    <div class="card">Khanhhn</div>
+                    <div class="card">${sessionScope.UserAcc.userName}</div>
                 </div>
             </div>
         </div>
@@ -80,7 +80,7 @@
                             <i class="fa-solid fa-bars hambu-icon-detail"></i>
                         </div>
                         <div class="app-search-box col">
-                            <form class="app-search-form ">
+                            <form class="app-search-form" >
                                 <input type="text" placeholder="Search..." name="search"
                                     class="form-control search-input">
                                 <button type="submit" class="btn search-btn btn-primary" value="Search"><i
@@ -91,17 +91,17 @@
                             <div class="box-admin">
 
                                 <div class="welcome-admin">
-                                    <i class="fa-solid fa-user"></i> Khanhhn
+                                    <i class="fa-solid fa-user"></i> ${sessionScope.UserAcc.userName}
                                 </div>
                             </div>
                             <div class="modal-more-info">
                                 <ul class="modal-more-info-list">
                                     <li class="modal-more-info-items">
-                                        <a href="#">Account</a>
-                                    </li>
+                                        <a href="profile.jsp">Account</a>  
+                                    </li>                                    
                                     <li class="modal-more-info-items">
-                                        <a href="#">Log out</a>
-                                    </li>
+                                        <a href="ControllerServlet?action=logout">Log out</a>  
+                                    </li>  
                                 </ul>
                             </div>
                         </div>
@@ -118,19 +118,12 @@
                             <h1 class="app-page-title">Products</h1>
                         </div>
                         <div class="col-auto">
-                            <form class="table-search-form row gx-1 align-items-center" action="">
+                            <form class="table-search-form row gx-1 align-items-center" action="SearchFoodByNameAdminServlet" method="post">
                                 <div class="col-auto ">
-                                    <input type="text" class="search-order" placeholder="Search..." id="searchInput">
-                                    <!-- <input type="date" class="search-order" name="" id="searchDate"
-                                        style="display: none;"> -->
+                                    <input type="text" class="search-order" name="txtsearchfood" placeholder="Search..." id="searchInput">
+                                     
                                 </div>
-                                <!-- <div class="col-auto contain-btn-select-order">
-                                    <select class="contain-btn-select-search" name="searchChoice" id="searchChoice">
-                                        <option value="email">Email</option>
-                                        <option value="phone">Phone</option>
-                                        <option value="date">Date</option>
-                                    </select>
-                                </div> -->
+                               
                                 <div class="col-auto contain-btn-search-order">
                                     <button class="btn-submit-search-order" type="submit">Search</button>
                                 </div>
@@ -180,7 +173,7 @@
                                             </td>
                                             <td class="cell-col cell-col-price">${lf.price}</td>
                                             <td class="cell-col">
-                                                <a href="manageProductDetail.jsp" class="btn-sm app-btn-secondary">
+                                                <a href="ManageProductDetailAdminServlet?fid=${lf.foodId}" class="btn-sm app-btn-secondary">
                                                     View
                                                 </a>
                                             </td>
@@ -198,7 +191,20 @@
             </div>
         </div>
     </div>
-    <script src="./assets/js/main.js">    
+                        <script src="./assets/js/main.js"> 
+                            
+                            
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const totalElements = document.querySelectorAll('.cell-col-price');
+
+            totalElements.forEach(function (element) {
+                let price = parseInt(element.innerText);
+                let formattedAmount = price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+                element.innerText = formattedAmount;
+            });
+        });
     </script>
 </body>
 

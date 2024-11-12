@@ -57,8 +57,8 @@
         <div class="weekly__container__date">
             <div class="weekly-header">
                 <div class="weekyly-title">
-                    <h1>Name</h1>
-                    <p>Enjoy a fusion of Asian and Western cuisine</p>
+                    <h1>${MENU.menuName}</h1>
+                    <p style="padding: 0 10%">${MENU.des}</p>
 
                 </div>
             </div>

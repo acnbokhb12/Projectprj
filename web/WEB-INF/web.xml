@@ -8,6 +8,10 @@
         <filter-name>LoginFilter</filter-name>
         <filter-class>filter.LoginFilter</filter-class>
     </filter>
+    <filter>
+        <filter-name>CartFilter</filter-name>
+        <filter-class>filter.CartFilter</filter-class>
+    </filter>
     <filter-mapping>
         <filter-name>LoginFinishedFilter</filter-name>
         <url-pattern>/login.jsp</url-pattern>
@@ -15,26 +19,11 @@
     </filter-mapping>
     <filter-mapping>
         <filter-name>LoginFilter</filter-name>
-        <servlet-name>AddToMealPlanServlet</servlet-name>
-        <servlet-name>AddProductToCartServlet</servlet-name>
-        <servlet-name>EditProductCartServlet</servlet-name>
-        <servlet-name>OrderHistoryServlet</servlet-name>
-        
-        <servlet-name>GetMealPlanServlet</servlet-name>
-        <servlet-name>DeleteMealPlanSessionServlet</servlet-name>
-        <servlet-name>SaveMealPlanServlet</servlet-name>
-        
-        <servlet-name>ManageMenuAdminServlet</servlet-name>
-        <servlet-name>ManageOrderAdminServlet</servlet-name>
-        <servlet-name>ManageStatusFoodAdminServlet</servlet-name>
-        <servlet-name>ManageStatusOrderAdminServlet</servlet-name>
-                
         <url-pattern>/profile.jsp</url-pattern>
         <url-pattern>/cart.jsp</url-pattern>
         <url-pattern>/checkout.jsp</url-pattern>
         <url-pattern>/weekly.jsp</url-pattern>
         <url-pattern>/orderHistory.jsp</url-pattern>
-        
         <url-pattern>/dashboard.jsp</url-pattern>
         <url-pattern>/manageOrder.jsp</url-pattern>
         <url-pattern>/manageOrderDetail.jsp</url-pattern>
@@ -42,8 +31,25 @@
         <url-pattern>/manageProductDetail.jsp</url-pattern>
         <url-pattern>/manageUser.jsp</url-pattern>
         <url-pattern>/manageUserDetail.jsp</url-pattern>
-
-
+        <servlet-name>AddToMealPlanServlet</servlet-name>
+        <servlet-name>AddProductToCartServlet</servlet-name>
+        <servlet-name>EditProductCartServlet</servlet-name>
+        <servlet-name>OrderHistoryServlet</servlet-name>
+        <servlet-name>CalculateTotalServlet</servlet-name>
+        <servlet-name>CheckOutServlet</servlet-name>
+        <servlet-name>GetMealPlanServlet</servlet-name>
+        <servlet-name>DeleteMealPlanSessionServlet</servlet-name>
+        <servlet-name>SaveMealPlanServlet</servlet-name>
+        <servlet-name>ManageMenuAdminServlet</servlet-name>
+        <servlet-name>ManageOrderAdminServlet</servlet-name>
+        <servlet-name>ManageStatusFoodAdminServlet</servlet-name>
+        <servlet-name>ManageStatusOrderAdminServlet</servlet-name>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>CartFilter</filter-name>
+        <url-pattern>/checkout.jsp</url-pattern>
+        <servlet-name>CalculateTotalServlet</servlet-name>
+        <servlet-name>CheckOutServlet</servlet-name>
     </filter-mapping>
     <servlet>
         <servlet-name>LoginServlet</servlet-name>
@@ -145,6 +151,66 @@
         <servlet-name>CalculateTotalServlet</servlet-name>
         <servlet-class>Controller.CalculateTotalServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ManageUserAdminServlet</servlet-name>
+        <servlet-class>Controller.ManageUserAdminServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdatePhoneServlet</servlet-name>
+        <servlet-class>Controller.UpdatePhoneServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ManageStatusUserAdminServlet</servlet-name>
+        <servlet-class>Controller.ManageStatusUserAdminServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewManageUserDetailAdminServlet</servlet-name>
+        <servlet-class>Controller.ViewManageUserDetailAdminServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ManageOrderDetailAdminServlet</servlet-name>
+        <servlet-class>Controller.ManageOrderDetailAdminServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ManageProductDetailAdminServlet</servlet-name>
+        <servlet-class>Controller.ManageProductDetailAdminServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchUserAdminServlet</servlet-name>
+        <servlet-class>Controller.SearchUserAdminServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchFoodByNameAdminServlet</servlet-name>
+        <servlet-class>Controller.SearchFoodByNameAdminServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteAccountUserAdminServlet</servlet-name>
+        <servlet-class>Controller.DeleteAccountUserAdminServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateStatusUserAdminServlet</servlet-name>
+        <servlet-class>Controller.UpdateStatusUserAdminServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateStatusProductAdminServlet</servlet-name>
+        <servlet-class>Controller.UpdateStatusProductAdminServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateStatusOrderAdminServlet</servlet-name>
+        <servlet-class>Controller.UpdateStatusOrderAdminServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteProductAdminServlet</servlet-name>
+        <servlet-class>Controller.DeleteProductAdminServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteOrderAdminServlet</servlet-name>
+        <servlet-class>Controller.DeleteOrderAdminServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DashboardAdminServlet</servlet-name>
+        <servlet-class>Controller.DashboardAdminServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
@@ -244,6 +310,66 @@
     <servlet-mapping>
         <servlet-name>CalculateTotalServlet</servlet-name>
         <url-pattern>/CalculateTotalServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManageUserAdminServlet</servlet-name>
+        <url-pattern>/ManageUserAdminServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdatePhoneServlet</servlet-name>
+        <url-pattern>/UpdatePhoneServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManageStatusUserAdminServlet</servlet-name>
+        <url-pattern>/ManageStatusUserAdminServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewManageUserDetailAdminServlet</servlet-name>
+        <url-pattern>/ViewManageUserDetailAdminServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManageOrderDetailAdminServlet</servlet-name>
+        <url-pattern>/ManageOrderDetailAdminServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManageProductDetailAdminServlet</servlet-name>
+        <url-pattern>/ManageProductDetailAdminServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchUserAdminServlet</servlet-name>
+        <url-pattern>/SearchUserAdminServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchFoodByNameAdminServlet</servlet-name>
+        <url-pattern>/SearchFoodByNameAdminServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteAccountUserAdminServlet</servlet-name>
+        <url-pattern>/DeleteAccountUserAdminServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateStatusUserAdminServlet</servlet-name>
+        <url-pattern>/UpdateStatusUserAdminServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateStatusProductAdminServlet</servlet-name>
+        <url-pattern>/UpdateStatusProductAdminServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateStatusOrderAdminServlet</servlet-name>
+        <url-pattern>/UpdateStatusOrderAdminServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteProductAdminServlet</servlet-name>
+        <url-pattern>/DeleteProductAdminServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteOrderAdminServlet</servlet-name>
+        <url-pattern>/DeleteOrderAdminServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DashboardAdminServlet</servlet-name>
+        <url-pattern>/DashboardAdminServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

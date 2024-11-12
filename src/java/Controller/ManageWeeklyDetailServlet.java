@@ -9,6 +9,7 @@ package Controller;
 import dao.FoodDAO;
 import dao.WeeklyDAO;
 import dto.Food;
+import dto.WeeklyMenu;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -38,9 +39,11 @@ public class ManageWeeklyDetailServlet extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             String menuid = request.getParameter("mid");
             WeeklyDAO wld = new WeeklyDAO();
-            HashMap <Integer, ArrayList<Food>> hashMenu = wld.getAllWeeklyMenuDetail(menuid);
+            WeeklyMenu wm = wld.getWeeklyMenuById(menuid);
+            HashMap<Integer, ArrayList<Food>> hashMenu = wld.getAllWeeklyMenuDetail(menuid);
             request.setAttribute("hashMenu", hashMenu);
-            request.getRequestDispatcher("ControllerServlet?action="+IConstant.MENUDETAILJSP).forward(request, response);
+            request.setAttribute("MENU", wm);
+            request.getRequestDispatcher("ControllerServlet?action=" + IConstant.MENUDETAILJSP).forward(request, response);
         }
     } 
 

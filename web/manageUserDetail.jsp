@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -32,20 +33,20 @@
     <div id="db-wrapper">
         <div class="left-navbar-staff-manage  vh-100 simplebar-scrollable-y ">
             <div class="left-navbar-detail  ">
-                <a href="dashboard.jsp" class="navbar-brand contain-img-navbar">
+                <a href="DashboardAdminServlet" class="navbar-brand contain-img-navbar">
                     <img src="./assets/img/logo/LogoImg.png" alt="">
                 </a>
                 <ul class=" navbar-desc-function">
                     <li class="nav-header-desc">overview </li>
                     <li class="navbar-desc-function-detail">
-                        <a href="dashboard.jsp" class="nav-link-item-desc" style="text-decoration: none;">
+                        <a href="DashboardAdminServlet" class="nav-link-item-desc" style="text-decoration: none;">
                             <i class="fas fa-home icon-navbar-staff"></i>Dash Board
                         </a>
 
                     </li>
 
                     <li class="navbar-desc-function-detail">
-                        <a href="manageUser.jsp" class="nav-link-item-desc" style="text-decoration: none;">
+                        <a href="ControllerServlet?action=UserManage" class="nav-link-item-desc" style="text-decoration: none;">
                             <i class="fa-solid fa-user icon-navbar-staff"></i> User
                         </a>
 
@@ -70,7 +71,7 @@
                        
                 </ul>
                 <div class="helloadmin">
-                    <div class="card">Khanhhn</div>
+                    <div class="card">${sessionScope.UserAcc.userName}</div>
                 </div>
             </div>
         </div>
@@ -94,17 +95,17 @@
                             <div class="box-admin">
 
                                 <div class="welcome-admin">
-                                    <i class="fa-solid fa-user"></i> Khanhhn
+                                    <i class="fa-solid fa-user"></i> ${sessionScope.UserAcc.userName}
                                 </div>
                             </div>
                             <div class="modal-more-info">
                                 <ul class="modal-more-info-list">
                                     <li class="modal-more-info-items">
-                                        <a href="#">Account</a>
-                                    </li>
+                                        <a href="profile.jsp">Account</a>  
+                                    </li>                                    
                                     <li class="modal-more-info-items">
-                                        <a href="#">Log out</a>
-                                    </li>
+                                        <a href="ControllerServlet?action=logout">Log out</a>  
+                                    </li>  
                                 </ul>
                             </div>
                         </div>
@@ -116,28 +117,36 @@
                 <div class="container-xl container-content-admin">
                     <div class="row row-order-main">
                         <div class="col-auto">
-                            <h1 class="app-page-title">AccountId: 1</h1>
+                            <h1 class="app-page-title">AccountId: ${AccountUser.accId}</h1>
 
 
                         </div>
                         <div class="col-auto">
-                            <form class="table-search-form row gx-1 align-items-center" action="">
+                            <form class="table-search-form row gx-1 align-items-center" action="UpdateStatusUserAdminServlet" method="post">
                                 <div class="col-auto ">
                                     <!-- <input type="text" class="search-order" placeholder="Search..." id="searchInput"> -->
-                                    <div class="status-update">
+                                    <a href="#" data-delete-url="/Kahof/DeleteAccountUserAdminServlet?uid=${AccountUser.accId}" id="delete-account" class="status-update" style="background-color: rgb(115, 189, 81); color: #fff;">
+                                        Delete Account
+                                    </a>
+                                </div>
+                                <div class="col-auto ">
+                                    <!-- <input type="text" class="search-order" placeholder="Search..." id="searchInput"> -->
+                                    <div class="status-update"  >
                                         Status
                                     </div>
                                 </div>
+                                        <input type="hidden" name="txtuid" value="${AccountUser.accId}">        
                                 <div class="col-auto contain-btn-select-order">
 
-                                    <select class="contain-btn-select-search" name="searchChoice" id="searchChoice">
-                                        <option value="active">Active </option>
+                                    <select class="contain-btn-select-search" name="updatechoice" id="searchChoice">
+<!--                                        <option value="active">Active </option>
                                         <option value="inactive">Inactive </option>
                                         <option value="pending">Pending </option>
                                         <option value="suspended">Suspended </option>
-                                        <option value="banned">Banned </option>
-                                        <option value="deleted">Deleted  </option>
-
+                                        <option value="banned">Banned </option>-->
+                                      <c:forEach items="${listStatusAcc}" var="a">
+                                        <option value="${a.AStatusId}">${a.nameAStatus}  </option>
+                                      </c:forEach>
                                     </select>
                                 </div>
                                 <div class="col-auto contain-btn-search-order">
@@ -164,22 +173,31 @@
                                     <tbody>
                                         <tr class="tr-row-oder-detail">
                                             <th scope="row" class="col-cell-detail col-cell-detail-title">Name </th>
-                                            <td class="col-cell-detail">Dao Ngoc Hung</td>
+                                            <td class="col-cell-detail">${AccountUser.userName}</td>
                                         </tr>
                                         <tr class="tr-row-oder-detail">
                                             <th scope="row" class="col-cell-detail col-cell-detail-title">Email </th>
-                                            <td class="col-cell-detail">Vansindep@gmail.com</td>
+                                            <td class="col-cell-detail">${AccountUser.email}</td>
+                                        </tr>
+                                         <tr class="tr-row-oder-detail">
+                                            <th scope="row" class="col-cell-detail col-cell-detail-title">Password </th>
+                                            <td class="col-cell-detail">${AccountUser.password}</td>
                                         </tr>
                                         <tr class="tr-row-oder-detail">
                                             <th scope="row" class="col-cell-detail col-cell-detail-title">Phone</th>
-                                            <td class="col-cell-detail">0987654321</td>
+                                            <td class="col-cell-detail"> ${AccountUser.phoneNumber}</td>
                                         </tr>
                                         <tr class="tr-row-oder-detail">
                                             <th scope="row" class="col-cell-detail col-cell-detail-title">Status</th>
                                             <td class="col-cell-detail">
-                                                <div class="badge badge-primary">
-                                                    Daily
-                                                </div>
+                                                <c:forEach items="${listStatusAcc}" var="a">
+                                                    <c:if test="${AccountUser.aStatusId == a.AStatusId}">
+                                                    
+                                                        <div class="badge ${a.AStatusId == 1 ? "badge-success" : (a.AStatusId == 2 ? "badge-primary" : (a.AStatusId == 3 ? "badge-danger" : "") ) }">
+                                                                ${a.nameAStatus}
+                                                        </div>
+                                                    </c:if>
+                                                </c:forEach>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -187,12 +205,13 @@
                             </div>
                         </div>
                     </div>
+                    <c:forEach items="${ListOrderOfUser}" var="lou"> 
                     <div class="contain-detal-order-acc">
 
 
                         <div class="row row-order-processing">
-                            <div class="link-processing-order col-4">OrderId : 1</div>
-                            <div class="link-processing-order col-4">2024-12-05 12:56</div>
+                            <div class="link-processing-order col-4">OrderId : <span> ${lou.orderId} </span> </div>
+                            <div class="link-processing-order col-4">${lou.orderDate}</div>
                             <div class="link-processing-order col-4">
 
                                 <div class="badge badge-primary">
@@ -213,31 +232,14 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            <c:forEach items="${lou.orderDetails}" var="ordd">
+
                                             <tr class="tr-row-oder">
-                                                <td scope="row" class="cell-col text-capitalize">Horiatiki salata</td>
-                                                <td class="cell-col  ">Ingredient</td>
-                                                <td class="cell-col">3</td>
+                                                <td scope="row" class="cell-col text-capitalize"> ${ordd.food.name}</td>
+                                                <td class="cell-col  ">${ordd.type}</td>
+                                                <td class="cell-col"> ${ordd.orderDetailQuantity}</td>
                                             </tr>
-                                            <tr class="tr-row-oder">
-                                                <td scope="row" class="cell-col text-capitalize">caesar salad</td>
-                                                <td class="cell-col  ">Food</td>
-                                                <td class="cell-col">13</td>
-                                            </tr>
-                                            <tr class="tr-row-oder">
-                                                <td scope="row" class="cell-col text-capitalize">alfajor</td>
-                                                <td class="cell-col  ">Food</td>
-                                                <td class="cell-col">6</td>
-                                            </tr>
-                                            <tr class="tr-row-oder">
-                                                <td scope="row" class="cell-col text-capitalize">montana</td>
-                                                <td class="cell-col  ">Ingredient</td>
-                                                <td class="cell-col">10</td>
-                                            </tr>
-                                            <tr class="tr-row-oder">
-                                                <td scope="row" class="cell-col text-capitalize">chawanmushi</td>
-                                                <td class="cell-col  ">Ingredient</td>
-                                                <td class="cell-col">30</td>
-                                            </tr>
+                                            </c:forEach>
 
                                         </tbody>
                                     </table>
@@ -245,64 +247,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="contain-detal-order-acc">
-
-
-                        <div class="row row-order-processing">
-                            <div class="link-processing-order col-4">OrderId : 1</div>
-                            <div class="link-processing-order col-4">2024-12-05 12:56</div>
-                            <div class="link-processing-order col-4">
-
-                                <div class="badge badge-primary">
-                                    Delivering
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="app-content-table">
-                            <div class="card-table">
-                                <div class="table-responsive">
-                                    <table class="table app-table-hover text-left">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col" class="cell-col">Food Name</th>
-                                                <th scope="col" class="cell-col">Type</th>
-                                                <th scope="col" class="cell-col">Quantity</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr class="tr-row-oder">
-                                                <td scope="row" class="cell-col text-capitalize">Horiatiki salata</td>
-                                                <td class="cell-col  ">Ingredient</td>
-                                                <td class="cell-col">3</td>
-                                            </tr>
-                                            <tr class="tr-row-oder">
-                                                <td scope="row" class="cell-col text-capitalize">caesar salad</td>
-                                                <td class="cell-col  ">Food</td>
-                                                <td class="cell-col">13</td>
-                                            </tr>
-                                            <tr class="tr-row-oder">
-                                                <td scope="row" class="cell-col text-capitalize">alfajor</td>
-                                                <td class="cell-col  ">Food</td>
-                                                <td class="cell-col">6</td>
-                                            </tr>
-                                            <tr class="tr-row-oder">
-                                                <td scope="row" class="cell-col text-capitalize">montana</td>
-                                                <td class="cell-col  ">Ingredient</td>
-                                                <td class="cell-col">10</td>
-                                            </tr>
-                                            <tr class="tr-row-oder">
-                                                <td scope="row" class="cell-col text-capitalize">chawanmushi</td>
-                                                <td class="cell-col  ">Ingredient</td>
-                                                <td class="cell-col">30</td>
-                                            </tr>
-
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    </c:forEach>
                 </div>
             </div>
         </div>
@@ -310,6 +255,27 @@
     <script src="./assets/js/main.js">
 
     </script>
+    <script>
+        document.getElementById('delete-account').addEventListener('click', function(event) {
+            event.preventDefault(); // Ngăn chặn hành động mặc định của liên kết
+
+            // Hiển thị hộp thoại xác nhận
+            var confirmation = confirm('Are you sure you want to delete this account?');
+            if (confirmation) {
+                // Nếu người dùng xác nhận, chuyển hướng đến URL của servlet
+                var deleteUrl = event.target.getAttribute('data-delete-url');
+                window.location.href = deleteUrl;
+            } else {
+                // Nếu người dùng hủy, không làm gì cả
+                console.log('Account deletion cancelled.');
+            }
+        });
+    </script>
+    <style>
+        .row-order-processing{
+            width: 100%;
+        }
+    </style>
 </body>
 
 </html>

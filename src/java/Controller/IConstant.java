@@ -49,11 +49,18 @@ public interface IConstant {
     public final String ORDERHIST0RYJSP = "OrderHistoryjsp";
 
 //    admin tu day
+    public final String DASHBOARDSERVLET = "dashboardServ";
+//    public final String DASHBOARDJSP = "dashboardjsp";
+    
+    
     public final String ORDERMANAGESERVLET = "OrderManage";
     public final String ORDERMANAGEJSP = "OrderManageJsp";
     
     public final String MENUMANAGESERVLET = "MenuManage";
     public final String MENUMANAGEJSP = "MenuManageJsp";
+    
+    public final String USERMANAGESERVLET = "UserManage";
+    public final String USERMANAGEJSP = "UserManageJsp";
     
 
 }

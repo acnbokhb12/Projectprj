@@ -5,6 +5,7 @@
  */
 package dao;
 
+import dto.Account;
 import dto.Food;
 import dto.Ingredient;
 import dto.OrderAcc;
@@ -31,71 +32,7 @@ import utils.myLib;
  * @author DELL
  */
 public class OrderDAO {
-    public Food getFoodWithTypeAndIngredients(String fid, String typeToby) {
-        Connection cn = null;
-        PreparedStatement pst = null;
-        ResultSet rs = null;
-        Food food = null;
-        ArrayList<Food> listFN = new ArrayList<>();
-        try {
-            cn = myLib.makeConnection();
-            if (cn != null) {
-                String sql = " select f.FoodId, f.FoodName,  f.FoodImage,   f.Description, f.Recipe, f.Price, f.FStatusId, ing.IngredientId,ing.InImage,ing.IngredientName,ing.Quantity, ing.Unit,ing.Price as ingPrice\n"
-                        + "                                           from Food f inner join Ingredient ing on f.FoodId = ing.FoodId                            \n"
-                        + "              where f.FoodId = ?";
-                pst = cn.prepareStatement(sql);
-                pst.setString(1, fid);
-                rs = pst.executeQuery();
-                HashMap<Integer, Food> foodMap = new HashMap<>();
-                if (rs != null) {
-                    while (rs.next()) {
-                        int id = rs.getInt("FoodId");
-                        String image = rs.getString("FoodImage");
-                        String name = rs.getString("FoodName");
-                        String desc = rs.getString("Description");
-                        String recipe = rs.getString("Recipe");
-                        float price = rs.getFloat("Price");
-                        int status = rs.getInt("FStatusId");
-
-                        food = foodMap.get(id);
-                        if (food == null) {
-                            food = new Food(id, image, name, desc, recipe, price, status, typeToby);
-                            foodMap.put(id, food);
-                        }
-
-                        int ingId = rs.getInt("IngredientId");
-                        String ingImg = rs.getString("InImage");
-                        String ingName = rs.getString("IngredientName");
-                        float ingQuantity = rs.getFloat("Quantity");
-                        String ingUnit = rs.getString("Unit");
-                        float ingPrice = rs.getFloat("ingPrice");
-                        if (ingId != 0 && ingPrice != 0) {
-                            Ingredient ingredient = new Ingredient(id, ingId, ingImg, ingName, ingQuantity, ingUnit, ingPrice);
-                            food.getListingredients().add(ingredient);
-                        }
-                    }
-                }
-
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (rs != null) {
-                    rs.close();
-                }
-                if (pst != null) {
-                    pst.close();
-                }
-                if (cn != null) {
-                    cn.close();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        return food;
-    }
+    
     
     public ArrayList<OrderAcc> getOrderAccHistory(String accId){
             ArrayList<OrderAcc> listOrderH = new ArrayList<>();
@@ -103,7 +40,7 @@ public class OrderDAO {
         Connection cn = null;
         PreparedStatement pst = null;
         ResultSet rs = null;
-
+        FoodDAO fd = new FoodDAO();
         try {
             cn = myLib.makeConnection();
             if (cn != null) {
@@ -139,13 +76,13 @@ public class OrderDAO {
                        pst2.setInt(1, orId);
                        ResultSet rs2 = pst2.executeQuery();
                        if(rs2!=null){
-                           while(rs2.next()){                                                         
+                           while(rs2.next()){                                                          
                                int ordIdDetail = rs2.getInt("OrderId");
                                int fid = rs2.getInt("FoodId");
                                String type = rs2.getString("Type");
                                int ordQty = rs2.getInt("Quantity");
                                
-                               Food f = getFoodWithTypeAndIngredients(String.valueOf(fid), type);
+                               Food f = fd.getFoodWithTypeAndIngredients(String.valueOf(fid), type);
                                
                                OrderDetail ord = new OrderDetail(ordIdDetail, fid, type, ordQty,f);
                                
@@ -187,7 +124,7 @@ public class OrderDAO {
         Connection cn = null;
         PreparedStatement pst = null;
         ResultSet rs = null;
-
+        AccountDAO acd = new AccountDAO();
         try {
             cn = myLib.makeConnection();
             if (cn != null) {
@@ -208,7 +145,20 @@ public class OrderDAO {
                         String cusname = rs.getString("CusName");
                        String phone= rs.getString("Phone");
                        
-                       OrderAcc oa = new OrderAcc(orId, accountId, total, address, d, status, cusname, phone, null);
+                        Account acc = acd.getAccountByid(String.valueOf(accountId));
+                                               
+//                       OrderAcc oa = new OrderAcc(orId, accountId, total, address, d, status, cusname, phone, null);
+                       OrderAcc oa = new OrderAcc();
+                       oa.setOrderId(orId);
+                       oa.setAccId(accountId);
+                       oa.setTotal(total);
+                       oa.setAddressOrder(address);
+                       oa.setOrderDate(d);
+                       oa.setOrderStatus(status);
+                       oa.setCusName(cusname);
+                       oa.setPhone(phone);
+                       oa.setAcc(acc);
+                               
                        listAllOrder.add(oa);                     
                    }                  
                      
@@ -245,7 +195,7 @@ public class OrderDAO {
         try {
             cn = myLib.makeConnection();
             if (cn != null) {
-                String sql = "select [OrderId],[AccId],[Total],[Address],[OrderDate] ,[OStatusId] ,,[CusName], [Phone]from [dbo].[OrderAcc] where [OStatusId]=?";
+                String sql = "select [OrderId],[AccId],[Total],[Address],[OrderDate] ,[OStatusId] ,[CusName], [Phone]from [dbo].[OrderAcc] where [OStatusId]=?";
                 pst = cn.prepareStatement(sql);
                 pst.setString(1, statusID);
                 rs = pst.executeQuery();
@@ -408,54 +358,205 @@ public class OrderDAO {
         }
         return;
     }
+    public OrderAcc getOrderById(String id) {
+        ResultSet rs = null;
+        Connection cn = null;
+        PreparedStatement pst = null;
+        FoodDAO fd = new FoodDAO();
+        ArrayList<OrderDetail> oddL = new ArrayList<>();
+        OrderAcc oa = null;
+        try {
+            cn = myLib.makeConnection();
+            if (cn != null) {
+                String sql = "select [OrderId],[AccId],[Total],[Address],[OrderDate] ,[OStatusId] ,[CusName], [Phone]from [dbo].[OrderAcc] where [OrderId]=?";
+                pst = cn.prepareStatement(sql);
+                pst.setInt(1, Integer.parseInt(id));
+                rs = pst.executeQuery();
+                if (rs != null && rs.next()) {
+                    oa = new OrderAcc(rs.getInt(1), rs.getInt(2), rs.getFloat(3), rs.getString(4), rs.getTimestamp(5).toLocalDateTime(), rs.getInt(6), rs.getString(7), rs.getString(8), null);
+
+                    sql = "select [FoodId], [Type], [Quantity]\n"
+                            + "from [dbo].[OrderDetail] where [OrderId]=?";
+                    pst = cn.prepareStatement(sql);
+                    pst.setInt(1, oa.getOrderId());
+                    ResultSet rs2 = pst.executeQuery();
+                    if (rs2 != null) {
+                        while (rs2.next()) {
+                            String fid=String.valueOf(rs2.getInt("FoodId"));
+                            Food food= fd.getFoodById(fid);
+                            OrderDetail odd = new OrderDetail(oa.getOrderId(), rs2.getInt(1), rs2.getString(2), rs2.getInt(3), food);
+                            oddL.add(odd);
+                        }
+                    }
+                    oa.setOrderDetails(oddL);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pst != null) {
+                    pst.close();
+                }
+                if (cn != null) {
+                    cn.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return oa;
+    }
+     public void updateStatus(String oid, String sid) {
+        ResultSet rs = null;
+        Connection cn = null;
+        PreparedStatement pst = null;
+        try {
+            cn = myLib.makeConnection();
+            if (cn != null) {
+                String sql = "UPDATE [dbo].[OrderAcc]\n"
+                        + "set [OStatusId]= ?\n"
+                        + "where [OrderId]=?";
+                pst = cn.prepareStatement(sql);
+                pst.setString(1, sid);
+                pst.setString(2, oid);
+                pst.executeUpdate();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pst != null) {
+                    pst.close();
+                }
+                if (cn != null) {
+                    cn.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return;
+    }
+      public void delOrder(String oid){
+        ResultSet rs = null;
+        Connection cn = null;
+        PreparedStatement pst = null;
+        try {
+            cn = myLib.makeConnection();
+            if (cn != null) {
+                String sql = "delete [dbo].[OrderDetail] where [OrderId]=?";
+                pst = cn.prepareStatement(sql);
+                pst.setString(1, oid);
+                System.out.println("Del order");
+                pst.executeUpdate();
+                String sql2="delete [dbo].[OrderAcc] where [OrderId]=?";
+                PreparedStatement pst2=cn.prepareStatement(sql2);
+                pst2.setString(1, oid);
+                System.out.println("Del orderdetail");
+                pst2.executeUpdate();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pst != null) {
+                    pst.close();
+                }
+                if (cn != null) {
+                    cn.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return;
+    }
+    public float SumTotalMoney() {
+        ResultSet rs = null;
+        Connection cn = null;
+        PreparedStatement pst = null;
+        float total = 0;
+        try {
+            cn = myLib.makeConnection();
+            if (cn != null) {
+                String sql = "select sum([Total]) as totalOrder from [dbo].[OrderAcc]";
+                pst = cn.prepareStatement(sql);
+                rs = pst.executeQuery();
+                if(rs!=null && rs.next()){
+                   total  = rs.getFloat("totalOrder");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pst != null) {
+                    pst.close();
+                }
+                if (cn != null) {
+                    cn.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return total;
+    }
+    public int SumQTYOrder() {
+        ResultSet rs = null;
+        Connection cn = null;
+        PreparedStatement pst = null;
+        int total = 0;
+        try {
+            cn = myLib.makeConnection();
+            if (cn != null) {
+                String sql = "select count([OrderId] ) as totalOrder from [dbo].[OrderAcc]";
+                pst = cn.prepareStatement(sql);
+                rs = pst.executeQuery();
+                if(rs!=null && rs.next()){
+                   total  = rs.getInt("totalOrder");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pst != null) {
+                    pst.close();
+                }
+                if (cn != null) {
+                    cn.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return total;
+    }  
     public static void main(String[] args) {
         OrderDAO od = new OrderDAO();
 //        Food d = od.getFoodWithTypeAndIngredients("1", "Ingredient");
 //        FoodDAO fd = new FoodDAO();
 //        Food f = fd.getFoodById("20");
 //        HashMap<Food,
-    ArrayList<OrderAcc> ac = od.getOrderAccHistory("2");
-        for(OrderAcc d : ac){
-            
-    System.out.println(d);
-        }
-//        String txta ="0,  -2,3,2  ,5,0,7," ;
-//        String [] a = txta.split(",");
-//        int sum = 0;
-//
-//        boolean c = false;
-//        boolean ni = false;
-//        for (String s : a) {
-//            s=s.trim();
-//            if (s.matches("-?\\d+(\\.\\d+)?")) {
-//                System.out.println(s + " là số.");
-//                int fd = Integer.parseInt(s);
-//                if(fd <0 ){
-//                    ni=true;
-//                               
-//                    break;
-//
-//                }
-//            } else {
-//                System.out.println(s + " là chuỗi.");
-//                c=true;
-//                break;
-//            }
-//        }
-//        if(c==true || ni == true){
-//            System.out.println("You musr input value number");
-//        }else{
-//              
-//        for(String s : a){
-//            s=s.trim();
-//          
-//            int sf = Integer.parseInt(s);
-//            if(sf % 2 == 0){
-//                
-//            sum=sum+sf;
-//            }
-//        }
-//            System.out.println(sum);
-//        }
+//    ArrayList<OrderAcc> ac = od.getAllOrderAcc();
+            int t = od.SumQTYOrder();
+         System.out.println(t);
     }
 }

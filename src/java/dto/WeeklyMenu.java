@@ -16,6 +16,7 @@ public class WeeklyMenu {
     private String menuName;
     private String menuImg;
     private float priceTotalWeek;
+    private String des;
     private ArrayList<WeeklyMenuDetail> detailWeekMenu;
 
     public WeeklyMenu() {
@@ -60,6 +61,14 @@ public class WeeklyMenu {
 
     public void setPriceTotalWeek(float priceTotalWeek) {
         this.priceTotalWeek = priceTotalWeek;
+    }
+
+    public String getDes() {
+        return des;
+    }
+
+    public void setDes(String des) {
+        this.des = des;
     }
 
     public ArrayList<WeeklyMenuDetail> getDetailWeekMenu() {

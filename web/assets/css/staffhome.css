@@ -410,7 +410,7 @@ thead, tbody, tfoot, tr, td, th {
 }
 .cell-col.truncate{
     max-width: 200px;
-    display: inline-block;
+    
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;

@@ -52,7 +52,7 @@ public class CheckOutServlet extends HttpServlet {
             Float total = Float.parseFloat(String.valueOf(session.getAttribute("TOTAL")));
             od.checkOut(accid, cart, total, address, name, phone);
 
-            request.getRequestDispatcher("checkout.jsp").forward(request, response);
+            request.getRequestDispatcher("ControllerServlet?action="+IConstant.HOME).forward(request, response);
         }
     } 
 

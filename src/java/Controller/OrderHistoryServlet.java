@@ -44,8 +44,8 @@ public class OrderHistoryServlet extends HttpServlet {
             ArrayList <OrderAcc> oa = od.getOrderAccHistory(String.valueOf(accId));
             
             
-                request.setAttribute("ListOrderHistory", oa);
-                request.getRequestDispatcher("ControllerServlet?action="+IConstant.ORDERHIST0RYJSP).forward(request, response);
+            request.setAttribute("ListOrderHistory", oa);
+            request.getRequestDispatcher("ControllerServlet?action="+IConstant.ORDERHIST0RYJSP).forward(request, response);
                 
             
             

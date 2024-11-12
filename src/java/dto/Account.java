@@ -5,6 +5,14 @@
  */
 package dto;
 
+import java.io.BufferedReader;
+import java.io.FileReader; 
+import java.io.IOException;
+
+ 
+
+ 
+
 /**
  *
  * @author DELL
@@ -17,6 +25,8 @@ public class Account {
     private String phoneNumber;
     private String role;
     private int aStatusId;
+    private AccountStatus acsttus;
+    
 
     public Account() {
         accId =0;
@@ -26,7 +36,7 @@ public class Account {
         phoneNumber="";
         role="";
         aStatusId=0;
-    }
+    } 
 
     public Account(int accId, String email, String password, String userName, String phoneNumber, String role, int aStatusId) {
         this.accId = accId;
@@ -99,5 +109,8 @@ public class Account {
         return "Account{" + "accId=" + accId + ", email=" + email + ", password=" + password + ", userName=" + userName + ", phoneNumber=" + phoneNumber + ", role=" + role + ", aStatusId=" + aStatusId + '}';
     }
     
+    public void writeData(String data){
+        
+    }
     
 }

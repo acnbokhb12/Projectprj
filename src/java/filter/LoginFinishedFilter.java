@@ -115,7 +115,7 @@ public class LoginFinishedFilter implements Filter {
             if(acc.getRole().equalsIgnoreCase("customer")){
                 res.sendRedirect("ManageHomeServlet");
             }else{
-                res.sendRedirect("dashboard.jsp");
+                res.sendRedirect("DashboardAdminServlet");
                 
             }
         }else{

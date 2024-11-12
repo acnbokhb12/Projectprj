@@ -31,20 +31,20 @@
     <div id="db-wrapper">
         <div class="left-navbar-staff-manage  vh-100 simplebar-scrollable-y ">
             <div class="left-navbar-detail  ">
-                <a href="dashboard.jsp" class="navbar-brand contain-img-navbar">
+                <a href="DashboardAdminServlet" class="navbar-brand contain-img-navbar">
                     <img src="./assets/img/logo/LogoImg.png" alt="">
                 </a>
                 <ul class=" navbar-desc-function">
                     <li class="nav-header-desc">overview </li>
                     <li class="navbar-desc-function-detail">
-                        <a href="#" class="nav-link-item-desc" style="text-decoration: none;">
+                        <a href="DashboardAdminServlet" class="nav-link-item-desc" style="text-decoration: none;">
                             <i class="fas fa-home icon-navbar-staff"></i>Dash Board
                         </a>
 
                     </li>
 
                     <li class="navbar-desc-function-detail">
-                        <a href="manageUser.jsp" class="nav-link-item-desc" style="text-decoration: none;">
+                        <a href="ControllerServlet?action=UserManage" class="nav-link-item-desc" style="text-decoration: none;">
                             <i class="fa-solid fa-user icon-navbar-staff"></i> User
                         </a>
 
@@ -66,7 +66,7 @@
                     </li>    
                 </ul>
                 <div class="helloadmin">
-                    <div class="card">Khanhhn</div>
+                    <div class="card">${sessionScope.UserAcc.userName}</div>
                 </div>
                 
                 
@@ -97,7 +97,7 @@
                             <div class="modal-more-info">
                                 <ul class="modal-more-info-list">
                                     <li class="modal-more-info-items">
-                                        <a href="#">Account</a>  
+                                        <a href="profile.jsp">Account</a>  
                                     </li>                                    
                                     <li class="modal-more-info-items">
                                         <a href="ControllerServlet?action=logout">Log out</a>  
@@ -120,7 +120,7 @@
                                         Total sales
                                     </h4>
                                     <div class="desc-detail-overview stats-figure">
-                                        12000000
+                                        ${totalMoney}
                                     </div>
                                 </div>
 
@@ -133,7 +133,7 @@
                                         Qty Order
                                     </h4>
                                     <div class="desc-detail-overview stats-figure">
-                                        30000
+                                        ${totalqtyorder}
                                     </div>
                                 </div>
 
@@ -146,7 +146,7 @@
                                        Qty User  
                                     </h4>
                                     <div class="desc-detail-overview stats-figure">
-                                        10000
+                                        ${totalUser}
                                     </div>
                                 </div>
 
@@ -156,10 +156,10 @@
                             <div class="app-card ">
                                 <div class="app-card-body">
                                     <h4 class="title-overview stats-type ">
-                                        Qty Order
+                                        Qty Product
                                     </h4>
                                     <div class="desc-detail-overview stats-figure">
-                                        30000
+                                        ${totalproduct}
                                     </div>
                                 </div>
 
